@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beak-a-Boo | Manitoba Bird Discovery</title>
+    <title>Bird Catalogue | Beak-a-Boo</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -17,8 +17,8 @@
         </div>
         <nav>
             <ul class="nav-links">
-                <li><a href="index.html" class="active">Home</a></li>
-                <li><a href="catalogue.html">Catalogue</a></li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="catalogue.html" class="active">Catalogue</a></li>
                 <li><a href="certificates.html">Certificates</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="https://www.flickr.com/groups/14879687@N25/pool/#" target="_blank">Gallery <i class="fa-brands fa-flickr"></i></a></li>
@@ -27,34 +27,16 @@
     </header>
 
     <main>
-        <section class="hero">
-            <div class="hero-overlay"></div>
-            <div class="hero-content">
-                <h1 class="playfair-font">Hide and Seek with Nature</h1>
-                <p class="mission-text">
-                    **Mission:** To connect our community with Manitoba's incredible avian biodiversity while providing practical tools and education through our student-developed **Bird Watching Kit**. We ignite curiosity and foster family bonds through the simple joy of discovery.
-                </p>
-                <a href="catalogue.html" class="cta-button">Start Exploring</a>
-            </div>
-        </section>
+        <section class="content-section">
+            <h1 class="section-title playfair-font">Full Bird Catalogue</h1>
+            <p class="section-subtitle">Discover all 40 species of Manitoba birds featured in our kit.</p>
 
-        <section id="catalogue" class="content-section">
-            <h2 class="section-title playfair-font">Manitoba Bird Highlights</h2>
-            <p class="section-subtitle">A glimpse of the species included in your Beak-a-Boo Bird Watching Kit.</p>
-
-            <div class="slideshow-container">
-                <div id="bird-slideshow-wrapper"></div>
-                
-                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-                <a class="next" onclick="plusSlides(1)">&#10095;</a>
+            <div class="search-bar">
+                <input type="text" id="catalogue-search" placeholder="Search by name, season, or type (e.g. 'Owl', 'Winter', 'Rare')...">
             </div>
 
-            <div id="slideshow-dots" class="dots-container"></div>
-            
-            <div class="catalogue-cta">
-                <p>Want to see all 40 species?</p>
-                <a href="catalogue.html" class="btn-secondary">View Full Catalogue</a>
-            </div>
+            <div id="catalogue-grid">
+                </div>
         </section>
     </main>
 
