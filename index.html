@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beak-a-Boo - Manitoba Bird Discovery</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Playfair+Display:wght=400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <div class="logo">Beak-a-Boo</div>
+        <nav>
+            <a href="#mission">Our Mission</a>
+            <a href="#catalogue">Bird Catalogue</a>
+            <a href="#gallery">Gallery</a>
+            <a href="#certificate-section">Certify Your Finds</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="mission" class="content-section">
+            <h1 class="playfair-font">Discover the Birds of Manitoba</h1>
+            <p class="mission-text">
+                Our mission at Beak-a-Boo is to ignite curiosity and foster enduring family bonds through the simple joy of discovery. 
+                We encourage your curiosity to come out and play Hide and Seek with nature, while celebrating the birds around you.
+            </p>
+        </section>
+
+        <section id="catalogue" class="content-section">
+            <h2 class="playfair-font">Manitoba Bird Catalogue</h2>
+            <div class="catalogue-grid">
+                </div>
+        </section>
+
+        <section id="gallery" class="content-section">
+            <h2 class="playfair-font">Your Discovery Gallery</h2>
+            <p>This section is for displaying photos of the birds you have personally found. Get your camera ready!</p>
+            <div class="photo-placeholder">
+                <p>Upload your own Black-capped Chickadee photo here!</p>
+            </div>
+        </section>
+
+        <section id="certificate-section" class="content-section">
+            <h2 class="playfair-font">Certify Your Sightings</h2>
+            <p>Ready to prove your bird-finding dedication? Click a certificate below and take the oath!</p>
+            
+            <div class="certificate-buttons">
+                <button class="cert-btn" data-cert-type="Common">Common Bird Finder Certificate</button>
+                <button class="cert-btn" data-cert-type="Rare">Rare Bird Spotter Certificate</button>
+                <button class="cert-btn" data-cert-type="UltraRare">Master Birder Certificate</button>
+            </div>
+
+            <div id="cert-oath-area" class="hidden">
+                <p class="oath-prompt">
+                    **Solemnly swear that you have found these birds** before we proceed to the download.
+                </p>
+                <input type="text" id="user-name-input" placeholder="Enter your full name for the certificate">
+                <button id="oath-confirm-btn">I Solemnly Swear & Generate</button>
+            </div>
+
+            <canvas id="certificate-canvas" class="hidden"></canvas>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Beak-a-Boo. Explore, Discover, Connect.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
