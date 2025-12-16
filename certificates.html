@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Certificates | Beak-a-Boo</title>
+    <title>Bird Catalogue | Beak-a-Boo</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Great+Vibes&family=Playfair+Display:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <script>
     const birdsData = [
       { "id": 1, "Common_Name": "Black-capped Chickadee", "Scientific_Name": "Poecile atricapillus", "Type": "Common", "Season": "Year-round", "Fact": "Famous for its distinctive 'chick-a-dee-dee-dee' call.", "Image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVsgFltlwCxanuJIS8Q9dvxx4qdllwjLGuT7tfkS7HsP-Hl19F1tHin3x7B0h3IFuzyxmvxX9VCIX-4verEf0iMr38KbCDQytzosvQGZh6&s=10" },
@@ -62,8 +63,8 @@
         <nav>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
-                <li><a href="catalogue.html">Catalogue</a></li>
-                <li><a href="certificates.html" class="active">Certificates</a></li>
+                <li><a href="catalogue.html" class="active">Catalogue</a></li>
+                <li><a href="certificates.html">Certificates</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="https://www.flickr.com/groups/14879687@N25/pool/#" target="_blank">Gallery <i class="fa-brands fa-flickr"></i></a></li>
             </ul>
@@ -71,51 +72,16 @@
     </header>
 
     <main>
-        <section class="content-section certificate-page">
-            <h1 class="playfair-font">Official Certification Center</h1>
-            <p class="intro-text">Validate your birding achievements! Select the tier you have reached to generate your official signed certificate.</p>
+        <section class="content-section">
+            <h1 class="section-title playfair-font">The Manitoba Bird Catalogue (40 Species)</h1>
+            <p class="section-subtitle">A comprehensive list for your birdwatching adventure, filterable by name, type, or season.</p>
+
+            <div class="search-bar">
+                <input type="text" id="catalogue-search" placeholder="Search by name, season, or type...">
+            </div>
             
-            <div class="steps-container">
-                <div class="step-box">
-                    <h3>Step 1: Choose Your Rank</h3>
-                    <div class="certificate-buttons">
-                        <button class="cert-btn" data-cert-type="Hatchling">Hatchling (1 Bird)</button>
-                        <button class="cert-btn" data-cert-type="Fledgling">Fledgling (5 Birds)</button>
-                        <button class="cert-btn" data-cert-type="Brancher">Brancher (10 Birds)</button>
-                        <button class="cert-btn" data-cert-type="Juvenile">Juvenile (20 Birds)</button>
-                        <button class="cert-btn" data-cert-type="EagleEye">Eagle Eye (40 Birds)</button>
-                    </div>
+            <div id="catalogue-grid">
                 </div>
-
-                <div id="cert-oath-area" class="step-box hidden fade-in">
-                    <h3>Step 2: The Birder's Oath</h3>
-                    <p class="oath-text">
-                        "I, <span id="oath-name-placeholder">[Your Name]</span>, do solemnly swear that I have honestly spotted and identified the required birds in the wild."
-                    </p>
-                    
-                    <div class="input-group">
-                        <label for="user-name-input">Enter Your Full Name:</label>
-                        <input type="text" id="user-name-input" placeholder="e.g. Jane Doe">
-                    </div>
-
-                    <div id="hatchling-prompt" class="input-group hidden">
-                        <label for="hatchling-bird-select">Which bird was your first find?</label>
-                        <select id="hatchling-bird-select">
-                            </select>
-                    </div>
-
-                    <div id="error-message" class="error-msg"></div>
-                    
-                    <button id="oath-confirm-btn" class="cta-button">Generate Certificate</button>
-                </div>
-            </div>
-
-            <div class="canvas-container">
-                <canvas id="certificate-canvas" class="hidden"></canvas>
-                <div id="download-container" class="download-container hidden">
-                    <button id="btn-download" class="btn-download"><i class="fa-solid fa-download"></i> Download Certificate</button>
-                </div>
-            </div>
         </section>
     </main>
 
