@@ -49,6 +49,8 @@ header {
     font-family: var(--font-serif);
     display: flex;
     align-items: center;
+    /* FIX: Increase letter spacing for the logo text to prevent visual overlap of 'oo' */
+    letter-spacing: 0.05em;
 }
 
 .logo-img {

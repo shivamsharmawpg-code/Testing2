@@ -177,25 +177,33 @@ function drawCertificate(name, type, birdName) {
     // 2. Borders
     drawOrnateBorder(ctx, canvas.width, canvas.height);
 
-    // 3. Logo & Text
+    // 3. Logo (Watermark) & Text
     const logo = new Image();
     logo.src = 'logo.png';
-    logo.onload = () => {
+    
+    // Define the drawing function which includes text
+    const drawContent = () => {
+        // Draw the large, transparent watermark logo in the center
         ctx.save();
         ctx.globalAlpha = 0.12; 
         const wmSize = 1000;
         ctx.drawImage(logo, (canvas.width - wmSize)/2, (canvas.height - wmSize)/2, wmSize, wmSize);
         ctx.restore();
-
-        const smLogoSize = 250;
-        ctx.drawImage(logo, (canvas.width - smLogoSize)/2, 140, smLogoSize, smLogoSize);
         
+        // Draw the top flourishes (these were originally drawn after the small logo)
         drawTopFlourishes(ctx, canvas.width);
+        
+        // Draw the main text content
         drawTextContent(ctx, canvas, name, type, birdName);
     };
 
-    if (logo.complete) logo.onload();
-    else logo.onerror = () => drawTextContent(ctx, canvas, name, type, birdName);
+    // Use onload or immediately draw if already complete (eliminating the double call issue)
+    if (logo.complete) {
+        drawContent();
+    } else {
+        logo.onload = drawContent;
+        // Optional: logo.onerror = () => { /* Handle error or just draw text without logo */ };
+    }
 }
 
 function drawParchmentBackground(ctx, w, h) {
@@ -330,7 +338,8 @@ function drawTextContent(ctx, canvas, name, type, birdName) {
 
     ctx.fillStyle = '#8B4513'; 
     ctx.font = '700 80px "Cinzel Decorative", serif';
-    let rankText = (type === 'EagleEye' || type === 'MasterBirder') ? "Eagle Eye" : type;
+    let rankText = (type === 'EagleEye') ? "Master Birder" : type;
+    rankText = rankText.charAt(0).toUpperCase() + rankText.slice(1);
     ctx.fillText(rankText + " Achievement", canvas.width / 2, 500);
 
     ctx.fillStyle = '#555';
