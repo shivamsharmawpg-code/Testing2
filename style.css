@@ -308,7 +308,6 @@ header {
     gap: 40px;
     align-items: center;
 }
-/* Removed .about-image-placeholder img since the image is removed */
 
 .executive-grid {
     display: grid;
@@ -396,6 +395,7 @@ footer {
     max-width: 1200px;
     margin: 0 auto;
 }
+.footer-section h4 { color: var(--secondary-green); }
 .contact-links { display: flex; flex-direction: column; gap: 12px; margin-top: 10px; }
 .contact-links a { color: #ddd; text-decoration: none; display: flex; align-items: center; gap: 10px; }
 .contact-links a:hover { color: var(--secondary-green); }
