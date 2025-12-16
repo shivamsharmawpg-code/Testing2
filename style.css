@@ -302,16 +302,14 @@ header {
 
 /* --- About Page --- */
 .about-grid {
+    /* Adjusted for text-only layout */
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr; 
     gap: 40px;
     align-items: center;
 }
-.about-image-placeholder img {
-    width: 100%;
-    border-radius: 8px;
-    box-shadow: var(--shadow);
-}
+/* Removed .about-image-placeholder img since the image is removed */
+
 .executive-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
