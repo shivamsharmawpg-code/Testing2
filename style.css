@@ -263,13 +263,41 @@ header {
 }
 .error-msg { color: red; font-weight: bold; margin: 10px 0; }
 
+.canvas-container {
+    text-align: center;
+}
+
 #certificate-canvas {
     max-width: 100%;
     height: auto;
-    border: 5px solid var(--primary-green);
+    /* Removed simple border, the canvas draws it now */
     margin-top: 20px;
     display: block;
-    box-shadow: var(--shadow);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+/* Download Button Styles */
+.download-container {
+    text-align: center;
+    margin-top: 20px;
+}
+.btn-download {
+    background-color: #D4AF37; /* Gold */
+    color: #333;
+    padding: 15px 35px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    transition: all 0.3s;
+}
+.btn-download:hover {
+    background-color: #bfa141;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.3);
 }
 
 /* --- About Page --- */

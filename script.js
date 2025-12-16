@@ -1,453 +1,17 @@
-// --- 1. Bird Data (Embedded - No JSON file needed) ---
-const birdsData = [
-  {
-    "id": 1,
-    "Common_Name": "Black-capped Chickadee",
-    "Scientific_Name": "Poecile atricapillus",
-    "Type": "Common",
-    "Season": "Year-round",
-    "Height": "12-15 cm",
-    "Wingspan": "16-21 cm",
-    "Fact": "Famous for its distinctive 'chick-a-dee-dee-dee' call.",
-    "Image": "https://source.unsplash.com/800x600/?chickadee"
-  },
-  {
-    "id": 2,
-    "Common_Name": "American Robin",
-    "Scientific_Name": "Turdus migratorius",
-    "Type": "Common",
-    "Season": "Spring/Summer",
-    "Height": "20-28 cm",
-    "Wingspan": "31-40 cm",
-    "Fact": "Often seen pulling earthworms from the ground.",
-    "Image": "https://source.unsplash.com/800x600/?robin,bird"
-  },
-  {
-    "id": 3,
-    "Common_Name": "House Sparrow",
-    "Scientific_Name": "Passer domesticus",
-    "Type": "Common",
-    "Season": "Year-round",
-    "Height": "15-17 cm",
-    "Wingspan": "19-25 cm",
-    "Fact": "Aggressive and adaptable, found near humans.",
-    "Image": "https://source.unsplash.com/800x600/?sparrow"
-  },
-  {
-    "id": 4,
-    "Common_Name": "Blue Jay",
-    "Scientific_Name": "Cyanocitta cristata",
-    "Type": "Common",
-    "Season": "Year-round",
-    "Height": "25-30 cm",
-    "Wingspan": "34-43 cm",
-    "Fact": "Known for their intelligence and loud screams.",
-    "Image": "https://source.unsplash.com/800x600/?bluejay"
-  },
-  {
-    "id": 5,
-    "Common_Name": "Canada Goose",
-    "Scientific_Name": "Branta canadensis",
-    "Type": "Common",
-    "Season": "Spring/Fall",
-    "Height": "75-110 cm",
-    "Wingspan": "127-185 cm",
-    "Fact": "Famous for flying in a V-formation.",
-    "Image": "https://source.unsplash.com/800x600/?canada,goose"
-  },
-  {
-    "id": 6,
-    "Common_Name": "Mallard Duck",
-    "Scientific_Name": "Anas platyrhynchos",
-    "Type": "Common",
-    "Season": "Spring/Summer",
-    "Height": "50-65 cm",
-    "Wingspan": "81-98 cm",
-    "Fact": "The ancestor of most domestic ducks.",
-    "Image": "https://source.unsplash.com/800x600/?mallard"
-  },
-  {
-    "id": 7,
-    "Common_Name": "Downy Woodpecker",
-    "Scientific_Name": "Dryobates pubescens",
-    "Type": "Common",
-    "Season": "Year-round",
-    "Height": "14-17 cm",
-    "Wingspan": "25-30 cm",
-    "Fact": "Uses its stiff tail feathers for support against trees.",
-    "Image": "https://source.unsplash.com/800x600/?woodpecker"
-  },
-  {
-    "id": 8,
-    "Common_Name": "European Starling",
-    "Scientific_Name": "Sturnus vulgaris",
-    "Type": "Common",
-    "Season": "Year-round",
-    "Height": "19-22 cm",
-    "Wingspan": "31-40 cm",
-    "Fact": "Can mimic the sounds of other birds and alarms.",
-    "Image": "https://source.unsplash.com/800x600/?starling"
-  },
-  {
-    "id": 9,
-    "Common_Name": "Red-winged Blackbird",
-    "Scientific_Name": "Agelaius phoeniceus",
-    "Type": "Common",
-    "Season": "Spring/Summer",
-    "Height": "18-24 cm",
-    "Wingspan": "30-37 cm",
-    "Fact": "Fiercely defends nests, even against humans.",
-    "Image": "https://source.unsplash.com/800x600/?redwinged,blackbird"
-  },
-  {
-    "id": 10,
-    "Common_Name": "Northern Cardinal",
-    "Scientific_Name": "Cardinalis cardinalis",
-    "Type": "Common",
-    "Season": "Year-round",
-    "Height": "21-23 cm",
-    "Wingspan": "25-31 cm",
-    "Fact": "Males are bright red; females are pale brown.",
-    "Image": "https://source.unsplash.com/800x600/?cardinal,bird"
-  },
-  {
-    "id": 11,
-    "Common_Name": "Common Grackle",
-    "Scientific_Name": "Quiscalus quiscula",
-    "Type": "Common",
-    "Season": "Spring/Summer",
-    "Height": "28-34 cm",
-    "Wingspan": "36-46 cm",
-    "Fact": "Known for iridescent bodies and golden eyes.",
-    "Image": "https://source.unsplash.com/800x600/?grackle"
-  },
-  {
-    "id": 12,
-    "Common_Name": "Mourning Dove",
-    "Scientific_Name": "Zenaida macroura",
-    "Type": "Common",
-    "Season": "Spring/Summer",
-    "Height": "23-34 cm",
-    "Wingspan": "37-45 cm",
-    "Fact": "Their wings make a whistling sound when taking off.",
-    "Image": "https://source.unsplash.com/800x600/?mourning,dove"
-  },
-  {
-    "id": 13,
-    "Common_Name": "American Crow",
-    "Scientific_Name": "Corvus brachyrhynchos",
-    "Type": "Common",
-    "Season": "Year-round",
-    "Height": "40-53 cm",
-    "Wingspan": "85-100 cm",
-    "Fact": "Incredibly intelligent and can solve puzzles.",
-    "Image": "https://source.unsplash.com/800x600/?crow"
-  },
-  {
-    "id": 14,
-    "Common_Name": "White-breasted Nuthatch",
-    "Scientific_Name": "Sitta carolinensis",
-    "Type": "Common",
-    "Season": "Year-round",
-    "Height": "13-14 cm",
-    "Wingspan": "20-27 cm",
-    "Fact": "Often climbs down tree trunks head-first.",
-    "Image": "https://source.unsplash.com/800x600/?nuthatch"
-  },
-  {
-    "id": 15,
-    "Common_Name": "Dark-eyed Junco",
-    "Scientific_Name": "Junco hyemalis",
-    "Type": "Common",
-    "Season": "Winter",
-    "Height": "13-16 cm",
-    "Wingspan": "18-25 cm",
-    "Fact": "Nicknamed 'Snowbirds' as they appear in winter.",
-    "Image": "https://source.unsplash.com/800x600/?junco"
-  },
-  {
-    "id": 16,
-    "Common_Name": "Boreal Chickadee",
-    "Scientific_Name": "Poecile hudsonicus",
-    "Type": "Common",
-    "Season": "Year-round",
-    "Height": "12-14 cm",
-    "Wingspan": "19-21 cm",
-    "Fact": "Hardier than its black-capped cousin.",
-    "Image": "https://source.unsplash.com/800x600/?bird,forest"
-  },
-  {
-    "id": 17,
-    "Common_Name": "Chipping Sparrow",
-    "Scientific_Name": "Spizella passerina",
-    "Type": "Common",
-    "Season": "Spring/Summer",
-    "Height": "12-15 cm",
-    "Wingspan": "21 cm",
-    "Fact": "Has a distinct rusty cap and a trilling song.",
-    "Image": "https://source.unsplash.com/800x600/?chipping,sparrow"
-  },
-  {
-    "id": 18,
-    "Common_Name": "Baltimore Oriole",
-    "Scientific_Name": "Icterus galbula",
-    "Type": "Common",
-    "Season": "Spring/Summer",
-    "Height": "17-22 cm",
-    "Wingspan": "23-30 cm",
-    "Fact": "Weaves intricate hanging bag nests.",
-    "Image": "https://source.unsplash.com/800x600/?oriole"
-  },
-  {
-    "id": 19,
-    "Common_Name": "Ruby-throated Hummingbird",
-    "Scientific_Name": "Archilochus colubris",
-    "Type": "Common",
-    "Season": "Summer",
-    "Height": "7-9 cm",
-    "Wingspan": "8-11 cm",
-    "Fact": "The only hummingbird that breeds in eastern North America.",
-    "Image": "https://source.unsplash.com/800x600/?hummingbird"
-  },
-  {
-    "id": 20,
-    "Common_Name": "Great Grey Owl",
-    "Scientific_Name": "Strix nebulosa",
-    "Type": "Common",
-    "Season": "Year-round",
-    "Height": "61-84 cm",
-    "Wingspan": "137-152 cm",
-    "Fact": "Manitoba's Provincial Bird. The largest owl by length.",
-    "Image": "https://source.unsplash.com/800x600/?greatgreyowl"
-  },
-  {
-    "id": 21,
-    "Common_Name": "Warbling Vireo",
-    "Scientific_Name": "Vireo gilvus",
-    "Type": "Rare",
-    "Season": "Spring/Summer",
-    "Height": "12-14 cm",
-    "Wingspan": "22 cm",
-    "Fact": "Known for a long, complex, warbling song.",
-    "Image": "https://source.unsplash.com/800x600/?vireo"
-  },
-  {
-    "id": 22,
-    "Common_Name": "Piping Plover",
-    "Scientific_Name": "Charadrius melodus",
-    "Type": "Rare",
-    "Season": "Spring/Summer",
-    "Height": "17-18 cm",
-    "Wingspan": "36-39 cm",
-    "Fact": "Endangered shorebird nesting on sandy beaches.",
-    "Image": "https://source.unsplash.com/800x600/?plover"
-  },
-  {
-    "id": 23,
-    "Common_Name": "Loggerhead Shrike",
-    "Scientific_Name": "Lanius ludovicianus",
-    "Type": "Rare",
-    "Season": "Spring/Summer",
-    "Height": "20-23 cm",
-    "Wingspan": "28-32 cm",
-    "Fact": "Impales prey on thorns or barbed wire.",
-    "Image": "https://source.unsplash.com/800x600/?shrike"
-  },
-  {
-    "id": 24,
-    "Common_Name": "Eared Grebe",
-    "Scientific_Name": "Podiceps nigricollis",
-    "Type": "Rare",
-    "Season": "Spring/Summer",
-    "Height": "28-34 cm",
-    "Wingspan": "56-60 cm",
-    "Fact": "Has golden 'ears' (feathers) behind its eyes.",
-    "Image": "https://source.unsplash.com/800x600/?grebe"
-  },
-  {
-    "id": 25,
-    "Common_Name": "Western Meadowlark",
-    "Scientific_Name": "Sturnella neglecta",
-    "Type": "Rare",
-    "Season": "Spring/Summer",
-    "Height": "21-26 cm",
-    "Wingspan": "35-40 cm",
-    "Fact": "Known for its beautiful, flute-like song.",
-    "Image": "https://source.unsplash.com/800x600/?meadowlark"
-  },
-  {
-    "id": 26,
-    "Common_Name": "Smith's Longspur",
-    "Scientific_Name": "Calcarius pictus",
-    "Type": "Rare",
-    "Season": "Summer",
-    "Height": "15-17 cm",
-    "Wingspan": "25-28 cm",
-    "Fact": "Breeds near the treeline in northern Canada.",
-    "Image": "https://source.unsplash.com/800x600/?bird,tundra"
-  },
-  {
-    "id": 27,
-    "Common_Name": "Ferruginous Hawk",
-    "Scientific_Name": "Buteo regalis",
-    "Type": "Rare",
-    "Season": "Spring/Summer",
-    "Height": "56-69 cm",
-    "Wingspan": "134-152 cm",
-    "Fact": "The largest hawk in North America.",
-    "Image": "https://source.unsplash.com/800x600/?hawk"
-  },
-  {
-    "id": 28,
-    "Common_Name": "Yellow-billed Cuckoo",
-    "Scientific_Name": "Coccyzus americanus",
-    "Type": "Rare",
-    "Season": "Summer",
-    "Height": "26-32 cm",
-    "Wingspan": "38-43 cm",
-    "Fact": "Called the 'Rain Crow' for calling before storms.",
-    "Image": "https://source.unsplash.com/800x600/?cuckoo,bird"
-  },
-  {
-    "id": 29,
-    "Common_Name": "Prothonotary Warbler",
-    "Scientific_Name": "Protonotaria citrea",
-    "Type": "Rare",
-    "Season": "Spring/Summer",
-    "Height": "13 cm",
-    "Wingspan": "22 cm",
-    "Fact": "Nests in cavities in standing water swamps.",
-    "Image": "https://source.unsplash.com/800x600/?warbler,yellow"
-  },
-  {
-    "id": 30,
-    "Common_Name": "Least Bittern",
-    "Scientific_Name": "Ixobrychus exilis",
-    "Type": "Rare",
-    "Season": "Spring/Summer",
-    "Height": "28-36 cm",
-    "Wingspan": "41-46 cm",
-    "Fact": "A tiny heron that hides in dense reeds.",
-    "Image": "https://source.unsplash.com/800x600/?bittern"
-  },
-  {
-    "id": 31,
-    "Common_Name": "Say's Phoebe",
-    "Scientific_Name": "Sayornis saya",
-    "Type": "Rare",
-    "Season": "Spring/Summer",
-    "Height": "17-19 cm",
-    "Wingspan": "33 cm",
-    "Fact": "Prefers dry, open country and badlands.",
-    "Image": "https://source.unsplash.com/800x600/?phoebe,bird"
-  },
-  {
-    "id": 32,
-    "Common_Name": "Great Egret",
-    "Scientific_Name": "Ardea alba",
-    "Type": "Rare",
-    "Season": "Spring/Summer",
-    "Height": "94-104 cm",
-    "Wingspan": "131-145 cm",
-    "Fact": "A large, elegant white heron.",
-    "Image": "https://source.unsplash.com/800x600/?egret"
-  },
-  {
-    "id": 33,
-    "Common_Name": "King Rail",
-    "Scientific_Name": "Rallus elegans",
-    "Type": "Rare",
-    "Season": "Summer",
-    "Height": "38-48 cm",
-    "Wingspan": "120-150 cm",
-    "Fact": "The largest North American rail.",
-    "Image": "https://source.unsplash.com/800x600/?rail,bird"
-  },
-  {
-    "id": 34,
-    "Common_Name": "Red-headed Woodpecker",
-    "Scientific_Name": "Melanerpes erythrocephalus",
-    "Type": "Rare",
-    "Season": "Spring/Summer",
-    "Height": "19-25 cm",
-    "Wingspan": "42 cm",
-    "Fact": "One of the few woodpeckers that catches insects in air.",
-    "Image": "https://source.unsplash.com/800x600/?redheaded,woodpecker"
-  },
-  {
-    "id": 35,
-    "Common_Name": "Long-billed Curlew",
-    "Scientific_Name": "Numenius americanus",
-    "Type": "Rare",
-    "Season": "Spring/Summer",
-    "Height": "50-65 cm",
-    "Wingspan": "62-90 cm",
-    "Fact": "Has a ridiculously long, down-curved bill.",
-    "Image": "https://source.unsplash.com/800x600/?curlew"
-  },
-  {
-    "id": 36,
-    "Common_Name": "Ivory Gull",
-    "Scientific_Name": "Pagophila eburnea",
-    "Type": "Ultra Rare",
-    "Season": "Winter",
-    "Height": "40-43 cm",
-    "Wingspan": "108-120 cm",
-    "Fact": "Pure white gull of the high Arctic.",
-    "Image": "https://source.unsplash.com/800x600/?gull,white"
-  },
-  {
-    "id": 37,
-    "Common_Name": "Gyrfalcon",
-    "Scientific_Name": "Falco rusticolus",
-    "Type": "Ultra Rare",
-    "Season": "Winter",
-    "Height": "48-65 cm",
-    "Wingspan": "110-160 cm",
-    "Fact": "The largest falcon in the world.",
-    "Image": "https://source.unsplash.com/800x600/?falcon"
-  },
-  {
-    "id": 38,
-    "Common_Name": "Whooping Crane",
-    "Scientific_Name": "Grus americana",
-    "Type": "Ultra Rare",
-    "Season": "Migration",
-    "Height": "150 cm",
-    "Wingspan": "230 cm",
-    "Fact": "One of the rarest birds in North America.",
-    "Image": "https://source.unsplash.com/800x600/?crane,bird"
-  },
-  {
-    "id": 39,
-    "Common_Name": "Ross's Gull",
-    "Scientific_Name": "Rhodostethia rosea",
-    "Type": "Ultra Rare",
-    "Season": "Winter",
-    "Height": "29-32 cm",
-    "Wingspan": "82-92 cm",
-    "Fact": "Known for having pinkish underparts.",
-    "Image": "https://source.unsplash.com/800x600/?gull,pink"
-  },
-  {
-    "id": 40,
-    "Common_Name": "Kirtland's Warbler",
-    "Scientific_Name": "Setophaga kirtlandii",
-    "Type": "Ultra Rare",
-    "Season": "Summer",
-    "Height": "14-15 cm",
-    "Wingspan": "22 cm",
-    "Fact": "Nests only in young jack pine forests.",
-    "Image": "https://source.unsplash.com/800x600/?warbler"
-  }
-];
+/* NOTE: birdsData is now loaded directly in the HTML files 
+   to reduce the size of this script file.
+*/
 
 const SWEAR_BLACKLIST = ["badword", "swear", "inappropriate"];
 let slideIndex = 1;
 
 document.addEventListener('DOMContentLoaded', () => {
-    // We no longer need to fetch data. It is ready immediately.
-    
+    // Check if birdsData exists
+    if (typeof birdsData === 'undefined') {
+        console.error("Bird Data not found. Ensure it is included in the HTML file.");
+        return;
+    }
+
     // Check if we are on the home page
     if (document.getElementById('bird-slideshow-wrapper')) {
         populateSlideshow();
@@ -467,20 +31,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// --- 2. Slideshow Logic ---
+// --- Slideshow Logic ---
 function populateSlideshow() {
     const wrapper = document.getElementById('bird-slideshow-wrapper');
     const dotsContainer = document.getElementById('slideshow-dots');
-
-    // Show first 10 birds in slideshow
-    const featuredBirds = birdsData.slice(0, 10);
+    const featuredBirds = birdsData.slice(0, 5); 
 
     featuredBirds.forEach((bird, index) => {
-        // Create Slide Div
         const slide = document.createElement('div');
         slide.className = 'bird-slide fade';
-        
-        // Add content
         slide.innerHTML = `
             <img src="${bird.Image}" alt="${bird.Common_Name}">
             <div class="slide-content">
@@ -490,47 +49,30 @@ function populateSlideshow() {
         `;
         wrapper.appendChild(slide);
 
-        // Create Dot
         const dot = document.createElement('span');
         dot.className = 'dot';
         dot.onclick = () => currentSlide(index + 1);
         dotsContainer.appendChild(dot);
     });
 }
-
-function plusSlides(n) {
-    showSlides(slideIndex += n);
-}
-
-function currentSlide(n) {
-    showSlides(slideIndex = n);
-}
-
+function plusSlides(n) { showSlides(slideIndex += n); }
+function currentSlide(n) { showSlides(slideIndex = n); }
 function showSlides(n) {
     const slides = document.getElementsByClassName("bird-slide");
     const dots = document.getElementsByClassName("dot");
-    
     if (!slides.length) return;
-
     if (n > slides.length) slideIndex = 1;
     if (n < 1) slideIndex = slides.length;
-
-    for (let i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
-    }
-    for (let i = 0; i < dots.length; i++) {
-        dots[i].className = dots[i].className.replace(" active", "");
-    }
-
+    for (let i = 0; i < slides.length; i++) slides[i].style.display = "none";
+    for (let i = 0; i < dots.length; i++) dots[i].className = dots[i].className.replace(" active", "");
     slides[slideIndex - 1].style.display = "block";
     dots[slideIndex - 1].className += " active";
 }
 
-// --- 3. Catalogue Logic ---
+// --- Catalogue Logic ---
 function populateCatalogue(data) {
     const grid = document.getElementById('catalogue-grid');
-    grid.innerHTML = ""; // Clear existing
-
+    grid.innerHTML = "";
     data.forEach(bird => {
         const card = document.createElement('div');
         card.className = 'bird-card';
@@ -538,16 +80,13 @@ function populateCatalogue(data) {
             <img src="${bird.Image}" alt="${bird.Common_Name}" loading="lazy">
             <div class="bird-card-info">
                 <div class="bird-card-title">${bird.Common_Name}</div>
-                <div class="bird-card-meta">
-                    <span style="color: var(--primary-green); font-weight:bold;">${bird.Type}</span> • ${bird.Season}
-                </div>
+                <div class="bird-card-meta"><span style="color: var(--primary-green); font-weight:bold;">${bird.Type}</span> • ${bird.Season}</div>
                 <p class="bird-card-desc">${bird.Fact}</p>
             </div>
         `;
         grid.appendChild(card);
     });
 }
-
 function setupSearch() {
     const searchInput = document.getElementById('catalogue-search');
     searchInput.addEventListener('input', (e) => {
@@ -561,7 +100,7 @@ function setupSearch() {
     });
 }
 
-// --- 4. Certificate Logic ---
+// --- Certificate Logic ---
 function checkName(name) {
     const cleanName = name.toLowerCase().replace(/\s/g, '');
     return !SWEAR_BLACKLIST.some(word => cleanName.includes(word));
@@ -575,10 +114,11 @@ function setupCertificateLogic() {
     const errorMsg = document.getElementById('error-message');
     const hatchlingSelect = document.getElementById('hatchling-bird-select');
     const hatchlingPrompt = document.getElementById('hatchling-prompt');
+    const downloadContainer = document.getElementById('download-container');
+    const downloadBtn = document.getElementById('btn-download');
 
-    // Populate Hatchling Dropdown from local birdsData
+    // Populate Dropdown using the global birdsData
     const sortedBirds = [...birdsData].sort((a, b) => a.Common_Name.localeCompare(b.Common_Name));
-    
     sortedBirds.forEach(bird => {
         const opt = document.createElement('option');
         opt.value = bird.Common_Name;
@@ -592,15 +132,8 @@ function setupCertificateLogic() {
         btn.addEventListener('click', (e) => {
             selectedType = e.target.dataset.certType;
             oathArea.classList.remove('hidden');
-            
-            // Show/Hide hatchling dropdown
-            if (selectedType === 'Hatchling') {
-                hatchlingPrompt.classList.remove('hidden');
-            } else {
-                hatchlingPrompt.classList.add('hidden');
-            }
-            
-            // Scroll to oath
+            if (selectedType === 'Hatchling') hatchlingPrompt.classList.remove('hidden');
+            else hatchlingPrompt.classList.add('hidden');
             oathArea.scrollIntoView({ behavior: 'smooth' });
         });
     });
@@ -609,22 +142,24 @@ function setupCertificateLogic() {
         const name = nameInput.value.trim();
         errorMsg.textContent = "";
 
-        if (!name) {
-            errorMsg.textContent = "Please enter your name.";
-            return;
-        }
-        if (!checkName(name)) {
-            errorMsg.textContent = "That name is not allowed.";
-            return;
-        }
+        if (!name) { errorMsg.textContent = "Please enter your name."; return; }
+        if (!checkName(name)) { errorMsg.textContent = "That name is not allowed."; return; }
 
         const birdChoice = (selectedType === 'Hatchling') ? hatchlingSelect.value : null;
         
         drawCertificate(name, selectedType, birdChoice);
         
-        // Hide Oath, Show Canvas
         oathArea.classList.add('hidden');
         document.getElementById('certificate-canvas').classList.remove('hidden');
+        downloadContainer.classList.remove('hidden');
+    });
+
+    downloadBtn.addEventListener('click', () => {
+        const canvas = document.getElementById('certificate-canvas');
+        const link = document.createElement('a');
+        link.download = `Beak-a-Boo_${selectedType}_Certificate.png`;
+        link.href = canvas.toDataURL("image/png");
+        link.click();
     });
 }
 
@@ -632,68 +167,224 @@ function drawCertificate(name, type, birdName) {
     const canvas = document.getElementById('certificate-canvas');
     const ctx = canvas.getContext('2d');
     
-    // Set High Resolution
-    canvas.width = 1000;
-    canvas.height = 750;
+    // High Res
+    canvas.width = 2000;
+    canvas.height = 1545;
 
-    // Background
-    ctx.fillStyle = '#E2EAD8'; // Mint Green
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    // 1. Background
+    drawParchmentBackground(ctx, canvas.width, canvas.height);
 
-    // Border
-    ctx.strokeStyle = '#2c5f2d'; // Forest Green
-    ctx.lineWidth = 40;
-    ctx.strokeRect(20, 20, canvas.width - 40, canvas.height - 40);
+    // 2. Borders
+    drawOrnateBorder(ctx, canvas.width, canvas.height);
 
+    // 3. Logo & Text
+    const logo = new Image();
+    logo.src = 'logo.png';
+    logo.onload = () => {
+        ctx.save();
+        ctx.globalAlpha = 0.12; 
+        const wmSize = 1000;
+        ctx.drawImage(logo, (canvas.width - wmSize)/2, (canvas.height - wmSize)/2, wmSize, wmSize);
+        ctx.restore();
+
+        const smLogoSize = 250;
+        ctx.drawImage(logo, (canvas.width - smLogoSize)/2, 140, smLogoSize, smLogoSize);
+        
+        drawTopFlourishes(ctx, canvas.width);
+        drawTextContent(ctx, canvas, name, type, birdName);
+    };
+
+    if (logo.complete) logo.onload();
+    else logo.onerror = () => drawTextContent(ctx, canvas, name, type, birdName);
+}
+
+function drawParchmentBackground(ctx, w, h) {
+    ctx.fillStyle = '#f4e4bc'; 
+    ctx.fillRect(0, 0, w, h);
+
+    for (let i = 0; i < 50000; i++) {
+        const x = Math.random() * w;
+        const y = Math.random() * h;
+        ctx.fillStyle = `rgba(100, 80, 50, ${Math.random() * 0.05})`;
+        ctx.fillRect(x, y, 2, 2);
+    }
+
+    const gradient = ctx.createRadialGradient(w/2, h/2, h/3, w/2, h/2, h);
+    gradient.addColorStop(0, "rgba(255,255,255,0)");
+    gradient.addColorStop(1, "rgba(80, 60, 20, 0.2)");
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, w, h);
+}
+
+function drawOrnateBorder(ctx, w, h) {
+    const pad = 60;
+    
+    ctx.lineWidth = 50;
+    ctx.strokeStyle = '#1e401f';
+    ctx.strokeRect(pad, pad, w - pad*2, h - pad*2);
+
+    ctx.save();
+    ctx.strokeStyle = '#c5a059'; 
+    ctx.lineWidth = 3;
+    ctx.setLineDash([5, 5]);
+    ctx.strokeRect(pad, pad, w - pad*2, h - pad*2);
+    ctx.restore();
+
+    const innerPad = 85;
+    ctx.lineWidth = 4;
+    ctx.strokeStyle = '#D4AF37'; 
+    ctx.strokeRect(innerPad, innerPad, w - innerPad*2, h - innerPad*2);
+
+    const corners = [
+        {x: innerPad, y: innerPad, r: 0}, 
+        {x: w - innerPad, y: innerPad, r: 90}, 
+        {x: w - innerPad, y: h - innerPad, r: 180}, 
+        {x: innerPad, y: h - innerPad, r: 270} 
+    ];
+
+    corners.forEach(c => {
+        ctx.save();
+        ctx.translate(c.x, c.y);
+        ctx.rotate((c.r * Math.PI) / 180);
+        drawCornerFlourish(ctx);
+        ctx.restore();
+    });
+}
+
+function drawCornerFlourish(ctx) {
+    ctx.beginPath();
+    ctx.strokeStyle = '#D4AF37';
+    ctx.lineWidth = 3;
+    ctx.moveTo(0, 0);
+    ctx.lineTo(80, 0);
+    ctx.moveTo(0, 0);
+    ctx.lineTo(0, 80);
+    ctx.moveTo(10, 0);
+    ctx.quadraticCurveTo(20, 20, 0, 10);
+    ctx.moveTo(0, 0);
+    ctx.lineTo(40, 40);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.fillStyle = '#1e401f';
+    ctx.arc(40, 40, 5, 0, Math.PI*2);
+    ctx.fill();
+}
+
+function drawTopFlourishes(ctx, w) {
+    ctx.save();
+    ctx.strokeStyle = '#c5a059';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    const cx = w/2;
+    ctx.moveTo(cx - 150, 250);
+    ctx.bezierCurveTo(cx - 200, 220, cx - 250, 280, cx - 300, 250);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(cx + 150, 250);
+    ctx.bezierCurveTo(cx + 200, 220, cx + 250, 280, cx + 300, 250);
+    ctx.stroke();
+    ctx.restore();
+}
+
+function drawGoldSeal(ctx, x, y, radius) {
+    ctx.save();
+    ctx.translate(x, y);
+
+    ctx.beginPath();
+    const spikes = 40;
+    const outerRadius = radius;
+    const innerRadius = radius - 10;
+    
+    for (let i = 0; i < spikes; i++) {
+        let angle = (Math.PI / spikes) * 2 * i;
+        ctx.lineTo(Math.cos(angle) * outerRadius, Math.sin(angle) * outerRadius);
+        angle += (Math.PI / spikes);
+        ctx.lineTo(Math.cos(angle) * innerRadius, Math.sin(angle) * innerRadius);
+    }
+    ctx.closePath();
+    
+    const grd = ctx.createLinearGradient(-radius, -radius, radius, radius);
+    grd.addColorStop(0, "#FFD700");
+    grd.addColorStop(0.5, "#B8860B");
+    grd.addColorStop(1, "#FFD700");
+    ctx.fillStyle = grd;
+    ctx.fill();
+    ctx.strokeStyle = "#B8860B";
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.arc(0, 0, radius - 25, 0, Math.PI*2);
+    ctx.strokeStyle = "rgba(255,255,255,0.5)";
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    ctx.restore();
+}
+
+function drawTextContent(ctx, canvas, name, type, birdName) {
     ctx.textAlign = 'center';
 
-    // Title
-    ctx.fillStyle = '#2c5f2d';
-    ctx.font = '700 60px "Playfair Display"';
-    ctx.fillText('Beak-a-Boo Certificate', canvas.width / 2, 130);
+    ctx.fillStyle = '#1e401f'; 
+    ctx.font = '700 110px "Cinzel Decorative", serif'; 
+    ctx.fillText('Beak-a-Boo Certificate', canvas.width / 2, 380);
 
-    // Subtitle
-    ctx.fillStyle = '#9F7D4F'; // Brown
-    ctx.font = '700 40px "Roboto"';
-    let rankText = type;
-    if (type === 'MasterBirder') rankText = "Master Birder";
-    ctx.fillText(rankText + " Achievement", canvas.width / 2, 200);
+    ctx.fillStyle = '#8B4513'; 
+    ctx.font = '700 80px "Cinzel Decorative", serif';
+    let rankText = (type === 'EagleEye' || type === 'MasterBirder') ? "Eagle Eye" : type;
+    ctx.fillText(rankText + " Achievement", canvas.width / 2, 500);
 
-    // Name
-    ctx.fillStyle = '#333';
-    ctx.font = 'italic 30px "Roboto"';
-    ctx.fillText('Presented to:', canvas.width / 2, 300);
+    ctx.fillStyle = '#555';
+    ctx.font = 'italic 50px "Playfair Display", serif';
+    ctx.fillText('Presented to:', canvas.width / 2, 650);
     
-    ctx.fillStyle = '#2c5f2d';
-    ctx.font = '700 70px "Playfair Display"';
-    ctx.fillText(name, canvas.width / 2, 380);
+    ctx.fillStyle = '#1e401f';
+    ctx.font = '150px "Great Vibes", cursive';
+    ctx.fillText(name, canvas.width / 2, 820);
 
-    // Description text wrapping
+    ctx.beginPath();
+    ctx.moveTo(canvas.width/2 - 300, 840);
+    ctx.lineTo(canvas.width/2 + 300, 840);
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = '#D4AF37';
+    ctx.stroke();
+
     ctx.fillStyle = '#333';
-    ctx.font = '24px "Roboto"';
+    ctx.font = '40px "Playfair Display", serif';
     let text = "";
-    
     if (type === 'Hatchling') text = `For identifying their first bird: The ${birdName}!`;
     else if (type === 'Fledgling') text = "For successfully identifying 5 distinct bird species.";
     else if (type === 'Brancher') text = "For successfully identifying 10 distinct bird species.";
     else if (type === 'Juvenile') text = "For successfully identifying 20 distinct bird species.";
-    else if (type === 'MasterBirder') text = "For the incredible feat of identifying all 40 species!";
+    else text = "For the incredible feat of identifying all 40 species!";
+    ctx.fillText(text, canvas.width / 2, 950);
 
-    ctx.fillText(text, canvas.width / 2, 460);
-
-    // Date
+    const bottomY = 1250;
+    
     const today = new Date().toLocaleDateString();
-    ctx.font = '20px "Roboto"';
-    ctx.fillText(`Date: ${today}`, canvas.width / 2, 550);
-
-    // Signature
+    ctx.font = '50px "Great Vibes", cursive';
+    ctx.fillStyle = '#333';
+    ctx.fillText(today, 400, bottomY);
+    
     ctx.beginPath();
-    ctx.moveTo(350, 650);
-    ctx.lineTo(650, 650);
+    ctx.moveTo(250, bottomY + 10);
+    ctx.lineTo(550, bottomY + 10);
     ctx.stroke();
     
-    ctx.font = 'italic 30px "Playfair Display"';
-    ctx.fillText('Shivam Sharma', canvas.width / 2, 640);
-    ctx.font = '16px "Roboto"';
-    ctx.fillText('President, Beak-a-Boo JA', canvas.width / 2, 670);
+    ctx.font = '30px "Playfair Display"';
+    ctx.fillText("Date", 400, bottomY + 60);
+
+    drawGoldSeal(ctx, canvas.width / 2, bottomY - 20, 100);
+
+    ctx.font = '60px "Great Vibes", cursive';
+    ctx.fillStyle = '#1e401f';
+    ctx.fillText('Shivam Sharma', 1600, bottomY);
+    
+    ctx.beginPath();
+    ctx.moveTo(1400, bottomY + 10);
+    ctx.lineTo(1800, bottomY + 10);
+    ctx.stroke();
+    
+    ctx.font = '30px "Playfair Display"';
+    ctx.fillStyle = '#333';
+    ctx.fillText("President, Beak-a-Boo JA", 1600, bottomY + 60);
 }
