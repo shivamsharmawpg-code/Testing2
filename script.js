@@ -89,15 +89,17 @@ function populateCatalogue(data) {
 }
 function setupSearch() {
     const searchInput = document.getElementById('catalogue-search');
-    searchInput.addEventListener('input', (e) => {
-        const term = e.target.value.toLowerCase();
-        const filtered = birdsData.filter(bird => 
-            bird.Common_Name.toLowerCase().includes(term) || 
-            bird.Type.toLowerCase().includes(term) ||
-            bird.Season.toLowerCase().includes(term)
-        );
-        populateCatalogue(filtered);
-    });
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            const filtered = birdsData.filter(bird => 
+                bird.Common_Name.toLowerCase().includes(term) || 
+                bird.Type.toLowerCase().includes(term) ||
+                bird.Season.toLowerCase().includes(term)
+            );
+            populateCatalogue(filtered);
+        });
+    }
 }
 
 // --- Certificate Logic ---
@@ -117,7 +119,7 @@ function setupCertificateLogic() {
     const downloadContainer = document.getElementById('download-container');
     const downloadBtn = document.getElementById('btn-download');
 
-    // Populate Dropdown using the global birdsData
+    // Populate Dropdown
     const sortedBirds = [...birdsData].sort((a, b) => a.Common_Name.localeCompare(b.Common_Name));
     sortedBirds.forEach(bird => {
         const opt = document.createElement('option');
@@ -167,49 +169,41 @@ function drawCertificate(name, type, birdName) {
     const canvas = document.getElementById('certificate-canvas');
     const ctx = canvas.getContext('2d');
     
-    // High Res
+    // High Res Dimensions
     canvas.width = 2000;
     canvas.height = 1545;
 
-    // 1. Background
+    // 1. Background Parchment
     drawParchmentBackground(ctx, canvas.width, canvas.height);
 
     // 2. Borders
     drawOrnateBorder(ctx, canvas.width, canvas.height);
 
-    // 3. Logo (Watermark) & Text
+    // 3. Watermark & Text
     const logo = new Image();
     logo.src = 'logo.png';
     
-    // Define the drawing function which includes text
     const drawContent = () => {
-        // Draw the large, transparent watermark logo in the center
+        // Watermark Logo
         ctx.save();
         ctx.globalAlpha = 0.12; 
-        const wmSize = 1000;
+        const wmSize = 900;
         ctx.drawImage(logo, (canvas.width - wmSize)/2, (canvas.height - wmSize)/2, wmSize, wmSize);
         ctx.restore();
         
-        // Draw the top flourishes (these were originally drawn after the small logo)
         drawTopFlourishes(ctx, canvas.width);
-        
-        // Draw the main text content
         drawTextContent(ctx, canvas, name, type, birdName);
     };
 
-    // Use onload or immediately draw if already complete (eliminating the double call issue)
-    if (logo.complete) {
-        drawContent();
-    } else {
-        logo.onload = drawContent;
-        // Optional: logo.onerror = () => { /* Handle error or just draw text without logo */ };
-    }
+    if (logo.complete) drawContent();
+    else logo.onload = drawContent;
 }
 
 function drawParchmentBackground(ctx, w, h) {
     ctx.fillStyle = '#f4e4bc'; 
     ctx.fillRect(0, 0, w, h);
 
+    // Texture grain
     for (let i = 0; i < 50000; i++) {
         const x = Math.random() * w;
         const y = Math.random() * h;
@@ -217,6 +211,7 @@ function drawParchmentBackground(ctx, w, h) {
         ctx.fillRect(x, y, 2, 2);
     }
 
+    // Vignette
     const gradient = ctx.createRadialGradient(w/2, h/2, h/3, w/2, h/2, h);
     gradient.addColorStop(0, "rgba(255,255,255,0)");
     gradient.addColorStop(1, "rgba(80, 60, 20, 0.2)");
@@ -227,18 +222,21 @@ function drawParchmentBackground(ctx, w, h) {
 function drawOrnateBorder(ctx, w, h) {
     const pad = 60;
     
-    ctx.lineWidth = 50;
+    // Thick green border
+    ctx.lineWidth = 55;
     ctx.strokeStyle = '#1e401f';
     ctx.strokeRect(pad, pad, w - pad*2, h - pad*2);
 
+    // Gold dashed line
     ctx.save();
     ctx.strokeStyle = '#c5a059'; 
-    ctx.lineWidth = 3;
-    ctx.setLineDash([5, 5]);
+    ctx.lineWidth = 4;
+    ctx.setLineDash([10, 10]);
     ctx.strokeRect(pad, pad, w - pad*2, h - pad*2);
     ctx.restore();
 
-    const innerPad = 85;
+    // Inner gold thin border
+    const innerPad = 95;
     ctx.lineWidth = 4;
     ctx.strokeStyle = '#D4AF37'; 
     ctx.strokeRect(innerPad, innerPad, w - innerPad*2, h - innerPad*2);
@@ -262,34 +260,33 @@ function drawOrnateBorder(ctx, w, h) {
 function drawCornerFlourish(ctx) {
     ctx.beginPath();
     ctx.strokeStyle = '#D4AF37';
-    ctx.lineWidth = 3;
+    ctx.lineWidth = 4;
     ctx.moveTo(0, 0);
-    ctx.lineTo(80, 0);
+    ctx.lineTo(100, 0);
     ctx.moveTo(0, 0);
-    ctx.lineTo(0, 80);
-    ctx.moveTo(10, 0);
-    ctx.quadraticCurveTo(20, 20, 0, 10);
-    ctx.moveTo(0, 0);
-    ctx.lineTo(40, 40);
+    ctx.lineTo(0, 100);
+    ctx.moveTo(20, 20);
+    ctx.quadraticCurveTo(50, 50, 10, 40);
     ctx.stroke();
+    
     ctx.beginPath();
     ctx.fillStyle = '#1e401f';
-    ctx.arc(40, 40, 5, 0, Math.PI*2);
+    ctx.arc(45, 45, 7, 0, Math.PI*2);
     ctx.fill();
 }
 
 function drawTopFlourishes(ctx, w) {
     ctx.save();
     ctx.strokeStyle = '#c5a059';
-    ctx.lineWidth = 2;
-    ctx.beginPath();
+    ctx.lineWidth = 3;
     const cx = w/2;
-    ctx.moveTo(cx - 150, 250);
-    ctx.bezierCurveTo(cx - 200, 220, cx - 250, 280, cx - 300, 250);
+    ctx.beginPath();
+    ctx.moveTo(cx - 200, 280);
+    ctx.bezierCurveTo(cx - 250, 240, cx - 350, 320, cx - 450, 280);
     ctx.stroke();
     ctx.beginPath();
-    ctx.moveTo(cx + 150, 250);
-    ctx.bezierCurveTo(cx + 200, 220, cx + 250, 280, cx + 300, 250);
+    ctx.moveTo(cx + 200, 280);
+    ctx.bezierCurveTo(cx + 250, 240, cx + 350, 320, cx + 450, 280);
     ctx.stroke();
     ctx.restore();
 }
@@ -298,11 +295,11 @@ function drawGoldSeal(ctx, x, y, radius) {
     ctx.save();
     ctx.translate(x, y);
 
-    ctx.beginPath();
     const spikes = 40;
     const outerRadius = radius;
-    const innerRadius = radius - 10;
+    const innerRadius = radius - 15;
     
+    ctx.beginPath();
     for (let i = 0; i < spikes; i++) {
         let angle = (Math.PI / spikes) * 2 * i;
         ctx.lineTo(Math.cos(angle) * outerRadius, Math.sin(angle) * outerRadius);
@@ -317,13 +314,14 @@ function drawGoldSeal(ctx, x, y, radius) {
     grd.addColorStop(1, "#FFD700");
     ctx.fillStyle = grd;
     ctx.fill();
-    ctx.strokeStyle = "#B8860B";
+    ctx.strokeStyle = "#8B4513";
+    ctx.lineWidth = 2;
     ctx.stroke();
 
+    // Inner seal ring
     ctx.beginPath();
     ctx.arc(0, 0, radius - 25, 0, Math.PI*2);
-    ctx.strokeStyle = "rgba(255,255,255,0.5)";
-    ctx.lineWidth = 2;
+    ctx.strokeStyle = "rgba(255,255,255,0.4)";
     ctx.stroke();
 
     ctx.restore();
@@ -332,68 +330,78 @@ function drawGoldSeal(ctx, x, y, radius) {
 function drawTextContent(ctx, canvas, name, type, birdName) {
     ctx.textAlign = 'center';
 
+    // Title
     ctx.fillStyle = '#1e401f'; 
-    ctx.font = '700 110px "Cinzel Decorative", serif'; 
-    ctx.fillText('Beak-a-Boo Certificate', canvas.width / 2, 380);
+    ctx.font = '700 115px "Cinzel Decorative", serif'; 
+    ctx.fillText('Beak-a-Boo Certificate', canvas.width / 2, 400);
 
+    // Rank
     ctx.fillStyle = '#8B4513'; 
-    ctx.font = '700 80px "Cinzel Decorative", serif';
+    ctx.font = '700 85px "Cinzel Decorative", serif';
     let rankText = (type === 'EagleEye') ? "Master Birder" : type;
     rankText = rankText.charAt(0).toUpperCase() + rankText.slice(1);
-    ctx.fillText(rankText + " Achievement", canvas.width / 2, 500);
+    ctx.fillText(rankText + " Achievement", canvas.width / 2, 530);
 
+    // Recipient
     ctx.fillStyle = '#555';
-    ctx.font = 'italic 50px "Playfair Display", serif';
-    ctx.fillText('Presented to:', canvas.width / 2, 650);
+    ctx.font = 'italic 55px "Playfair Display", serif';
+    ctx.fillText('This official credential is presented to:', canvas.width / 2, 680);
     
     ctx.fillStyle = '#1e401f';
-    ctx.font = '150px "Great Vibes", cursive';
-    ctx.fillText(name, canvas.width / 2, 820);
+    ctx.font = '160px "Great Vibes", cursive';
+    ctx.fillText(name, canvas.width / 2, 850);
 
+    // Underline
     ctx.beginPath();
-    ctx.moveTo(canvas.width/2 - 300, 840);
-    ctx.lineTo(canvas.width/2 + 300, 840);
-    ctx.lineWidth = 3;
+    ctx.moveTo(canvas.width/2 - 400, 870);
+    ctx.lineTo(canvas.width/2 + 400, 870);
+    ctx.lineWidth = 4;
     ctx.strokeStyle = '#D4AF37';
     ctx.stroke();
 
+    // Achievement Text
     ctx.fillStyle = '#333';
-    ctx.font = '40px "Playfair Display", serif';
+    ctx.font = '45px "Playfair Display", serif';
     let text = "";
     if (type === 'Hatchling') text = `For identifying their first bird: The ${birdName}!`;
     else if (type === 'Fledgling') text = "For successfully identifying 5 distinct bird species.";
     else if (type === 'Brancher') text = "For successfully identifying 10 distinct bird species.";
     else if (type === 'Juvenile') text = "For successfully identifying 20 distinct bird species.";
     else text = "For the incredible feat of identifying all 40 species!";
-    ctx.fillText(text, canvas.width / 2, 950);
+    ctx.fillText(text, canvas.width / 2, 980);
 
-    const bottomY = 1250;
+    const bottomY = 1280;
     
+    // Date Side
     const today = new Date().toLocaleDateString();
-    ctx.font = '50px "Great Vibes", cursive';
+    ctx.font = '55px "Great Vibes", cursive';
     ctx.fillStyle = '#333';
-    ctx.fillText(today, 400, bottomY);
+    ctx.fillText(today, 450, bottomY);
     
     ctx.beginPath();
-    ctx.moveTo(250, bottomY + 10);
-    ctx.lineTo(550, bottomY + 10);
+    ctx.moveTo(300, bottomY + 15);
+    ctx.lineTo(600, bottomY + 15);
+    ctx.strokeStyle = '#333';
+    ctx.lineWidth = 2;
     ctx.stroke();
     
-    ctx.font = '30px "Playfair Display"';
-    ctx.fillText("Date", 400, bottomY + 60);
+    ctx.font = '32px "Playfair Display"';
+    ctx.fillText("Date of Issue", 450, bottomY + 65);
 
-    drawGoldSeal(ctx, canvas.width / 2, bottomY - 20, 100);
+    // Center Seal
+    drawGoldSeal(ctx, canvas.width / 2, bottomY - 20, 110);
 
-    ctx.font = '60px "Great Vibes", cursive';
+    // Signature Side
+    ctx.font = '65px "Great Vibes", cursive';
     ctx.fillStyle = '#1e401f';
-    ctx.fillText('Shivam Sharma', 1600, bottomY);
+    ctx.fillText('Shivam Sharma', 1550, bottomY);
     
     ctx.beginPath();
-    ctx.moveTo(1400, bottomY + 10);
-    ctx.lineTo(1800, bottomY + 10);
+    ctx.moveTo(1350, bottomY + 15);
+    ctx.lineTo(1750, bottomY + 15);
     ctx.stroke();
     
-    ctx.font = '30px "Playfair Display"';
+    ctx.font = '32px "Playfair Display"';
     ctx.fillStyle = '#333';
-    ctx.fillText("President, Beak-a-Boo JA", 1600, bottomY + 60);
+    ctx.fillText("President, Beak-a-Boo JA", 1550, bottomY + 65);
 }
