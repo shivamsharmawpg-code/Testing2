@@ -1,6 +1,5 @@
-/* Beak-a-Boo Certificate Engine v3.0
-   Features: Procedural Shaded Parchment, High-Fidelity Typography, 
-   and Vector-Style Ornate Borders.
+/* Beak-a-Boo Certificate Engine v4.0
+   Restoring high-fidelity shading, organic textures, and ornate flourishes.
 */
 
 const SWEAR_BLACKLIST = ["badword", "swear", "inappropriate"];
@@ -9,23 +8,40 @@ let slideIndex = 1;
 document.addEventListener('DOMContentLoaded', () => {
     if (typeof birdsData === 'undefined') return;
 
+    // Initialize Home Page Slideshow
     if (document.getElementById('bird-slideshow-wrapper')) {
         populateSlideshow();
         showSlides(slideIndex);
         setInterval(() => plusSlides(1), 5000);
     }
 
+    // Initialize Certificate Logic
     if (document.getElementById('oath-confirm-btn')) {
         setupCertificateLogic();
     }
 
+    // Initialize Catalogue Logic
     if (document.getElementById('catalogue-grid')) {
         populateCatalogue(birdsData);
         setupSearch();
     }
 });
 
-// --- General Site Logic ---
+// --- General Utility ---
+function plusSlides(n) { showSlides(slideIndex += n); }
+function currentSlide(n) { showSlides(slideIndex = n); }
+function showSlides(n) {
+    const slides = document.getElementsByClassName("bird-slide");
+    const dots = document.getElementsByClassName("dot");
+    if (!slides.length) return;
+    if (n > slides.length) slideIndex = 1;
+    if (n < 1) slideIndex = slides.length;
+    for (let i = 0; i < slides.length; i++) slides[i].style.display = "none";
+    for (let i = 0; i < dots.length; i++) dots[i].className = dots[i].className.replace(" active", "");
+    slides[slideIndex - 1].style.display = "block";
+    dots[slideIndex - 1].className += " active";
+}
+
 function populateSlideshow() {
     const wrapper = document.getElementById('bird-slideshow-wrapper');
     const dotsContainer = document.getElementById('slideshow-dots');
@@ -40,19 +56,6 @@ function populateSlideshow() {
         dot.onclick = () => currentSlide(index + 1);
         dotsContainer.appendChild(dot);
     });
-}
-function plusSlides(n) { showSlides(slideIndex += n); }
-function currentSlide(n) { showSlides(slideIndex = n); }
-function showSlides(n) {
-    const slides = document.getElementsByClassName("bird-slide");
-    const dots = document.getElementsByClassName("dot");
-    if (!slides.length) return;
-    if (n > slides.length) slideIndex = 1;
-    if (n < 1) slideIndex = slides.length;
-    for (let i = 0; i < slides.length; i++) slides[i].style.display = "none";
-    for (let i = 0; i < dots.length; i++) dots[i].className = dots[i].className.replace(" active", "");
-    slides[slideIndex - 1].style.display = "block";
-    dots[slideIndex - 1].className += " active";
 }
 
 function populateCatalogue(data) {
@@ -77,7 +80,7 @@ function setupSearch() {
     }
 }
 
-// --- High-Resolution Certificate Engine ---
+// --- High-End Certificate Logic ---
 
 function setupCertificateLogic() {
     const btns = document.querySelectorAll('.cert-btn');
@@ -103,7 +106,6 @@ function setupCertificateLogic() {
             oathArea.classList.remove('hidden');
             if (selectedType === 'Hatchling') hatchlingPrompt.classList.remove('hidden');
             else hatchlingPrompt.classList.add('hidden');
-            oathArea.scrollIntoView({ behavior: 'smooth' });
         });
     });
 
@@ -129,24 +131,21 @@ function setupCertificateLogic() {
 function drawCertificate(name, type, birdName) {
     const canvas = document.getElementById('certificate-canvas');
     const ctx = canvas.getContext('2d');
-    
-    // High-Res Print Dimensions (A4 Ratio)
     canvas.width = 2000;
     canvas.height = 1414;
 
-    // 1. Procedural Parchment Shading
+    // 1. ADVANCED SHADED PARCHMENT
     renderParchment(ctx, canvas.width, canvas.height);
 
-    // 2. Ornate Vector Borders
+    // 2. ORNATE DOUBLE BORDER
     renderBorders(ctx, canvas.width, canvas.height);
 
-    // 3. Typography & Assets
     const logo = new Image();
     logo.src = 'logo.png';
     logo.onload = () => {
-        // Shaded Watermark
+        // Watermark with blending
         ctx.save();
-        ctx.globalAlpha = 0.07;
+        ctx.globalAlpha = 0.08;
         ctx.globalCompositeOperation = 'multiply';
         ctx.drawImage(logo, (canvas.width - 900)/2, (canvas.height - 900)/2, 900, 900);
         ctx.restore();
@@ -156,131 +155,116 @@ function drawCertificate(name, type, birdName) {
 }
 
 function renderParchment(ctx, w, h) {
-    // Light-to-Dark Radial Shading
-    const baseGrd = ctx.createRadialGradient(w/2, h/2, 200, w/2, h/2, w*0.9);
-    baseGrd.addColorStop(0, "#fdf8ec"); // Bright center
-    baseGrd.addColorStop(0.6, "#f1e3c4"); // Natural mid
-    baseGrd.addColorStop(1, "#dcc499");   // Aged edge
-    ctx.fillStyle = baseGrd;
+    // Base Shaded Gradient
+    const grd = ctx.createRadialGradient(w/2, h/2, 100, w/2, h/2, w);
+    grd.addColorStop(0, "#fdf8ef");
+    grd.addColorStop(0.7, "#eee0c5");
+    grd.addColorStop(1, "#d9c5a3");
+    ctx.fillStyle = grd;
     ctx.fillRect(0, 0, w, h);
 
-    // Realistic Organic "Coffee Stains"
-    for(let i=0; i<12; i++) {
+    // Procedural Organic Spots (Aged look)
+    for(let i=0; i<15; i++) {
         ctx.save();
         const x = Math.random() * w;
         const y = Math.random() * h;
-        const rad = Math.random() * 400 + 100;
-        const grd = ctx.createRadialGradient(x, y, 0, x, y, rad);
-        grd.addColorStop(0, "rgba(101, 67, 33, 0.06)");
-        grd.addColorStop(1, "rgba(101, 67, 33, 0)");
-        ctx.fillStyle = grd;
-        ctx.beginPath();
-        ctx.arc(x, y, rad, 0, Math.PI*2);
-        ctx.fill();
+        const radius = Math.random() * 300 + 100;
+        const spotGrd = ctx.createRadialGradient(x,y,0,x,y,radius);
+        spotGrd.addColorStop(0, "rgba(139, 69, 19, 0.06)");
+        spotGrd.addColorStop(1, "rgba(139, 69, 19, 0)");
+        ctx.fillStyle = spotGrd;
+        ctx.beginPath(); ctx.arc(x,y,radius,0,Math.PI*2); ctx.fill();
         ctx.restore();
     }
 
-    // High-Fidelity Paper Grain
+    // Paper Grain
     ctx.save();
     ctx.globalCompositeOperation = 'overlay';
-    for (let i = 0; i < 60000; i++) {
+    for (let i = 0; i < 50000; i++) {
         const x = Math.random() * w;
         const y = Math.random() * h;
-        const opacity = Math.random() * 0.12;
-        ctx.fillStyle = `rgba(0, 0, 0, ${opacity})`;
+        ctx.fillStyle = `rgba(0,0,0,${Math.random() * 0.1})`;
         ctx.fillRect(x, y, 1.2, 1.2);
     }
     ctx.restore();
-
-    // Dark Corner Vignette
-    const vig = ctx.createRadialGradient(w/2, h/2, w/4, w/2, h/2, w/1.1);
-    vig.addColorStop(0, "rgba(0,0,0,0)");
-    vig.addColorStop(1, "rgba(70, 45, 10, 0.25)");
-    ctx.fillStyle = vig;
-    ctx.fillRect(0, 0, w, h);
 }
 
 function renderBorders(ctx, w, h) {
-    const margin = 60;
-    
-    // Outer Beak-a-Boo Green Border
+    const pad = 60;
+    // Thick Outer Brand Green
     ctx.strokeStyle = '#1e401f';
-    ctx.lineWidth = 45;
-    ctx.strokeRect(margin, margin, w - margin*2, h - margin*2);
+    ctx.lineWidth = 50;
+    ctx.strokeRect(pad, pad, w - pad*2, h - pad*2);
 
-    // Stamped Gold Inlay Line
-    const goldMargin = 100;
-    ctx.strokeStyle = '#c5a059';
-    ctx.lineWidth = 5;
-    ctx.strokeRect(goldMargin, goldMargin, w - goldMargin*2, h - goldMargin*2);
-    
-    // Drop shadow on the gold line for depth
-    ctx.strokeStyle = 'rgba(0,0,0,0.15)';
-    ctx.lineWidth = 1;
-    ctx.strokeRect(goldMargin + 3, goldMargin + 3, w - goldMargin*2, h - goldMargin*2);
-
-    // Ornate Corner Details
-    drawCorner(ctx, goldMargin, goldMargin, 0);
-    drawCorner(ctx, w - goldMargin, goldMargin, Math.PI/2);
-    drawCorner(ctx, w - goldMargin, h - goldMargin, Math.PI);
-    drawCorner(ctx, goldMargin, h - goldMargin, -Math.PI/2);
-}
-
-function drawCorner(ctx, x, y, angle) {
+    // Golden dashed line accent
     ctx.save();
-    ctx.translate(x, y);
-    ctx.rotate(angle);
-    ctx.fillStyle = '#1e401f';
-    ctx.beginPath();
-    ctx.arc(0, 0, 30, 0, Math.PI*2);
-    ctx.fill();
+    ctx.setLineDash([15, 10]);
     ctx.strokeStyle = '#c5a059';
     ctx.lineWidth = 4;
-    ctx.stroke();
-    // Inner dot flourish
-    ctx.fillStyle = '#c5a059';
+    ctx.strokeRect(pad, pad, w - pad*2, h - pad*2);
+    ctx.restore();
+
+    // Inner gold pin-stripe
+    const innerPad = 100;
+    ctx.strokeStyle = '#D4AF37';
+    ctx.lineWidth = 5;
+    ctx.strokeRect(innerPad, innerPad, w - innerPad*2, h - innerPad*2);
+
+    // Draw Corner Flourishes
+    drawFlourish(ctx, innerPad, innerPad, 0);
+    drawFlourish(ctx, w - innerPad, innerPad, 90);
+    drawFlourish(ctx, w - innerPad, h - innerPad, 180);
+    drawFlourish(ctx, innerPad, h - innerPad, 270);
+}
+
+function drawFlourish(ctx, x, y, rot) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(rot * Math.PI / 180);
+    ctx.strokeStyle = '#D4AF37';
+    ctx.lineWidth = 4;
     ctx.beginPath();
-    ctx.arc(0, 0, 8, 0, Math.PI*2);
-    ctx.fill();
+    ctx.moveTo(0, 0); ctx.lineTo(100, 0);
+    ctx.moveTo(0, 0); ctx.lineTo(0, 100);
+    ctx.stroke();
+    // Accent circle
+    ctx.fillStyle = '#1e401f';
+    ctx.beginPath(); ctx.arc(45, 45, 10, 0, Math.PI*2); ctx.fill();
+    ctx.strokeStyle = '#c5a059'; ctx.stroke();
     ctx.restore();
 }
 
 function renderText(ctx, canvas, name, type, birdName) {
     ctx.textAlign = 'center';
-    ctx.shadowColor = "rgba(0,0,0,0.15)";
-    ctx.shadowBlur = 4;
-
+    
     // Header
+    ctx.shadowColor = "rgba(0,0,0,0.2)"; ctx.shadowBlur = 4;
     ctx.fillStyle = '#1e401f';
-    ctx.font = '700 110px "Cinzel Decorative", serif';
-    ctx.fillText('Beak-a-Boo Certificate', canvas.width/2, 380);
+    ctx.font = '700 115px "Cinzel Decorative", serif';
+    ctx.fillText('Beak-a-Boo Certificate', canvas.width/2, 400);
 
     // Rank Achievement
     ctx.fillStyle = '#8B4513';
-    ctx.font = '700 80px "Cinzel Decorative", serif';
+    ctx.font = '700 85px "Cinzel Decorative", serif';
     let rank = type === 'EagleEye' ? 'Master Birder' : type;
-    ctx.fillText(`${rank} Achievement`, canvas.width/2, 510);
+    ctx.fillText(`${rank} Achievement`, canvas.width/2, 530);
 
-    // Middle Text
+    // Detail
     ctx.shadowBlur = 0;
     ctx.fillStyle = '#555';
     ctx.font = 'italic 55px "Playfair Display", serif';
-    ctx.fillText('This official credential is presented to:', canvas.width/2, 660);
+    ctx.fillText('This official credential is presented to:', canvas.width/2, 680);
 
     // Name
     ctx.fillStyle = '#1e401f';
-    ctx.font = '170px "Great Vibes", cursive';
-    ctx.fillText(name, canvas.width/2, 840);
+    ctx.font = '175px "Great Vibes", cursive';
+    ctx.fillText(name, canvas.width/2, 850);
 
-    // Gold Underline
-    ctx.strokeStyle = '#c5a059';
-    ctx.lineWidth = 4;
-    ctx.beginPath();
-    ctx.moveTo(canvas.width/2 - 450, 865);
-    ctx.lineTo(canvas.width/2 + 450, 865);
-    ctx.stroke();
+    // Signature Line
+    ctx.strokeStyle = '#D4AF37'; ctx.lineWidth = 4;
+    ctx.beginPath(); ctx.moveTo(canvas.width/2 - 400, 875); ctx.lineTo(canvas.width/2 + 400, 875); ctx.stroke();
 
-    // Achievement Description
+    // Text
     ctx.fillStyle = '#333';
     ctx.font = '48px "Playfair Display", serif';
     let text = "";
@@ -289,52 +273,40 @@ function renderText(ctx, canvas, name, type, birdName) {
     else if (type === 'Brancher') text = "For successfully identifying 10 distinct bird species.";
     else if (type === 'Juvenile') text = "For successfully identifying 20 distinct bird species.";
     else text = "For the incredible feat of identifying all 40 species!";
-    ctx.fillText(text, canvas.width/2, 970);
+    ctx.fillText(text, canvas.width/2, 980);
 
-    // Footer Elements
-    const footerY = 1200;
-    
-    // Date
+    // Footer
+    const footY = 1220;
     const today = new Date().toLocaleDateString();
-    ctx.font = '55px "Great Vibes", cursive';
-    ctx.fillStyle = '#333';
-    ctx.fillText(today, 450, footerY);
-    ctx.font = '32px "Playfair Display"';
-    ctx.fillText("Date of Issue", 450, footerY + 60);
+    ctx.font = '55px "Great Vibes", cursive'; ctx.fillStyle = '#333';
+    ctx.fillText(today, 450, footY);
+    ctx.font = '32px "Playfair Display"'; ctx.fillText("Date of Issue", 450, footY+60);
 
-    // President Signature
-    ctx.font = '65px "Great Vibes", cursive';
-    ctx.fillStyle = '#1e401f';
-    ctx.fillText('Shivam Sharma', 1550, footerY);
-    ctx.font = '32px "Playfair Display"';
-    ctx.fillStyle = '#333';
-    ctx.fillText("President, Beak-a-Boo JA", 1550, footerY + 60);
+    // President
+    ctx.font = '65px "Great Vibes", cursive'; ctx.fillStyle = '#1e401f';
+    ctx.fillText('Shivam Sharma', 1550, footY);
+    ctx.font = '32px "Playfair Display"'; ctx.fillStyle = '#333';
+    ctx.fillText("President, Beak-a-Boo JA", 1550, footY+60);
 
-    // Gold Seal
-    drawSeal(ctx, canvas.width/2, footerY - 30, 110);
+    // Seal
+    drawGoldSeal(ctx, canvas.width/2, footY - 20, 115);
 }
 
-function drawSeal(ctx, x, y, radius) {
+function drawGoldSeal(ctx, x, y, r) {
     ctx.save();
-    ctx.translate(x, y);
-    const spikes = 40;
+    ctx.translate(x,y);
+    const spikes = 45;
     ctx.beginPath();
-    for (let i = 0; i < spikes; i++) {
-        let angle = (Math.PI / spikes) * 2 * i;
-        ctx.lineTo(Math.cos(angle) * radius, Math.sin(angle) * radius);
-        angle += (Math.PI / spikes);
-        ctx.lineTo(Math.cos(angle) * (radius-15), Math.sin(angle) * (radius-15));
+    for(let i=0; i<spikes; i++) {
+        let a = (Math.PI/spikes)*2*i;
+        ctx.lineTo(Math.cos(a)*r, Math.sin(a)*r);
+        a += (Math.PI/spikes);
+        ctx.lineTo(Math.cos(a)*(r-15), Math.sin(a)*(r-15));
     }
     ctx.closePath();
-    
-    const grd = ctx.createLinearGradient(-radius, -radius, radius, radius);
-    grd.addColorStop(0, "#FFD700");
-    grd.addColorStop(0.5, "#B8860B");
-    grd.addColorStop(1, "#FFD700");
-    ctx.fillStyle = grd;
-    ctx.fill();
-    ctx.strokeStyle = "#8B4513";
-    ctx.lineWidth = 2;
-    ctx.stroke();
+    const g = ctx.createLinearGradient(-r,-r,r,r);
+    g.addColorStop(0,"#FFD700"); g.addColorStop(0.5,"#B8860B"); g.addColorStop(1,"#FFD700");
+    ctx.fillStyle = g; ctx.fill();
+    ctx.strokeStyle = "#8B4513"; ctx.lineWidth = 2; ctx.stroke();
     ctx.restore();
 }
