@@ -1,30 +1,29 @@
-/* NOTE: birdsData is now loaded directly in the HTML files 
-   to reduce the size of this script file.
+/* NOTE: birdsData is loaded directly in the HTML files 
+   to maintain standard performance across pages.
 */
 
 const SWEAR_BLACKLIST = ["badword", "swear", "inappropriate"];
 let slideIndex = 1;
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Check if birdsData exists
     if (typeof birdsData === 'undefined') {
         console.error("Bird Data not found. Ensure it is included in the HTML file.");
         return;
     }
 
-    // Check if we are on the home page
+    // Initialize Home Page Slideshow
     if (document.getElementById('bird-slideshow-wrapper')) {
         populateSlideshow();
         showSlides(slideIndex);
         setInterval(() => plusSlides(1), 5000);
     }
 
-    // Check if we are on the certificate page
+    // Initialize Certificate Logic
     if (document.getElementById('oath-confirm-btn')) {
         setupCertificateLogic();
     }
 
-    // Check if we are on the catalogue page
+    // Initialize Catalogue Logic
     if (document.getElementById('catalogue-grid')) {
         populateCatalogue(birdsData);
         setupSearch();
@@ -102,7 +101,7 @@ function setupSearch() {
     }
 }
 
-// --- Certificate Logic ---
+// --- Professional Certificate Logic ---
 function checkName(name) {
     const cleanName = name.toLowerCase().replace(/\s/g, '');
     return !SWEAR_BLACKLIST.some(word => cleanName.includes(word));
@@ -119,7 +118,7 @@ function setupCertificateLogic() {
     const downloadContainer = document.getElementById('download-container');
     const downloadBtn = document.getElementById('btn-download');
 
-    // Populate Dropdown
+    // Populate Dropdown for Hatchling Rank
     const sortedBirds = [...birdsData].sort((a, b) => a.Common_Name.localeCompare(b.Common_Name));
     sortedBirds.forEach(bird => {
         const opt = document.createElement('option');
@@ -169,17 +168,17 @@ function drawCertificate(name, type, birdName) {
     const canvas = document.getElementById('certificate-canvas');
     const ctx = canvas.getContext('2d');
     
-    // High Res Dimensions
+    // High-Resolution Dimensions
     canvas.width = 2000;
     canvas.height = 1545;
 
-    // 1. Background Parchment
+    // 1. Draw Simulated Parchment
     drawParchmentBackground(ctx, canvas.width, canvas.height);
 
-    // 2. Borders
+    // 2. Draw Ornate Double-Border
     drawOrnateBorder(ctx, canvas.width, canvas.height);
 
-    // 3. Watermark & Text
+    // 3. Load Logo for Watermark
     const logo = new Image();
     logo.src = 'logo.png';
     
@@ -187,7 +186,7 @@ function drawCertificate(name, type, birdName) {
         // Watermark Logo
         ctx.save();
         ctx.globalAlpha = 0.12; 
-        const wmSize = 900;
+        const wmSize = 950;
         ctx.drawImage(logo, (canvas.width - wmSize)/2, (canvas.height - wmSize)/2, wmSize, wmSize);
         ctx.restore();
         
@@ -203,7 +202,7 @@ function drawParchmentBackground(ctx, w, h) {
     ctx.fillStyle = '#f4e4bc'; 
     ctx.fillRect(0, 0, w, h);
 
-    // Texture grain
+    // Add organic grain texture
     for (let i = 0; i < 50000; i++) {
         const x = Math.random() * w;
         const y = Math.random() * h;
@@ -211,7 +210,7 @@ function drawParchmentBackground(ctx, w, h) {
         ctx.fillRect(x, y, 2, 2);
     }
 
-    // Vignette
+    // Vignette for aged look
     const gradient = ctx.createRadialGradient(w/2, h/2, h/3, w/2, h/2, h);
     gradient.addColorStop(0, "rgba(255,255,255,0)");
     gradient.addColorStop(1, "rgba(80, 60, 20, 0.2)");
@@ -222,12 +221,12 @@ function drawParchmentBackground(ctx, w, h) {
 function drawOrnateBorder(ctx, w, h) {
     const pad = 60;
     
-    // Thick green border
+    // Outer Beak-a-Boo Green Border
     ctx.lineWidth = 55;
     ctx.strokeStyle = '#1e401f';
     ctx.strokeRect(pad, pad, w - pad*2, h - pad*2);
 
-    // Gold dashed line
+    // Gold dashed accent line
     ctx.save();
     ctx.strokeStyle = '#c5a059'; 
     ctx.lineWidth = 4;
@@ -235,12 +234,13 @@ function drawOrnateBorder(ctx, w, h) {
     ctx.strokeRect(pad, pad, w - pad*2, h - pad*2);
     ctx.restore();
 
-    // Inner gold thin border
+    // Inner gold pin-stripe border
     const innerPad = 95;
     ctx.lineWidth = 4;
     ctx.strokeStyle = '#D4AF37'; 
     ctx.strokeRect(innerPad, innerPad, w - innerPad*2, h - innerPad*2);
 
+    // Corner Flourishes
     const corners = [
         {x: innerPad, y: innerPad, r: 0}, 
         {x: w - innerPad, y: innerPad, r: 90}, 
@@ -252,12 +252,12 @@ function drawOrnateBorder(ctx, w, h) {
         ctx.save();
         ctx.translate(c.x, c.y);
         ctx.rotate((c.r * Math.PI) / 180);
-        drawCornerFlourish(ctx);
+        drawCornerDetail(ctx);
         ctx.restore();
     });
 }
 
-function drawCornerFlourish(ctx) {
+function drawCornerDetail(ctx) {
     ctx.beginPath();
     ctx.strokeStyle = '#D4AF37';
     ctx.lineWidth = 4;
@@ -265,13 +265,11 @@ function drawCornerFlourish(ctx) {
     ctx.lineTo(100, 0);
     ctx.moveTo(0, 0);
     ctx.lineTo(0, 100);
-    ctx.moveTo(20, 20);
-    ctx.quadraticCurveTo(50, 50, 10, 40);
     ctx.stroke();
     
     ctx.beginPath();
     ctx.fillStyle = '#1e401f';
-    ctx.arc(45, 45, 7, 0, Math.PI*2);
+    ctx.arc(45, 45, 8, 0, Math.PI*2);
     ctx.fill();
 }
 
@@ -318,12 +316,6 @@ function drawGoldSeal(ctx, x, y, radius) {
     ctx.lineWidth = 2;
     ctx.stroke();
 
-    // Inner seal ring
-    ctx.beginPath();
-    ctx.arc(0, 0, radius - 25, 0, Math.PI*2);
-    ctx.strokeStyle = "rgba(255,255,255,0.4)";
-    ctx.stroke();
-
     ctx.restore();
 }
 
@@ -342,16 +334,17 @@ function drawTextContent(ctx, canvas, name, type, birdName) {
     rankText = rankText.charAt(0).toUpperCase() + rankText.slice(1);
     ctx.fillText(rankText + " Achievement", canvas.width / 2, 530);
 
-    // Recipient
+    // Presented To
     ctx.fillStyle = '#555';
     ctx.font = 'italic 55px "Playfair Display", serif';
     ctx.fillText('This official credential is presented to:', canvas.width / 2, 680);
     
+    // Recipient Name
     ctx.fillStyle = '#1e401f';
     ctx.font = '160px "Great Vibes", cursive';
     ctx.fillText(name, canvas.width / 2, 850);
 
-    // Underline
+    // Golden Underline
     ctx.beginPath();
     ctx.moveTo(canvas.width/2 - 400, 870);
     ctx.lineTo(canvas.width/2 + 400, 870);
@@ -359,7 +352,7 @@ function drawTextContent(ctx, canvas, name, type, birdName) {
     ctx.strokeStyle = '#D4AF37';
     ctx.stroke();
 
-    // Achievement Text
+    // Achievement Description
     ctx.fillStyle = '#333';
     ctx.font = '45px "Playfair Display", serif';
     let text = "";
@@ -377,30 +370,16 @@ function drawTextContent(ctx, canvas, name, type, birdName) {
     ctx.font = '55px "Great Vibes", cursive';
     ctx.fillStyle = '#333';
     ctx.fillText(today, 450, bottomY);
-    
-    ctx.beginPath();
-    ctx.moveTo(300, bottomY + 15);
-    ctx.lineTo(600, bottomY + 15);
-    ctx.strokeStyle = '#333';
-    ctx.lineWidth = 2;
-    ctx.stroke();
-    
     ctx.font = '32px "Playfair Display"';
     ctx.fillText("Date of Issue", 450, bottomY + 65);
 
-    // Center Seal
+    // Official Achievement Seal
     drawGoldSeal(ctx, canvas.width / 2, bottomY - 20, 110);
 
-    // Signature Side
+    // Signature Side - Shivam Sharma, President
     ctx.font = '65px "Great Vibes", cursive';
     ctx.fillStyle = '#1e401f';
     ctx.fillText('Shivam Sharma', 1550, bottomY);
-    
-    ctx.beginPath();
-    ctx.moveTo(1350, bottomY + 15);
-    ctx.lineTo(1750, bottomY + 15);
-    ctx.stroke();
-    
     ctx.font = '32px "Playfair Display"';
     ctx.fillStyle = '#333';
     ctx.fillText("President, Beak-a-Boo JA", 1550, bottomY + 65);
