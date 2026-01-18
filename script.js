@@ -147,7 +147,21 @@ function drawCertificate(name, type, birdName) {
         ctx.save();
         ctx.globalAlpha = 0.08;
         ctx.globalCompositeOperation = 'multiply';
-        ctx.drawImage(logo, (canvas.width - 900)/2, (canvas.height - 900)/2, 900, 900);
+        const maxLogoSize = 900;
+        const scale = Math.min(
+            maxLogoSize / logo.width,
+            maxLogoSize / logo.height,
+            1
+        );
+        const logoWidth = logo.width * scale;
+        const logoHeight = logo.height * scale;
+        ctx.drawImage(
+            logo,
+            (canvas.width - logoWidth) / 2,
+            (canvas.height - logoHeight) / 2,
+            logoWidth,
+            logoHeight
+        );
         ctx.restore();
 
         renderText(ctx, canvas, name, type, birdName);
@@ -237,12 +251,13 @@ function drawFlourish(ctx, x, y, rot) {
 function renderText(ctx, canvas, name, type, birdName) {
     ctx.textAlign = 'center';
     
+    const typeKey = (type || '').toUpperCase();
     const rankMap = {
-        Hatchling: 'Hatchling',
-        Fledgling: 'Fledgling',
-        Brancher: 'Brancher',
-        Juvenile: 'Juvenile',
-        EagleEye: 'Skywarden'
+        HATCHLING: 'Hatchling',
+        FLEDGLING: 'Fledgling',
+        BRANCHER: 'Brancher',
+        JUVENILE: 'Juvenile',
+        EAGLEEYE: 'Skywarden'
     };
 
     // Header
@@ -250,52 +265,53 @@ function renderText(ctx, canvas, name, type, birdName) {
     ctx.shadowBlur = 3;
     ctx.fillStyle = '#2b1b11';
     ctx.font = '700 120px "Cinzel Decorative", serif';
-    ctx.fillText('EXPLORERS CERTIFICATE', canvas.width/2, 390);
+    ctx.fillText('EXPLORERS CERTIFICATE', canvas.width/2, 370);
 
     // Rank Achievement
     ctx.fillStyle = '#6b3e1f';
     ctx.font = '700 70px "Cinzel Decorative", serif';
-    const rank = rankMap[type] || type;
-    ctx.fillText(`${rank.toUpperCase()} ACHIEVEMENT`, canvas.width/2, 500);
+    const rank = rankMap[typeKey] || type;
+    ctx.fillText(`${rank.toUpperCase()} ACHIEVEMENT`, canvas.width/2, 485);
 
     // Detail
     ctx.shadowBlur = 0;
     ctx.fillStyle = '#5b4a3d';
     ctx.font = 'italic 48px "Playfair Display", serif';
-    ctx.fillText('This certificate is proudly presented to', canvas.width/2, 640);
+    ctx.fillText('this certificate is proudly presented to', canvas.width/2, 625);
 
     // Name
     ctx.fillStyle = '#2b1b11';
     ctx.font = '170px "Great Vibes", cursive';
-    ctx.fillText(name, canvas.width/2, 830);
+    ctx.fillText(name, canvas.width/2, 825);
 
     // Signature Line
     ctx.strokeStyle = '#D4AF37'; ctx.lineWidth = 4;
-    ctx.beginPath(); ctx.moveTo(canvas.width/2 - 400, 855); ctx.lineTo(canvas.width/2 + 400, 855); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(canvas.width/2 - 400, 850); ctx.lineTo(canvas.width/2 + 400, 850); ctx.stroke();
 
     // Text
     ctx.fillStyle = '#3a2a20';
     ctx.font = '44px "Playfair Display", serif';
     let text = "";
-    if (type === 'Hatchling') text = `For identifying their first bird: The ${birdName}!`;
-    else if (type === 'Fledgling') text = "For successfully identifying 5 distinct bird species.";
-    else if (type === 'Brancher') text = "For successfully identifying 10 distinct bird species.";
-    else if (type === 'Juvenile') text = "For successfully identifying 20 distinct bird species.";
-    else text = "For the incredible feat of identifying all 40 species!";
-    ctx.fillText(text, canvas.width/2, 960);
+    if (typeKey === 'HATCHLING') text = `for identifying their first bird: the ${birdName}!`;
+    else if (typeKey === 'FLEDGLING') text = "for successfully identifying 5 bird species";
+    else if (typeKey === 'BRANCHER') text = "for successfully identifying 10 bird species";
+    else if (typeKey === 'JUVENILE') text = "for successfully identifying 20 bird species";
+    else text = "for the incredible feat of identifying all 40 bird species";
+    ctx.fillText(text, canvas.width/2, 950);
 
     // Footer
     const footY = 1220;
     const today = new Date().toLocaleDateString();
     ctx.font = '55px "Great Vibes", cursive'; ctx.fillStyle = '#3a2a20';
     ctx.fillText(today, 450, footY);
-    ctx.font = '32px "Playfair Display"'; ctx.fillText("Date of Issue", 450, footY+60);
+    ctx.font = '32px "Playfair Display"'; ctx.fillText("Date", 450, footY+60);
 
     // President
     ctx.font = '65px "Great Vibes", cursive'; ctx.fillStyle = '#3a2a20';
     ctx.fillText('Shivam Sharma', 1550, footY);
     ctx.font = '32px "Playfair Display"'; ctx.fillStyle = '#333';
-    ctx.fillText("President, Beak-a-boo JA", 1550, footY+60);
+    ctx.fillText("President, Beak-a-boo", 1550, footY+55);
+    ctx.fillText("JA", 1550, footY+95);
 
     // Seal
     drawGoldSeal(ctx, canvas.width/2, footY - 20, 115);
