@@ -1,4 +1,4 @@
-/* Beak-a-Boo Certificate Engine v4.0
+/* Beak-a-boo Certificate Engine v4.0
    Restoring high-fidelity shading, organic textures, and ornate flourishes.
 */
 
@@ -122,7 +122,7 @@ function setupCertificateLogic() {
     document.getElementById('btn-download').addEventListener('click', () => {
         const canvas = document.getElementById('certificate-canvas');
         const link = document.createElement('a');
-        link.download = `Beak-a-Boo_Certificate.png`;
+        link.download = `Beak-a-boo_Certificate.png`;
         link.href = canvas.toDataURL("image/png");
         link.click();
     });
@@ -237,56 +237,65 @@ function drawFlourish(ctx, x, y, rot) {
 function renderText(ctx, canvas, name, type, birdName) {
     ctx.textAlign = 'center';
     
+    const rankMap = {
+        Hatchling: 'Hatchling',
+        Fledgling: 'Fledgling',
+        Brancher: 'Brancher',
+        Juvenile: 'Juvenile',
+        EagleEye: 'Skywarden'
+    };
+
     // Header
-    ctx.shadowColor = "rgba(0,0,0,0.2)"; ctx.shadowBlur = 4;
-    ctx.fillStyle = '#1e401f';
-    ctx.font = '700 115px "Cinzel Decorative", serif';
-    ctx.fillText('Beak-a-Boo Certificate', canvas.width/2, 400);
+    ctx.shadowColor = "rgba(0,0,0,0.15)";
+    ctx.shadowBlur = 3;
+    ctx.fillStyle = '#2b1b11';
+    ctx.font = '700 120px "Cinzel Decorative", serif';
+    ctx.fillText('EXPLORERS CERTIFICATE', canvas.width/2, 390);
 
     // Rank Achievement
-    ctx.fillStyle = '#8B4513';
-    ctx.font = '700 85px "Cinzel Decorative", serif';
-    let rank = type === 'EagleEye' ? 'Master Birder' : type;
-    ctx.fillText(`${rank} Achievement`, canvas.width/2, 530);
+    ctx.fillStyle = '#6b3e1f';
+    ctx.font = '700 70px "Cinzel Decorative", serif';
+    const rank = rankMap[type] || type;
+    ctx.fillText(`${rank.toUpperCase()} ACHIEVEMENT`, canvas.width/2, 500);
 
     // Detail
     ctx.shadowBlur = 0;
-    ctx.fillStyle = '#555';
-    ctx.font = 'italic 55px "Playfair Display", serif';
-    ctx.fillText('This official credential is presented to:', canvas.width/2, 680);
+    ctx.fillStyle = '#5b4a3d';
+    ctx.font = 'italic 48px "Playfair Display", serif';
+    ctx.fillText('This certificate is proudly presented to', canvas.width/2, 640);
 
     // Name
-    ctx.fillStyle = '#1e401f';
-    ctx.font = '175px "Great Vibes", cursive';
-    ctx.fillText(name, canvas.width/2, 850);
+    ctx.fillStyle = '#2b1b11';
+    ctx.font = '170px "Great Vibes", cursive';
+    ctx.fillText(name, canvas.width/2, 830);
 
     // Signature Line
     ctx.strokeStyle = '#D4AF37'; ctx.lineWidth = 4;
-    ctx.beginPath(); ctx.moveTo(canvas.width/2 - 400, 875); ctx.lineTo(canvas.width/2 + 400, 875); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(canvas.width/2 - 400, 855); ctx.lineTo(canvas.width/2 + 400, 855); ctx.stroke();
 
     // Text
-    ctx.fillStyle = '#333';
-    ctx.font = '48px "Playfair Display", serif';
+    ctx.fillStyle = '#3a2a20';
+    ctx.font = '44px "Playfair Display", serif';
     let text = "";
     if (type === 'Hatchling') text = `For identifying their first bird: The ${birdName}!`;
     else if (type === 'Fledgling') text = "For successfully identifying 5 distinct bird species.";
     else if (type === 'Brancher') text = "For successfully identifying 10 distinct bird species.";
     else if (type === 'Juvenile') text = "For successfully identifying 20 distinct bird species.";
     else text = "For the incredible feat of identifying all 40 species!";
-    ctx.fillText(text, canvas.width/2, 980);
+    ctx.fillText(text, canvas.width/2, 960);
 
     // Footer
     const footY = 1220;
     const today = new Date().toLocaleDateString();
-    ctx.font = '55px "Great Vibes", cursive'; ctx.fillStyle = '#333';
+    ctx.font = '55px "Great Vibes", cursive'; ctx.fillStyle = '#3a2a20';
     ctx.fillText(today, 450, footY);
     ctx.font = '32px "Playfair Display"'; ctx.fillText("Date of Issue", 450, footY+60);
 
     // President
-    ctx.font = '65px "Great Vibes", cursive'; ctx.fillStyle = '#1e401f';
+    ctx.font = '65px "Great Vibes", cursive'; ctx.fillStyle = '#3a2a20';
     ctx.fillText('Shivam Sharma', 1550, footY);
     ctx.font = '32px "Playfair Display"'; ctx.fillStyle = '#333';
-    ctx.fillText("President, Beak-a-Boo JA", 1550, footY+60);
+    ctx.fillText("President, Beak-a-boo JA", 1550, footY+60);
 
     // Seal
     drawGoldSeal(ctx, canvas.width/2, footY - 20, 115);

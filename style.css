@@ -143,6 +143,72 @@ header {
 }
 .section-subtitle { text-align: center; margin-bottom: 30px; color: #666; }
 
+/* --- Trails Section --- */
+.trails-section .section-title {
+    margin-bottom: 25px;
+}
+
+.trails-card {
+    background: #2f5d33;
+    border-radius: 10px;
+    padding: 24px;
+    display: grid;
+    grid-template-columns: minmax(260px, 1fr) minmax(260px, 1fr);
+    gap: 24px;
+    color: var(--text-light);
+    align-items: center;
+}
+
+.trails-map {
+    background: #f4f7f6;
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+}
+
+.trails-map iframe,
+.trails-map img {
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+    display: block;
+}
+
+.trails-map iframe {
+    height: 320px;
+    border: 0;
+}
+
+.trails-map-label {
+    display: inline-block;
+    margin-top: 10px;
+    font-weight: 600;
+    color: #1e401f;
+}
+
+.trails-details h2 {
+    margin-bottom: 12px;
+}
+
+.trails-details p {
+    margin-bottom: 16px;
+}
+
+.trails-details ul {
+    list-style: none;
+    padding: 0;
+}
+
+.trails-details li {
+    margin-bottom: 8px;
+}
+
+@media (max-width: 900px) {
+    .trails-card {
+        grid-template-columns: 1fr;
+    }
+}
+
 /* --- Slideshow --- */
 .slideshow-container {
     position: relative;
