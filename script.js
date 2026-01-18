@@ -112,6 +112,10 @@ function setupCertificateLogic() {
     });
 
     confirmBtn.addEventListener('click', () => {
+        if (!selectedType) {
+            errorMessage.textContent = "Please choose a certificate rank first.";
+            return;
+        }
         const name = nameInput.value.trim();
         if (!name) {
             errorMessage.textContent = "Please enter your name.";
@@ -151,7 +155,8 @@ function drawCertificate(name, type, birdName) {
     renderBorders(ctx, canvas.width, canvas.height);
 
     const logo = new Image();
-    logo.src = 'logo.png';
+    const logoImg = document.querySelector('.logo-img');
+    logo.src = logoImg ? logoImg.src : '../logo.png';
     logo.onload = () => {
         // Watermark with blending
         ctx.save();
@@ -174,6 +179,9 @@ function drawCertificate(name, type, birdName) {
         );
         ctx.restore();
 
+        renderText(ctx, canvas, name, type, birdName);
+    };
+    logo.onerror = () => {
         renderText(ctx, canvas, name, type, birdName);
     };
 }
