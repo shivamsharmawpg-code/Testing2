@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beak-a-boo | Manitoba Bird Discovery</title>
+    <title>Certificates | Beak-a-boo</title>
     <link rel="stylesheet" href="/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Great+Vibes&family=Playfair+Display:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script>
+    // Keeping only the data array for the certificate page's dropdown and logic
     const birdsData = [
-      { "id": 1, "Common_Name": "Black-capped Chickadee", "Scientific_Name": "Poecile atricapillus", "Type": "Common", "Season": "Year-round", "Fact": "Famous for its distinctive 'chick-a-dee-dee-dee' call.", "Image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVsgFltlwCxanuJIS8Q9dvxx4qdllwjLGuT7tfkS7HsP-Hl19F1tHin3x7B0h3IFuzyxmvxX9VCIX-4verEf0iMr38KbCDQytzosvQGZh6&s=10" },
+      { "id": 1, "Common_Name": "Black-capped Chickadee", "Scientific_Name": "Poecile atricapillus", "Type": "Common", "Season": "Year-round", "Fact": "Famous for its distinctive 'chick-a-dee-dee-dee' call.", "Image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVsgFltlwCxanuJIS8Q9dvxx4qdllwjLGuT7tfkS7HsP-Hl19F1tHin3x7B0h3IFuzyxmvx9VCIX-4verEf0iMr38KbCDQytzosvQGZh6&s=10" },
       { "id": 2, "Common_Name": "American Robin", "Scientific_Name": "Turdus migratorius", "Type": "Common", "Season": "Spring/Summer", "Fact": "Often seen pulling earthworms from the ground.", "Image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZrU2lR6V86zMHpXRD32DTjwfqNk-ZkNsZcDBniLtx-DxyV_0C6-xV_v8aaKAL0xi1CrZZZPuwUHFMno14bhZ_YNR38nKMFs18w5y0PGn8_w&s=10" },
       { "id": 3, "Common_Name": "House Sparrow", "Scientific_Name": "Passer domesticus", "Type": "Common", "Season": "Year-round", "Fact": "Aggressive and adaptable, found near humans.", "Image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSenVyTPz6B9-QT3sTfnlHph2ppJPbrNAkv0Xsn2Yt7H9FH1xja7yfCOr33i-E0f9DcCQnJYP3hIoDaihVP3CFGHnvPnYWgLNCuRA2dppq9VA&s=10" },
       { "id": 4, "Common_Name": "Blue Jay", "Scientific_Name": "Cyanocitta cristata", "Type": "Common", "Season": "Year-round", "Fact": "Known for their intelligence and loud screams.", "Image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR64uqTayxH-cwSdZNY21Y2k_HFUAVN1WvLwAKd3IpRDmfowfpx6gOWlhdgcPhAUfo8JZ2coNjZ8mYwaipd1owC_CZaR05FUNiqX43nu0XAkw&s=10" },
@@ -34,7 +35,7 @@
       { "id": 23, "Common_Name": "Loggerhead Shrike", "Scientific_Name": "Lanius ludovicianus", "Type": "Rare", "Season": "Spring/Summer", "Fact": "Impales prey on thorns or barbed wire.", "Image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWmJFMo8G3calUH_l549S-aQWGCj_uGsCs0eq-DvwjzSwuBxEcLdNs3pacV1kFJkQR7EMORb17FDA9LX-lrbwc8hx2mIe2Z2EeBu8leYg&s=10" },
       { "id": 24, "Common_Name": "Eared Grebe", "Scientific_Name": "Podiceps nigricollis", "Type": "Rare", "Season": "Spring/Summer", "Fact": "Has golden 'ears' (feathers) behind its eyes.", "Image": "https://www.allaboutbirds.org/guide/assets/photo/305504571-480px.jpg" },
       { "id": 25, "Common_Name": "Western Meadowlark", "Scientific_Name": "Sturnella neglecta", "Type": "Rare", "Season": "Spring/Summer", "Fact": "Known for its beautiful, flute-like song.", "Image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8f16I3KIevsvy0QcuHbZxzplaUJYYqND_4Ehyu2oEj40kBexj3Ayo95hmyrEuX_ysdHF73XFeRR4UO8okWk4ot_LH9A9bCqDc0QwK-A&s=10" },
-      { "id": 26, "Common_Name": "Smith's Longspur", "Scientific_Name": "Calcarius pictus", "Type": "Rare", "Season": "Summer", "Fact": "Breeds near the treeline in northern Canada.", "Image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXmSym08bBO_Db7pEvytYsyyO0FjBghLFgpm06nHbIOPvadpdAoOoy-x1vFOXHRwACo5JSx7kOERKv-PcRPj3133Swr5hXW2b6fXCYnA&s=10" },
+      { "id": 26, "Common_Name": "Smith's Longspur", "Scientific_Name": "Calcarius pictus", "Type": "Rare", "Season": "Summer", "Fact": "Breeds near the treeline in northern Canada.", "Image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXmSym08bBO_Db7pEvytYsyyO0FjBghLFgpm06nHbIOPvadpdAoOoy-x1vFOXHRwACo5JSx7kOERKv-PcRPj3134Swr5hXW2b6fXCYnA&s=10" },
       { "id": 27, "Common_Name": "Ferruginous Hawk", "Scientific_Name": "Buteo regalis", "Type": "Rare", "Season": "Spring/Summer", "Fact": "The largest hawk in North America.", "Image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQU5m6-BARKs-eW0lDkQq4VxS3sEYyOJStnvb6jOz0ASJ15H_jSHRmQ4OH5uofiCOA0Gx7g-YyYFRf250U35wnZUD9mPOJT1ZRHFN5vEg&s=10" },
       { "id": 28, "Common_Name": "Yellow-billed Cuckoo", "Scientific_Name": "Coccyzus americanus", "Type": "Rare", "Season": "Summer", "Fact": "Called the 'Rain Crow' for calling before storms.", "Image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmkZJ2iQebznxPAVu3PNX-YCDlfoC0AX31_Ke7dORA4rv-XgGHl2K7jpLvKBQhiDtAnG_zan7MFH9BA69OPkUhZaWOsJeX2Y8yOe9mmg&s=10" },
       { "id": 29, "Common_Name": "Prothonotary Warbler", "Scientific_Name": "Protonotaria citrea", "Type": "Rare", "Season": "Spring/Summer", "Fact": "Nests in cavities in standing water swamps.", "Image": "https://upload.wikimedia.org/wikipedia/commons/5/55/Protonotaria-citrea-002_edit.jpg" },
@@ -61,10 +62,10 @@
         </div>
         <nav>
             <ul class="nav-links">
-                <li><a href="/" class="active">Home</a></li>
+                <li><a href="/">Home</a></li>
                 <li><a href="/trails/">Trails</a></li>
                 <li><a href="/catalogue/">Catalogue</a></li>
-                <li><a href="/certificates/">Certificates</a></li>
+                <li><a href="/certificates/" class="active">Certificates</a></li>
                 <li><a href="/about/">About</a></li>
                 <li><a href="https://www.flickr.com/groups/14879687@N25/pool/#" target="_blank">Gallery <i class="fa-brands fa-flickr"></i></a></li>
             </ul>
@@ -72,33 +73,50 @@
     </header>
 
     <main>
-        <section class="hero">
-            <div class="hero-overlay"></div>
-            <div class="hero-content">
-                <h1 class="playfair-font">Beak-a-boo</h1>
-                <p class="mission-text">
-                    Our mission at Beak-a-boo is to ignite curiosity and foster enduring family bonds through the simple joy of discovery. We encourage your curiosity to come out and play Hide and Seek with nature, while celebrating the birds around you.
-                </p>
-                <a href="/catalogue/" class="cta-button">Start Exploring</a>
-            </div>
-        </section>
-
-        <section id="catalogue" class="content-section">
-            <h2 class="section-title playfair-font">Manitoba Bird Highlights</h2>
-            <p class="section-subtitle">A glimpse of the species included in your Beak-a-boo Bird Watching Kit.</p>
-
-            <div class="slideshow-container">
-                <div id="bird-slideshow-wrapper"></div>
-                
-                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-                <a class="next" onclick="plusSlides(1)">&#10095;</a>
-            </div>
-
-            <div id="slideshow-dots" class="dots-container"></div>
+        <section class="content-section certificate-page">
+            <h1 class="playfair-font">Official Certification Center</h1>
+            <p class="intro-text">Validate your birding achievements! Select the tier you have reached to generate your official signed certificate.</p>
             
-            <div class="catalogue-cta">
-                <p>Want to see all 40 species?</p>
-                <a href="/catalogue/" class="btn-secondary">View Full Catalogue</a>
+            <div class="steps-container">
+                <div class="step-box">
+                    <h3>Step 1: Choose Your Rank</h3>
+                    <div class="certificate-buttons">
+                        <button class="cert-btn" data-cert-type="Hatchling">Hatchling (1 Bird)</button>
+                        <button class="cert-btn" data-cert-type="Fledgling">Fledgling (5 Birds)</button>
+                        <button class="cert-btn" data-cert-type="Brancher">Brancher (10 Birds)</button>
+                        <button class="cert-btn" data-cert-type="Juvenile">Juvenile (20 Birds)</button>
+                        <button class="cert-btn" data-cert-type="EagleEye">Skywarden (40 Birds)</button>
+                    </div>
+                </div>
+
+                <div id="cert-oath-area" class="step-box hidden fade-in">
+                    <h3>Step 2: The Birder's Oath</h3>
+                    <p class="oath-text">
+                        "I, <span id="oath-name-placeholder">[Your Name]</span>, do solemnly swear that I have honestly spotted and identified the required birds in the wild."
+                    </p>
+                    
+                    <div class="input-group">
+                        <label for="user-name-input">Enter Your Full Name:</label>
+                        <input type="text" id="user-name-input" placeholder="e.g. Jane Doe">
+                    </div>
+
+                    <div id="hatchling-prompt" class="input-group hidden">
+                        <label for="hatchling-bird-select">Which bird was your first find?</label>
+                        <select id="hatchling-bird-select">
+                            </select>
+                    </div>
+
+                    <div id="error-message" class="error-msg"></div>
+                    
+                    <button id="oath-confirm-btn" class="cta-button">Generate Certificate</button>
+                </div>
+            </div>
+
+            <div class="canvas-container">
+                <canvas id="certificate-canvas" class="hidden"></canvas>
+                <div id="download-container" class="download-container hidden">
+                    <button id="btn-download" class="btn-download"><i class="fa-solid fa-download"></i> Download Certificate</button>
+                </div>
             </div>
         </section>
     </main>
@@ -122,10 +140,5 @@
     </footer>
 
     <script src="/script.js"></script>
-    <script>
-        if (window.location.pathname.endsWith("/index.html")) {
-            window.location.replace("/");
-        }
-    </script>
 </body>
 </html>
