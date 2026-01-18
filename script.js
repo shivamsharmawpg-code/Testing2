@@ -86,10 +86,12 @@ function setupCertificateLogic() {
     const btns = document.querySelectorAll('.cert-btn');
     const oathArea = document.getElementById('cert-oath-area');
     const nameInput = document.getElementById('user-name-input');
+    const errorMessage = document.getElementById('error-message');
     const confirmBtn = document.getElementById('oath-confirm-btn');
     const hatchlingSelect = document.getElementById('hatchling-bird-select');
     const hatchlingPrompt = document.getElementById('hatchling-prompt');
     const downloadContainer = document.getElementById('download-container');
+    const maxNameLength = 32;
 
     const sortedBirds = [...birdsData].sort((a, b) => a.Common_Name.localeCompare(b.Common_Name));
     sortedBirds.forEach(bird => {
@@ -111,7 +113,15 @@ function setupCertificateLogic() {
 
     confirmBtn.addEventListener('click', () => {
         const name = nameInput.value.trim();
-        if (!name) return;
+        if (!name) {
+            errorMessage.textContent = "Please enter your name.";
+            return;
+        }
+        if (name.length > maxNameLength) {
+            errorMessage.textContent = `Name must be ${maxNameLength} characters or fewer.`;
+            return;
+        }
+        errorMessage.textContent = "";
         const birdChoice = (selectedType === 'Hatchling') ? hatchlingSelect.value : null;
         drawCertificate(name, selectedType, birdChoice);
         oathArea.classList.add('hidden');
