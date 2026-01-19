@@ -74,6 +74,8 @@ function populateCatalogue(data) {
         card.dataset.type = bird.Type;
         card.dataset.season = bird.Season;
         card.dataset.fact = bird.Fact;
+        card.dataset.call = bird.Call;
+        card.dataset.whistle = bird.Whistle;
         card.dataset.image = bird.Image;
         card.innerHTML = `<img src="${bird.Image}" alt="${bird.Common_Name}" loading="lazy"><div class="bird-card-info"><div class="bird-card-title">${bird.Common_Name}</div><div class="bird-card-meta"><span style="color: #1e401f; font-weight:bold;">${bird.Type}</span> • ${bird.Season}</div><p class="bird-card-desc">${bird.Fact}</p></div>`;
         grid.appendChild(card);
@@ -101,6 +103,14 @@ function setupCatalogueModal() {
                     <span class="bird-modal__season"></span>
                 </div>
                 <p class="bird-modal__fact"></p>
+                <div class="bird-modal__callout">
+                    <h3>Bird call</h3>
+                    <p class="bird-modal__call"></p>
+                </div>
+                <div class="bird-modal__callout">
+                    <h3>Whistle tip</h3>
+                    <p class="bird-modal__whistle"></p>
+                </div>
             </div>
         </div>
     `;
@@ -132,6 +142,8 @@ function setupCatalogueInteractions() {
             Type: card.dataset.type,
             Season: card.dataset.season,
             Fact: card.dataset.fact,
+            Call: card.dataset.call,
+            Whistle: card.dataset.whistle,
             Image: card.dataset.image
         });
     };
@@ -159,6 +171,8 @@ function openBirdModal(bird) {
     modal.querySelector('.bird-modal__type').textContent = bird.Type;
     modal.querySelector('.bird-modal__season').textContent = bird.Season;
     modal.querySelector('.bird-modal__fact').textContent = bird.Fact;
+    modal.querySelector('.bird-modal__call').textContent = bird.Call || "Call details coming soon.";
+    modal.querySelector('.bird-modal__whistle').textContent = bird.Whistle || "Whistle tips coming soon.";
     modal.classList.add('is-open');
     modal.setAttribute('aria-hidden', 'false');
     document.body.classList.add('modal-open');
