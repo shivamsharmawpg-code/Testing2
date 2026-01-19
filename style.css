@@ -41,6 +41,8 @@ header {
     align-items: center;
     padding: 1rem 5%;
     box-shadow: var(--shadow);
+    flex-wrap: wrap;
+    gap: 12px;
 }
 
 .logo {
@@ -63,6 +65,7 @@ header {
     list-style: none;
     display: flex;
     gap: 20px;
+    flex-wrap: wrap;
 }
 
 .nav-links a {
@@ -714,8 +717,67 @@ footer {
 
 /* --- Responsive --- */
 @media (max-width: 768px) {
+    header {
+        padding: 0.75rem 6%;
+        justify-content: center;
+        text-align: center;
+    }
+    nav {
+        width: 100%;
+    }
+    .nav-links {
+        justify-content: center;
+        gap: 12px;
+    }
+    .logo {
+        justify-content: center;
+        width: 100%;
+    }
+    .logo-img {
+        height: 48px;
+        margin-right: 10px;
+    }
     .about-grid { grid-template-columns: 1fr; }
-    .hero h1 { font-size: 2rem; }
+    .hero {
+        padding: 80px 18px;
+        min-height: 420px;
+    }
+    .hero h1 { font-size: 2.2rem; }
+    .mission-text { font-size: 1rem; }
+    .hero-content {
+        padding: 22px;
+    }
+    .content-section {
+        padding: 28px;
+        margin-bottom: 30px;
+    }
+    .section-title { font-size: 1.8rem; }
+    .section-subtitle { font-size: 0.95rem; }
+    .trails-card {
+        padding: 22px;
+    }
+    .trails-map iframe {
+        height: 240px;
+    }
+    .trail-search {
+        width: 100%;
+        justify-content: center;
+        margin-right: 0;
+    }
+    .slideshow-container {
+        max-width: 100%;
+    }
+    .bird-slide img {
+        height: 260px;
+    }
+    .prev, .next {
+        top: 45%;
+        padding: 12px;
+        font-size: 20px;
+    }
+    .search-bar {
+        flex-direction: column;
+    }
     .footer-content { flex-direction: column; text-align: center; }
     .contact-links { align-items: center; }
     .bird-modal__content {
@@ -724,5 +786,56 @@ footer {
     }
     .bird-modal__details {
         padding: 24px;
+    }
+}
+
+@media (max-width: 600px) {
+    header {
+        padding: 0.75rem 4%;
+    }
+    .nav-links a {
+        padding: 6px 8px;
+        display: inline-flex;
+        align-items: center;
+    }
+    .hero {
+        padding: 70px 16px;
+        min-height: 360px;
+    }
+    .hero h1 { font-size: 1.9rem; }
+    .content-section {
+        padding: 22px 18px;
+        border-radius: 6px;
+    }
+    .section-title { font-size: 1.6rem; }
+    .section-intro {
+        font-size: 0.98rem;
+    }
+    .trails-card,
+    .trail-mini-card {
+        padding: 18px;
+        border-radius: 14px;
+    }
+    .trails-map {
+        padding: 12px;
+    }
+    .trails-map iframe {
+        height: 210px;
+    }
+    .trails-details h2 {
+        font-size: 1.6rem;
+    }
+    .trail-search {
+        font-size: 0.95rem;
+        padding: 10px 14px;
+    }
+    .bird-slide img {
+        height: 220px;
+    }
+    .bird-modal__content {
+        width: min(94vw, 560px);
+    }
+    .cert-btn {
+        width: 100%;
     }
 }
