@@ -604,6 +604,7 @@ header {
     background: #fff;
     border-radius: 16px;
     overflow: hidden;
+    max-height: 90vh;
     display: grid;
     grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
@@ -622,6 +623,8 @@ header {
     display: flex;
     flex-direction: column;
     gap: 12px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 .bird-modal__title {
     font-family: var(--font-serif);
@@ -792,7 +795,7 @@ footer {
         gap: 18px;
     }
     .bird-card img {
-        height: 200px;
+        height: 180px;
     }
 }
 
@@ -842,6 +845,12 @@ footer {
     .bird-modal__content {
         width: min(94vw, 560px);
     }
+    .bird-modal__media {
+        max-height: 35vh;
+    }
+    .bird-modal__image {
+        height: 100%;
+    }
     .cert-btn {
         width: 100%;
     }
@@ -860,5 +869,8 @@ footer {
     .bird-card-meta,
     .bird-card-desc {
         font-size: 0.85rem;
+    }
+    .bird-card img {
+        height: 160px;
     }
 }
