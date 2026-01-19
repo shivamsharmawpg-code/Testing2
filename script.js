@@ -268,6 +268,7 @@ function drawCertificate(name, type, birdName) {
     renderBorders(ctx, canvas.width, canvas.height);
 
     const logo = new Image();
+    logo.crossOrigin = "anonymous";
     const logoImg = document.querySelector('.logo-img');
     logo.src = logoImg ? logoImg.src : '../logo.png';
     logo.onload = () => {
