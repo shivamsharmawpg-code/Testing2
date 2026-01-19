@@ -22,7 +22,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialize Catalogue Logic
     if (document.getElementById('catalogue-grid')) {
+        setupCatalogueModal();
         populateCatalogue(birdsData);
+        setupCatalogueInteractions();
         setupSearch();
     }
 });
@@ -64,9 +66,102 @@ function populateCatalogue(data) {
     data.forEach(bird => {
         const card = document.createElement('div');
         card.className = 'bird-card';
+        card.tabIndex = 0;
+        card.setAttribute('role', 'button');
+        card.setAttribute('aria-label', `View details for ${bird.Common_Name}`);
+        card.dataset.commonName = bird.Common_Name;
+        card.dataset.scientificName = bird.Scientific_Name;
+        card.dataset.type = bird.Type;
+        card.dataset.season = bird.Season;
+        card.dataset.fact = bird.Fact;
+        card.dataset.image = bird.Image;
         card.innerHTML = `<img src="${bird.Image}" alt="${bird.Common_Name}" loading="lazy"><div class="bird-card-info"><div class="bird-card-title">${bird.Common_Name}</div><div class="bird-card-meta"><span style="color: #1e401f; font-weight:bold;">${bird.Type}</span> • ${bird.Season}</div><p class="bird-card-desc">${bird.Fact}</p></div>`;
         grid.appendChild(card);
     });
+}
+
+function setupCatalogueModal() {
+    if (document.getElementById('bird-modal')) return;
+    const modal = document.createElement('div');
+    modal.className = 'bird-modal';
+    modal.id = 'bird-modal';
+    modal.setAttribute('aria-hidden', 'true');
+    modal.innerHTML = `
+        <div class="bird-modal__backdrop"></div>
+        <div class="bird-modal__content" role="dialog" aria-modal="true" aria-labelledby="bird-modal-title">
+            <button class="bird-modal__close" type="button" aria-label="Close bird details">&times;</button>
+            <div class="bird-modal__media">
+                <img class="bird-modal__image" src="" alt="">
+            </div>
+            <div class="bird-modal__details">
+                <h2 class="bird-modal__title" id="bird-modal-title"></h2>
+                <p class="bird-modal__scientific"></p>
+                <div class="bird-modal__meta">
+                    <span class="bird-modal__type"></span>
+                    <span class="bird-modal__season"></span>
+                </div>
+                <p class="bird-modal__fact"></p>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(modal);
+
+    const closeModal = () => {
+        modal.classList.remove('is-open');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('modal-open');
+    };
+
+    modal.querySelector('.bird-modal__close').addEventListener('click', closeModal);
+    modal.querySelector('.bird-modal__backdrop').addEventListener('click', closeModal);
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && modal.classList.contains('is-open')) {
+            closeModal();
+        }
+    });
+}
+
+function setupCatalogueInteractions() {
+    const grid = document.getElementById('catalogue-grid');
+    if (!grid) return;
+    const handleOpen = (card) => {
+        if (!card) return;
+        openBirdModal({
+            Common_Name: card.dataset.commonName,
+            Scientific_Name: card.dataset.scientificName,
+            Type: card.dataset.type,
+            Season: card.dataset.season,
+            Fact: card.dataset.fact,
+            Image: card.dataset.image
+        });
+    };
+
+    grid.addEventListener('click', (event) => {
+        handleOpen(event.target.closest('.bird-card'));
+    });
+
+    grid.addEventListener('keydown', (event) => {
+        if (event.key !== 'Enter' && event.key !== ' ') return;
+        const card = event.target.closest('.bird-card');
+        if (!card) return;
+        event.preventDefault();
+        handleOpen(card);
+    });
+}
+
+function openBirdModal(bird) {
+    const modal = document.getElementById('bird-modal');
+    if (!modal) return;
+    modal.querySelector('.bird-modal__image').src = bird.Image;
+    modal.querySelector('.bird-modal__image').alt = bird.Common_Name;
+    modal.querySelector('.bird-modal__title').textContent = bird.Common_Name;
+    modal.querySelector('.bird-modal__scientific').textContent = bird.Scientific_Name;
+    modal.querySelector('.bird-modal__type').textContent = bird.Type;
+    modal.querySelector('.bird-modal__season').textContent = bird.Season;
+    modal.querySelector('.bird-modal__fact').textContent = bird.Fact;
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('modal-open');
 }
 
 function setupSearch() {
@@ -74,7 +169,11 @@ function setupSearch() {
     if (searchInput) {
         searchInput.addEventListener('input', (e) => {
             const term = e.target.value.toLowerCase();
-            const filtered = birdsData.filter(bird => bird.Common_Name.toLowerCase().includes(term) || bird.Type.toLowerCase().includes(term));
+            const filtered = birdsData.filter(bird =>
+                bird.Common_Name.toLowerCase().includes(term) ||
+                bird.Type.toLowerCase().includes(term) ||
+                bird.Season.toLowerCase().includes(term)
+            );
             populateCatalogue(filtered);
         });
     }
