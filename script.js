@@ -432,7 +432,7 @@ function renderText(ctx, canvas, name, type, birdName) {
     ctx.fillText(text, canvas.width/2, 950);
 
     // Footer
-    const footY = 1220;
+    const footY = 1120;
     const today = new Date().toLocaleDateString();
     ctx.font = '55px "Great Vibes", cursive'; ctx.fillStyle = '#3a2a20';
     ctx.fillText(today, 450, footY);
