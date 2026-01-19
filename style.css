@@ -787,6 +787,13 @@ footer {
     .bird-modal__details {
         padding: 24px;
     }
+    #catalogue-grid {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 18px;
+    }
+    .bird-card img {
+        height: 200px;
+    }
 }
 
 @media (max-width: 600px) {
@@ -837,5 +844,21 @@ footer {
     }
     .cert-btn {
         width: 100%;
+    }
+    #catalogue-grid {
+        grid-template-columns: 1fr;
+    }
+    .bird-card {
+        border-radius: 12px;
+    }
+    .bird-card-info {
+        padding: 12px 14px 16px;
+    }
+    .bird-card-title {
+        font-size: 1.1rem;
+    }
+    .bird-card-meta,
+    .bird-card-desc {
+        font-size: 0.85rem;
     }
 }
