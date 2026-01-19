@@ -4,25 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Certificates | Beak-a-boo</title>
-    <link rel="stylesheet" href="/style.css">
+    <script>
+        (function () {
+            const path = window.location.pathname;
+            const base = path.includes('/Testing2/') ? '/Testing2/' : '/';
+            document.write(`<base href="${base}">`);
+        })();
+    </script>
+    <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Great+Vibes&family=Playfair+Display:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="/birds.js"></script>
+    <script src="birds.js"></script>
 </head>
 <body>
 
     <header>
         <div class="logo">
-            <img src="/logo.png" alt="Beak-a-boo Logo" class="logo-img">
+            <img src="logo.png" alt="Beak-a-boo Logo" class="logo-img">
             Beak-a-boo
         </div>
         <nav>
             <ul class="nav-links">
-                <li><a href="/index.html">Home</a></li>
-                <li><a href="/trails/index.html">Trails</a></li>
-                <li><a href="/catalogue/index.html">Catalogue</a></li>
-                <li><a href="/certificates/index.html" class="active">Certificates</a></li>
-                <li><a href="/about/index.html">About</a></li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="trails/index.html">Trails</a></li>
+                <li><a href="catalogue/index.html">Catalogue</a></li>
+                <li><a href="certificates/index.html" class="active">Certificates</a></li>
+                <li><a href="about/index.html">About</a></li>
                 <li><a href="https://www.flickr.com/groups/14879687@N25/pool/#" target="_blank">Gallery <i class="fa-brands fa-flickr"></i></a></li>
             </ul>
         </nav>
@@ -95,7 +102,7 @@
         </div>
     </footer>
 
-    <script src="/script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
 
