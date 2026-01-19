@@ -162,15 +162,26 @@ header {
 }
 
 .trails-card {
-    background: linear-gradient(135deg, #2f5d33, #1f4024);
-    border-radius: 18px;
-    padding: 28px;
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 32px;
     display: grid;
-    grid-template-columns: minmax(260px, 1fr) minmax(260px, 1fr);
-    gap: 24px;
-    color: var(--text-light);
+    grid-template-columns: minmax(280px, 1fr) minmax(280px, 1.1fr);
+    gap: 28px;
+    color: #203427;
     align-items: center;
-    box-shadow: 0 18px 40px rgba(31, 64, 36, 0.28);
+    border: 1px solid #e2efe4;
+    box-shadow: 0 20px 45px rgba(32, 52, 39, 0.12);
+    position: relative;
+    overflow: hidden;
+}
+
+.trails-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, rgba(151, 188, 98, 0.18), transparent 55%);
+    pointer-events: none;
 }
 
 .trails-map {
@@ -191,6 +202,7 @@ header {
 }
 
 .trails-map iframe {
+    aspect-ratio: 16 / 10;
     height: 320px;
     border: 0;
 }
@@ -205,12 +217,19 @@ header {
     font-size: 0.75rem;
 }
 
+.trails-details {
+    position: relative;
+    z-index: 1;
+}
+
 .trails-details h2 {
     margin-bottom: 12px;
+    font-size: 2rem;
 }
 
 .trails-details p {
     margin-bottom: 16px;
+    color: #3a4a40;
 }
 
 .trails-details ul {
@@ -223,11 +242,12 @@ header {
     align-items: flex-start;
     gap: 10px;
     margin-bottom: 8px;
+    color: #2b3a31;
 }
 
 .trails-details li::before {
     content: "•";
-    color: #d9f0dc;
+    color: #78a968;
     font-size: 1.2rem;
     line-height: 1;
     margin-top: 2px;
@@ -238,27 +258,30 @@ header {
     align-items: center;
     gap: 8px;
     margin-top: 12px;
-    padding: 8px 14px;
+    margin-right: 10px;
+    padding: 10px 18px;
     border-radius: 999px;
-    background: #ffffff;
+    background: #eaf3ec;
     color: #1e401f;
     font-weight: 600;
     text-decoration: none;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid #d2e3d5;
+    box-shadow: 0 6px 14px rgba(24, 45, 30, 0.12);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 
 .trail-search:hover,
 .trail-search:focus {
     transform: translateY(-1px);
-    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18);
+    box-shadow: 0 10px 18px rgba(24, 45, 30, 0.18);
+    background: #ffffff;
 }
 
 .trails-grid {
     margin-top: 30px;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-    gap: 24px;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 26px;
 }
 
 .trail-mini-card {
@@ -281,7 +304,7 @@ header {
 }
 
 .trail-mini-card .trails-map iframe {
-    height: 200px;
+    height: 190px;
 }
 
 .trail-mini-card h3 {
@@ -317,6 +340,7 @@ header {
     background: var(--primary-green);
     color: #ffffff;
     margin-top: 14px;
+    border-color: transparent;
 }
 
 @media (max-width: 900px) {
