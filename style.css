@@ -512,12 +512,122 @@ header {
 }
 
 /* --- About Page --- */
-.about-grid {
-    /* Adjusted for text-only layout */
+.about-section {
+    position: relative;
+}
+
+.about-hero {
     display: grid;
-    grid-template-columns: 1fr; 
-    gap: 40px;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 28px;
+    align-items: stretch;
+    margin-bottom: 32px;
+}
+
+.about-hero-panel {
+    background: linear-gradient(135deg, rgba(44, 95, 45, 0.12), rgba(151, 188, 98, 0.18));
+    padding: 28px;
+    border-radius: 18px;
+    box-shadow: 0 16px 28px rgba(32, 52, 39, 0.12);
+}
+
+.about-hero-panel h1 {
+    color: var(--primary-green);
+    margin-bottom: 6px;
+    font-size: clamp(2rem, 2.4vw, 2.6rem);
+}
+
+.about-hero-subtitle {
+    color: #39543d;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+.about-hero-copy {
+    font-size: 1.05rem;
+    color: #2f3e32;
+    margin-bottom: 24px;
+}
+
+.about-highlights {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+}
+
+.about-highlight-label {
+    display: block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #5a705e;
+    margin-bottom: 4px;
+}
+
+.about-highlight-value {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #1f3b25;
+}
+
+.about-hero-card {
+    background: #ffffff;
+    padding: 26px;
+    border-radius: 18px;
+    border: 1px solid rgba(47, 93, 51, 0.15);
+    box-shadow: 0 16px 28px rgba(32, 52, 39, 0.12);
+}
+
+.about-hero-card h2 {
+    margin-bottom: 16px;
+    color: var(--primary-green);
+}
+
+.about-kit-list {
+    list-style: none;
+    display: grid;
+    gap: 12px;
+    color: #2f3e32;
+}
+
+.about-kit-list li {
+    display: flex;
     align-items: center;
+    gap: 12px;
+    background: rgba(151, 188, 98, 0.12);
+    border-radius: 12px;
+    padding: 10px 12px;
+    font-weight: 500;
+}
+
+.about-kit-list i {
+    color: var(--primary-green);
+    font-size: 1.1rem;
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    align-items: stretch;
+    margin-bottom: 10px;
+}
+
+.about-card {
+    background: var(--bg-light);
+    border-radius: 16px;
+    padding: 22px;
+    border: 1px solid rgba(47, 93, 51, 0.12);
+    box-shadow: 0 8px 18px rgba(32, 52, 39, 0.1);
+}
+
+.about-card h3 {
+    color: var(--primary-green);
+    margin-bottom: 8px;
+}
+
+.about-card p {
+    color: #2f3e32;
 }
 
 .executive-grid {
@@ -741,6 +851,13 @@ footer {
         margin-right: 10px;
     }
     .about-grid { grid-template-columns: 1fr; }
+    .about-hero {
+        grid-template-columns: 1fr;
+    }
+    .about-hero-panel,
+    .about-hero-card {
+        padding: 22px;
+    }
     .hero {
         padding: 80px 18px;
         min-height: 420px;
