@@ -117,6 +117,21 @@ header {
 
 .hero h1 { font-size: 3rem; margin-bottom: 20px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
 .mission-text { font-size: 1.2rem; margin-bottom: 30px; }
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+}
+.hero-actions .btn-secondary {
+    margin-top: 0;
+    color: var(--text-light);
+    border-color: var(--text-light);
+}
+.hero-actions .btn-secondary:hover {
+    background: var(--text-light);
+    color: var(--primary-green);
+}
 .cta-button {
     background-color: var(--secondary-green);
     color: var(--primary-green);
