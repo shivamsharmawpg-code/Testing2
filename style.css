@@ -179,6 +179,36 @@ header {
     margin-bottom: 8px;
 }
 
+.quickstart-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+}
+
+.quickstart-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border-radius: 999px;
+    background: #f1f7f2;
+    color: #1f3c23;
+    font-weight: 500;
+    border: 1px solid #d7e5da;
+    box-shadow: 0 8px 16px rgba(32, 52, 39, 0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.quickstart-link:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 12px 20px rgba(32, 52, 39, 0.12);
+}
+
+.quickstart-link i {
+    color: var(--secondary-green);
+}
+
 .quickstart-steps {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
