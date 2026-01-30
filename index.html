@@ -12,7 +12,7 @@
         })();
     </script>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="birds.js"></script>
 </head>
@@ -36,24 +36,110 @@
     </header>
 
     <main>
-        <section class="hero">
+        <section class="hero modern-hero">
             <div class="hero-overlay"></div>
-            <div class="hero-content">
-                <h1 class="playfair-font">Beak-a-boo</h1>
-                <p class="mission-text">
-                    Our mission at Beak-a-boo is to ignite curiosity and foster enduring family bonds through the simple joy of discovery. 
-                    We encourage your curiosity to come out and play hide and seek with nature, while celebrating the birds around you.
-                </p>
-                <div class="hero-actions">
-                    <a href="catalogue/index.html" class="cta-button">Start Exploring</a>
-                    <a href="quickstart.html" class="cta-button">Quickstart Guide</a>
+            <div class="hero-content hero-grid">
+                <div class="hero-text">
+                    <span class="hero-eyebrow">Student-led • Winnipeg • 2026</span>
+                    <h1 class="playfair-font">Beak-a-boo</h1>
+                    <p class="mission-text">
+                        A student-led company building joyful bird discovery kits, guided trails, and community moments that reconnect families with the outdoors.
+                        We blend playful learning with conservation impact so every outing sparks curiosity.
+                    </p>
+                    <div class="hero-actions">
+                        <a href="catalogue/index.html" class="cta-button">Explore the Kit</a>
+                        <a href="quickstart.html" class="cta-button btn-secondary">Quickstart Guide</a>
+                    </div>
+                    <div class="hero-metrics">
+                        <div>
+                            <span class="metric-value">40</span>
+                            <span class="metric-label">Manitoba species cards</span>
+                        </div>
+                        <div>
+                            <span class="metric-value">6</span>
+                            <span class="metric-label">Student leads</span>
+                        </div>
+                        <div>
+                            <span class="metric-value">100%</span>
+                            <span class="metric-label">Eco-minded materials</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-panel">
+                    <div class="hero-panel-card">
+                        <h3>Next Pop-Up</h3>
+                        <p>Join us at the Windsor Park community bird walk for a guided discovery experience.</p>
+                        <div class="hero-panel-details">
+                            <span><i class="fa-solid fa-calendar"></i> May 18</span>
+                            <span><i class="fa-solid fa-location-dot"></i> Lagimodiere Park</span>
+                        </div>
+                        <a href="trails/index.html" class="panel-link">See trail schedule →</a>
+                    </div>
+                    <div class="hero-panel-card accent">
+                        <h3>Impact Lab</h3>
+                        <p>Every kit funds student research on local habitats and shares findings with the community.</p>
+                        <a href="about/index.html" class="panel-link">Meet the team →</a>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section id="catalogue" class="content-section">
-            <h2 class="section-title playfair-font">Manitoba Bird Highlights</h2>
-            <p class="section-subtitle">A glimpse of the species included in your Beak-a-boo Bird Watching Kit.</p>
+        <section class="content-section vision-section">
+            <div class="section-header">
+                <p class="section-eyebrow">Why we exist</p>
+                <h2 class="section-title playfair-font">A modern student venture built around discovery</h2>
+                <p class="section-subtitle">We design everything to be playful, accessible, and community-driven.</p>
+            </div>
+            <div class="vision-grid">
+                <div class="vision-card">
+                    <i class="fa-solid fa-seedling"></i>
+                    <h3>Designed for impact</h3>
+                    <p>Our kits are assembled by students and printed on eco-conscious stock to reduce waste.</p>
+                </div>
+                <div class="vision-card">
+                    <i class="fa-solid fa-people-group"></i>
+                    <h3>Community-powered</h3>
+                    <p>We partner with local parks, schools, and families to make birding welcoming for everyone.</p>
+                </div>
+                <div class="vision-card">
+                    <i class="fa-solid fa-compass"></i>
+                    <h3>Guided discovery</h3>
+                    <p>Curated trails, quickstart tips, and seasonal highlights help new explorers feel confident.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section impact-section">
+            <div class="impact-grid">
+                <div class="impact-copy">
+                    <p class="section-eyebrow">2026 student impact</p>
+                    <h2 class="section-title playfair-font">Small team, big reach</h2>
+                    <p class="section-subtitle">We combine entrepreneurship training with local conservation goals.</p>
+                    <a href="certificates/index.html" class="cta-button btn-secondary">View certificates</a>
+                </div>
+                <div class="impact-stats">
+                    <div class="impact-stat">
+                        <span>12+</span>
+                        <p>Community pop-ups hosted this year.</p>
+                    </div>
+                    <div class="impact-stat">
+                        <span>300+</span>
+                        <p>Students and families reached through workshops.</p>
+                    </div>
+                    <div class="impact-stat">
+                        <span>4</span>
+                        <p>Partnerships with schools and parks.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="catalogue" class="content-section catalogue-section">
+            <div class="section-header">
+                <p class="section-eyebrow">Signature kit</p>
+                <h2 class="section-title playfair-font">Manitoba Bird Highlights</h2>
+                <p class="section-subtitle">A glimpse of the species included in your Beak-a-boo Bird Watching Kit.</p>
+            </div>
 
             <div class="slideshow-container">
                 <div id="bird-slideshow-wrapper"></div>
@@ -67,6 +153,42 @@
             <div class="catalogue-cta">
                 <p>Want to see all 40 species?</p>
                 <a href="catalogue/index.html" class="btn-secondary">View Full Catalogue</a>
+            </div>
+        </section>
+
+        <section class="content-section student-section">
+            <div class="section-header">
+                <p class="section-eyebrow">The student team</p>
+                <h2 class="section-title playfair-font">Built by young leaders</h2>
+                <p class="section-subtitle">Windsor Park Collegiate students leading design, outreach, and research.</p>
+            </div>
+            <div class="student-grid">
+                <div class="student-card">
+                    <h3>Product + Design</h3>
+                    <p>Crafting the kit experience, from card layouts to trail storytelling.</p>
+                </div>
+                <div class="student-card">
+                    <h3>Community Outreach</h3>
+                    <p>Hosting pop-ups, school visits, and neighborhood bird walks.</p>
+                </div>
+                <div class="student-card">
+                    <h3>Research + Impact</h3>
+                    <p>Tracking local habitats and sharing findings through JA showcases.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section callout-section">
+            <div class="callout-card">
+                <div>
+                    <p class="section-eyebrow">Ready to explore?</p>
+                    <h2 class="section-title playfair-font">Bring Beak-a-boo to your next outing</h2>
+                    <p class="section-subtitle">Grab the quickstart guide or book a student-led trail for your group.</p>
+                </div>
+                <div class="callout-actions">
+                    <a href="quickstart.html" class="cta-button">Get Started</a>
+                    <a href="trails/index.html" class="cta-button btn-secondary">Book a Trail</a>
+                </div>
             </div>
         </section>
     </main>
