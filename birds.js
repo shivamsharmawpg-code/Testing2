@@ -85,7 +85,7 @@ const birdsData = [
     Fact: "Can mimic the sounds of other birds and alarms.",
     Call: "Call: varied whistles, clicks, and warbles with mimicry mixed in.",
     Whistle: "Whistle tip: string together varied, sliding notes—mix bright whistles with quick trills to sound mimicking.",
-    Image: "https://www.allaboutbirds.org/guide/assets/photo/303928891-480px.jpg"
+    Image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Toulouse_-_Sturnus_vulgaris_-_2012-02-26_-_3.jpg/500px-Toulouse_-_Sturnus_vulgaris_-_2012-02-26_-_3.jpg"
   },
   {
     id: 9,
@@ -129,7 +129,7 @@ const birdsData = [
     Fact: "Their wings make a whistling sound when taking off.",
     Call: "Call: soft, plaintive coo 'coo-OO-oo' in a three-part rhythm.",
     Whistle: "Whistle tip: play three gentle notes—middle note higher—then let the last fade softly.",
-    Image: "https://www.allaboutbirds.org/guide/assets/og/528129461-1200px.jpg"
+    Image: "https://www.generalpest-ohio.com/wp-content/uploads/mourning-dove.webp"
   },
   {
     id: 13,
@@ -206,7 +206,7 @@ const birdsData = [
     Fact: "The only hummingbird that breeds in eastern North America.",
     Call: "Call: tiny, high-pitched 'chip' or 'squeak' notes.",
     Whistle: "Whistle tip: use very short, high notes—light and quick, like tiny peeps.",
-    Image: "https://www.allaboutbirds.org/guide/assets/og/635892363-1200px.jpg"
+    Image: "https://media.audubon.org/2025-05/Aud_APA-2019_Ruby-throated-Hummingbird_P1_8054-5_Photo-Steven-Biegler-sq-2.jpg?width=808&auto=webp&quality=90&fit=bounds&disable=upscale"
   },
   {
     id: 20,
@@ -261,7 +261,7 @@ const birdsData = [
     Fact: "Has golden 'ears' (feathers) behind its eyes.",
     Call: "Call: thin, squeaky whistles and short 'whit' notes.",
     Whistle: "Whistle tip: use quick, thin whistles in pairs to mimic the clipped calls.",
-    Image: "https://www.allaboutbirds.org/guide/assets/photo/305504571-480px.jpg"
+    Image: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Black-necked_Grebe_Schwarzhalstaucher.jpg/1280px-Black-necked_Grebe_Schwarzhalstaucher.jpg"
   },
   {
     id: 25,
@@ -437,6 +437,6 @@ const birdsData = [
     Fact: "Nests only in young jack pine forests.",
     Call: "Call: loud, rhythmic 'chip-chip-chee' song with a rising feel.",
     Whistle: "Whistle tip: play two short notes followed by a slightly higher, longer note.",
-    Image: "https://www.allaboutbirds.org/guide/assets/photo/297030851-480px.jpg"
+    Image: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Dendroica_kirtlandii_-Michigan%2C_USA_-male-8_%285%29.jpg/500px-Dendroica_kirtlandii_-Michigan%2C_USA_-male-8_%285%29.jpg"
   }
 ];
