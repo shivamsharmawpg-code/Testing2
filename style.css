@@ -3,12 +3,11 @@
     --primary-green: #2c5f2d;
     --secondary-green: #97bc62;
     --accent-brown: #9F7D4F;
-    --accent-slate: #1c2a24;
     --bg-light: #f4f7f6;
     --bg-white: #ffffff;
     --text-dark: #333333;
     --text-light: #ffffff;
-    --font-main: 'Manrope', sans-serif;
+    --font-main: 'Roboto', sans-serif;
     --font-serif: 'Playfair Display', serif;
     --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -87,15 +86,15 @@ header {
 /* --- Hero Section --- */
 .hero {
     position: relative;
-    background: linear-gradient(135deg, rgba(16, 32, 25, 0.85), rgba(44, 95, 45, 0.55)),
-        url('https://www.nps.gov/articles/000/images/GGO_spread-wings_Mel-Clements.jpg');
+    /* Updated with Great Grey Owl Image */
+    background: url('https://www.nps.gov/articles/000/images/GGO_spread-wings_Mel-Clements.jpg');
     background-size: cover;
     background-position: center 20%;
     color: white;
     text-align: center;
-    padding: 120px 5%;
+    padding: 100px 20px;
     margin-bottom: 40px;
-    min-height: 520px;
+    min-height: 500px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -104,51 +103,28 @@ header {
 /* Dark overlay to make text readable */
 .hero-overlay {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.08), transparent 55%);
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.4); /* Darker tint for better contrast */
     z-index: 1;
 }
 
 .hero-content {
     position: relative;
     z-index: 2;
-    max-width: 1200px;
+    max-width: 800px;
     margin: 0 auto;
-    padding: 0;
+    background: rgba(44, 95, 45, 0.8); /* Semi-transparent green box behind text */
+    padding: 30px;
+    border-radius: 10px;
 }
 
-.hero-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 32px;
-    align-items: center;
-    text-align: left;
-}
-
-.hero-text {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.hero-eyebrow {
-    text-transform: uppercase;
-    letter-spacing: 0.25em;
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: rgba(255, 255, 255, 0.75);
-}
-
-.hero h1 { font-size: 3.5rem; margin-bottom: 0; text-shadow: 2px 8px 24px rgba(0,0,0,0.45); }
-.mission-text { font-size: 1.15rem; margin-bottom: 10px; color: rgba(255, 255, 255, 0.92); }
+.hero h1 { font-size: 3rem; margin-bottom: 20px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+.mission-text { font-size: 1.2rem; margin-bottom: 30px; }
 .hero-actions {
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
-    justify-content: flex-start;
+    justify-content: center;
 }
 .hero-actions .btn-secondary {
     margin-top: 0;
@@ -173,72 +149,6 @@ header {
 }
 .cta-button:hover { background-color: var(--text-light); }
 
-.hero-metrics {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 18px;
-}
-
-.hero-metrics div {
-    background: rgba(255, 255, 255, 0.12);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 14px 18px;
-    border-radius: 14px;
-    backdrop-filter: blur(6px);
-}
-
-.metric-value {
-    display: block;
-    font-size: 1.4rem;
-    font-weight: 700;
-}
-
-.metric-label {
-    display: block;
-    font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.75);
-}
-
-.hero-panel {
-    display: grid;
-    gap: 16px;
-}
-
-.hero-panel-card {
-    background: rgba(255, 255, 255, 0.92);
-    color: var(--accent-slate);
-    border-radius: 18px;
-    padding: 22px;
-    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
-}
-
-.hero-panel-card.accent {
-    background: linear-gradient(135deg, rgba(151, 188, 98, 0.85), rgba(255, 255, 255, 0.95));
-}
-
-.hero-panel-card h3 {
-    margin-bottom: 10px;
-    color: var(--primary-green);
-}
-
-.hero-panel-details {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    font-weight: 600;
-    margin: 12px 0;
-}
-
-.panel-link {
-    color: var(--primary-green);
-    font-weight: 600;
-    text-decoration: none;
-}
-
-.panel-link:hover {
-    text-decoration: underline;
-}
-
 /* --- Content Sections --- */
 .content-section {
     max-width: 1200px;
@@ -255,133 +165,6 @@ header {
     margin-bottom: 10px;
 }
 .section-subtitle { text-align: center; margin-bottom: 30px; color: #666; }
-
-.section-header {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.section-eyebrow {
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: #5d7a61;
-    margin-bottom: 10px;
-}
-
-.vision-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px;
-}
-
-.vision-card {
-    background: linear-gradient(160deg, rgba(151, 188, 98, 0.18), rgba(255, 255, 255, 0.9));
-    border-radius: 18px;
-    padding: 24px;
-    box-shadow: 0 12px 24px rgba(32, 52, 39, 0.08);
-    border: 1px solid rgba(44, 95, 45, 0.12);
-}
-
-.vision-card i {
-    font-size: 1.6rem;
-    color: var(--primary-green);
-    margin-bottom: 12px;
-}
-
-.impact-section {
-    background: linear-gradient(135deg, rgba(44, 95, 45, 0.08), rgba(151, 188, 98, 0.2));
-}
-
-.impact-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 32px;
-    align-items: center;
-}
-
-.impact-copy {
-    text-align: left;
-}
-
-.impact-copy .section-title,
-.impact-copy .section-subtitle {
-    text-align: left;
-}
-
-.impact-stats {
-    display: grid;
-    gap: 18px;
-}
-
-.impact-stat {
-    background: white;
-    border-radius: 16px;
-    padding: 20px;
-    border: 1px solid rgba(44, 95, 45, 0.12);
-    box-shadow: 0 10px 24px rgba(32, 52, 39, 0.1);
-}
-
-.impact-stat span {
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: var(--primary-green);
-}
-
-.catalogue-section {
-    background: #ffffff;
-}
-
-.student-section {
-    background: #ffffff;
-}
-
-.student-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px;
-}
-
-.student-card {
-    background: rgba(44, 95, 45, 0.06);
-    border-radius: 16px;
-    padding: 20px;
-    border: 1px solid rgba(44, 95, 45, 0.12);
-}
-
-.callout-section {
-    background: transparent;
-}
-
-.callout-card {
-    background: linear-gradient(135deg, rgba(44, 95, 45, 0.95), rgba(28, 42, 36, 0.95));
-    color: white;
-    border-radius: 22px;
-    padding: 32px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 24px;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.callout-card .section-title,
-.callout-card .section-subtitle,
-.callout-card .section-eyebrow {
-    text-align: left;
-    color: white;
-}
-
-.callout-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-}
-
-.callout-card .cta-button {
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
-}
 
 /* --- Quickstart --- */
 .quickstart-section {
