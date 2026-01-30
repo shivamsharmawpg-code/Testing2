@@ -84,7 +84,7 @@ header {
 .hero {
     position: relative;
     /* Updated with Great Grey Owl Image */
-    background: url('https://www.allaboutbirds.org/guide/assets/og/75362591-1200px.jpg');
+    background: url('https://www.nps.gov/articles/000/images/GGO_spread-wings_Mel-Clements.jpg');
     background-size: cover;
     background-position: center 20%;
     color: white;
@@ -1076,6 +1076,7 @@ footer {
 .contact-links a:hover { color: var(--secondary-green); }
 
 /* --- Responsive --- */
+
 @media (max-width: 768px) {
     header {
         padding: 0.75rem 6%;
