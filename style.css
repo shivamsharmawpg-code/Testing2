@@ -118,6 +118,27 @@ header {
     border-radius: 10px;
 }
 
+.animate-on-load,
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.animate-on-load.is-visible,
+.animate-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .animate-on-load,
+    .animate-on-scroll {
+        transition: none;
+        transform: none;
+    }
+}
+
 .hero h1 { font-size: 3rem; margin-bottom: 20px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
 .mission-text { font-size: 1.2rem; margin-bottom: 30px; }
 .hero-actions {
@@ -165,6 +186,52 @@ header {
     margin-bottom: 10px;
 }
 .section-subtitle { text-align: center; margin-bottom: 30px; color: #666; }
+
+/* --- Trade Fair Section --- */
+.trade-fair-section {
+    background: linear-gradient(135deg, rgba(151, 188, 98, 0.12), rgba(44, 95, 45, 0.08));
+}
+
+.trade-fair-grid {
+    display: grid;
+    gap: 24px;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.trade-fair-card {
+    background: var(--bg-white);
+    border-radius: 16px;
+    padding: 24px;
+    border: 1px solid rgba(44, 95, 45, 0.15);
+    box-shadow: 0 12px 24px rgba(44, 95, 45, 0.12);
+}
+
+.trade-fair-card h3 {
+    color: var(--primary-green);
+    margin-bottom: 8px;
+    font-size: 1.4rem;
+}
+
+.trade-fair-location {
+    font-weight: 700;
+    color: #1e401f;
+}
+
+.trade-fair-date {
+    color: #4f5c4f;
+    margin-bottom: 12px;
+}
+
+.trade-fair-card ul {
+    padding-left: 18px;
+    color: #2f3c2f;
+    display: grid;
+    gap: 8px;
+}
+
+.trade-fair-card strong {
+    color: #1e401f;
+}
 
 /* --- Quickstart --- */
 .quickstart-section {
@@ -612,6 +679,23 @@ header {
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
+.slide-card {
+    width: 100%;
+    border: none;
+    background: transparent;
+    padding: 0;
+    text-align: left;
+    cursor: pointer;
+    color: inherit;
+    display: block;
+}
+
+.slide-card:focus-visible {
+    outline: 3px solid var(--secondary-green);
+    outline-offset: 4px;
+    border-radius: 12px;
+}
+
 .bird-slide {
     display: none; /* Hidden by default */
     text-align: center;
@@ -631,6 +715,15 @@ header {
     color: white;
     padding: 20px;
     text-align: left;
+}
+
+.slide-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+    color: var(--secondary-green);
+    margin-top: 8px;
 }
 
 .prev, .next {

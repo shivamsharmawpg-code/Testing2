@@ -10,7 +10,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialize Home Page Slideshow
     if (document.getElementById('bird-slideshow-wrapper')) {
+        setupCatalogueModal();
         populateSlideshow();
+        setupSlideshowInteractions();
         showSlides(slideIndex);
         setInterval(() => plusSlides(1), 5000);
     }
@@ -27,6 +29,8 @@ document.addEventListener('DOMContentLoaded', () => {
         setupCatalogueInteractions();
         setupSearch();
     }
+
+    setupHomepageAnimations();
 });
 
 // --- General Utility ---
@@ -47,17 +51,81 @@ function showSlides(n) {
 function populateSlideshow() {
     const wrapper = document.getElementById('bird-slideshow-wrapper');
     const dotsContainer = document.getElementById('slideshow-dots');
-    const featuredBirds = birdsData.slice(0, 5); 
+    const featuredBirds = birdsData.slice(0, 10); 
     featuredBirds.forEach((bird, index) => {
         const slide = document.createElement('div');
         slide.className = 'bird-slide fade';
-        slide.innerHTML = `<img src="${bird.Image}" alt="${bird.Common_Name}"><div class="slide-content"><h3 class="playfair-font">${bird.Common_Name}</h3><p><strong>${bird.Type}</strong> | ${bird.Fact}</p></div>`;
+        slide.innerHTML = `
+            <button class="slide-card" type="button">
+                <img src="${bird.Image}" alt="${bird.Common_Name}">
+                <div class="slide-content">
+                    <h3 class="playfair-font">${bird.Common_Name}</h3>
+                    <p><strong>${bird.Type}</strong> | ${bird.Fact}</p>
+                    <span class="slide-cta">Learn more</span>
+                </div>
+            </button>
+        `;
+        const button = slide.querySelector('.slide-card');
+        button.dataset.commonName = bird.Common_Name;
+        button.dataset.scientificName = bird.Scientific_Name;
+        button.dataset.type = bird.Type;
+        button.dataset.season = bird.Season;
+        button.dataset.fact = bird.Fact;
+        button.dataset.call = bird.Call;
+        button.dataset.whistle = bird.Whistle;
+        button.dataset.image = bird.Image;
         wrapper.appendChild(slide);
         const dot = document.createElement('span');
         dot.className = 'dot';
         dot.onclick = () => currentSlide(index + 1);
         dotsContainer.appendChild(dot);
     });
+}
+
+function setupSlideshowInteractions() {
+    const wrapper = document.getElementById('bird-slideshow-wrapper');
+    if (!wrapper) return;
+    wrapper.addEventListener('click', (event) => {
+        const button = event.target.closest('.slide-card');
+        if (!button) return;
+        openBirdModal({
+            Common_Name: button.dataset.commonName,
+            Scientific_Name: button.dataset.scientificName,
+            Type: button.dataset.type,
+            Season: button.dataset.season,
+            Fact: button.dataset.fact,
+            Call: button.dataset.call,
+            Whistle: button.dataset.whistle,
+            Image: button.dataset.image
+        });
+    });
+}
+
+function setupHomepageAnimations() {
+    const animatedItems = document.querySelectorAll('.animate-on-scroll, .animate-on-load');
+    if (!animatedItems.length) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        animatedItems.forEach((item) => item.classList.add('is-visible'));
+        return;
+    }
+
+    document.querySelectorAll('.animate-on-load').forEach((item) => {
+        requestAnimationFrame(() => item.classList.add('is-visible'));
+    });
+
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        },
+        { threshold: 0.2 }
+    );
+
+    document.querySelectorAll('.animate-on-scroll').forEach((item) => observer.observe(item));
 }
 
 function populateCatalogue(data) {
