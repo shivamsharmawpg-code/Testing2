@@ -89,14 +89,14 @@ header {
     /* Updated with Great Grey Owl Image */
     background: url('https://www.nps.gov/articles/000/images/GGO_spread-wings_Mel-Clements.jpg');
     background-size: cover;
-    background-position: center 20%;
+    background-position: center 30%;
     color: white;
     text-align: center;
-    padding: 100px 20px;
+    padding: 80px 20px 160px;
     margin-bottom: 40px;
     min-height: 500px;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
 }
 
