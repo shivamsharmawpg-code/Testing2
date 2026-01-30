@@ -51,14 +51,17 @@ header {
     font-family: var(--font-serif);
     display: flex;
     align-items: center;
+    line-height: 1;
     /* FIX: Increase letter spacing for the logo text to prevent visual overlap of 'oo' */
     letter-spacing: 0.05em;
 }
 
 .logo-img {
-    height: 60px; /* Adjust based on your logo preference */
+    height: 52px; /* Adjust based on your logo preference */
     width: auto;
-    margin-right: 15px;
+    margin-right: 12px;
+    margin-top: -2px;
+    display: block;
 }
 
 .nav-links {
