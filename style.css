@@ -243,6 +243,32 @@ header {
     color: #1e401f;
 }
 
+.trade-fair-card.sold-out-card {
+    position: relative;
+    border: 2px solid #c62828;
+    background: linear-gradient(180deg, rgba(198, 40, 40, 0.06), rgba(198, 40, 40, 0.02));
+}
+
+.sold-out-badge {
+    margin: 0 0 4px;
+    justify-self: start;
+    background: #c62828;
+    color: #fff;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    padding: 6px 12px;
+    border-radius: 999px;
+}
+
+.sold-out-card h3,
+.sold-out-card .trade-fair-location,
+.sold-out-card .trade-fair-date,
+.sold-out-card ul li {
+    text-decoration: line-through;
+    text-decoration-thickness: 2px;
+    text-decoration-color: #c62828;
+}
+
 /* --- Quickstart --- */
 .quickstart-section {
     display: flex;
