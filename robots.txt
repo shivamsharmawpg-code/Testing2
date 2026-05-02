@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://beakaboo.ca/sitemap.xml
