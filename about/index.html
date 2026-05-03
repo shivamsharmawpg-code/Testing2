@@ -151,9 +151,11 @@
             </div>
         
             <h2 class="playfair-font" style="margin-top: 40px;">Send Us a Message</h2>
-            <form class="contact-form" action="mailto:beakaboo.ja@gmail.com" method="POST">
+            <form class="contact-form" action="https://formsubmit.co/beakaboo.ja@gmail.com" method="POST">
                 <input type="text" name="name" placeholder="Your Name" required>
                 <input type="email" name="_replyto" placeholder="Your Email" required>
+                <input type="hidden" name="_subject" value="New Beak-a-boo contact form submission">
+                <input type="hidden" name="_captcha" value="false">
                 <textarea name="message" rows="5" placeholder="How can we help you?" required></textarea>
                 <button type="submit">Send Message</button>
             </form>
@@ -190,7 +192,7 @@ if ('serviceWorker' in navigator) {
 </script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 <script>
-document.addEventListener("DOMContentLoaded",()=>{const f=document.querySelector(".contact-form");if(!f)return;f.addEventListener("submit",()=>{setTimeout(()=>alert("Thanks! Your message draft will open in your email app."),100);});});
+document.addEventListener("DOMContentLoaded",()=>{const f=document.querySelector(".contact-form");if(!f)return;f.addEventListener("submit",()=>{setTimeout(()=>alert("Thanks! Your message has been sent securely."),100);});});
 </script>
 </body>
 </html>
