@@ -1443,7 +1443,7 @@ footer {
     --bg-light: #121212;
     --bg-white: #1e1e1e;
     --text-dark: #e0e0e0;
-    --text-light: #121212;
+    --text-light: #f5f7f6;
     --shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
 }
 
@@ -1623,6 +1623,13 @@ footer {
     overflow-y: auto;
 }
 .global-search-overlay.active { display: block; }
+
+#global-search-input {
+    display: block;
+    margin: 10px auto 0;
+    min-width: min(320px, 100%);
+    text-align: center;
+}
 .global-search-result {
     padding: 10px;
     border-bottom: 1px solid #eee;

@@ -754,6 +754,7 @@ const translations = {
         'Certificates': 'Certificates',
         'About': 'About',
         'Quickstart': 'Quickstart',
+        'Gallery': 'Gallery',
         'Search by name, season, or type...': 'Search by name, season, or type...'
     },
     'fr': {
@@ -763,6 +764,7 @@ const translations = {
         'Certificates': 'Certificats',
         'About': 'À propos',
         'Quickstart': 'Démarrage',
+        'Gallery': 'Galerie',
         'Search by name, season, or type...': 'Recherche par nom, saison ou type...'
     }
 };
@@ -779,10 +781,32 @@ function applyLanguage(lang) {
 
     // Translate only known UI strings so existing event listeners stay intact.
     document.querySelectorAll('.nav-links a').forEach((link) => {
-        const baseKey = link.dataset.i18nKey || link.textContent.trim();
+        const href = (link.getAttribute('href') || '').toLowerCase();
+        const hrefKeyMap = {
+            '/': 'Home',
+            './': 'Home',
+            '../': 'Home',
+            './trails/': 'Trails',
+            '../trails/': 'Trails',
+            './catalogue/': 'Catalogue',
+            '../catalogue/': 'Catalogue',
+            './certificates/': 'Certificates',
+            '../certificates/': 'Certificates',
+            './about/': 'About',
+            '../about/': 'About',
+            './quickstart/': 'Quickstart',
+            '../quickstart/': 'Quickstart'
+        };
+        const mappedKey = href.includes('flickr.com') ? 'Gallery' : hrefKeyMap[href];
+        const baseKey = link.dataset.i18nKey || mappedKey || link.textContent.trim().replace(/\s+/g, ' ');
         link.dataset.i18nKey = baseKey;
-        if (dict[baseKey]) {
-            link.textContent = dict[baseKey];
+
+        const translatedText = dict[baseKey] || translations.en[baseKey] || baseKey;
+        if (link.querySelector('i')) {
+            const iconHtml = link.querySelector('i').outerHTML;
+            link.innerHTML = `${translatedText} ${iconHtml}`.trim();
+        } else {
+            link.textContent = translatedText;
         }
     });
 
@@ -806,7 +830,7 @@ function setupGlobalSearch() {
     searchInput.type = 'text';
     searchInput.placeholder = 'Global Search...';
     searchInput.id = 'global-search-input';
-    searchInput.style.cssText = 'padding: 5px 10px; border-radius: 20px; border: 1px solid #ccc; margin-left: 15px;';
+    searchInput.style.cssText = 'padding: 5px 10px; border-radius: 20px; border: 1px solid #ccc; margin: 10px auto 0; display: block;';
     
     const overlay = document.createElement('div');
     overlay.className = 'global-search-overlay';
