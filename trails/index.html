@@ -451,8 +451,11 @@ if ('serviceWorker' in navigator) {
             });
 
             trailLocations.forEach(loc => {
-                L.marker([loc.lat, loc.lng], {icon: customIcon}).addTo(map)
-                    .bindPopup(`<b>${loc.name}</b><br>Great for birdwatching.`);
+                const marker = L.marker([loc.lat, loc.lng], {icon: customIcon}).addTo(map)
+                    .bindPopup(`<b>${loc.name}</b><br>Great for birdwatching.`)
+                    .bindTooltip(loc.name, { direction: "top", offset: [0, -18], opacity: 0.95 });
+                marker.on("mouseover", () => marker.openTooltip());
+                marker.on("mouseout", () => marker.closeTooltip());
             });
             
             // GSAP Animations

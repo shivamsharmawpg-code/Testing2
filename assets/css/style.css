@@ -1629,3 +1629,36 @@ footer {
     cursor: pointer;
 }
 .global-search-result:hover { background: #f9f9f9; }
+
+
+/* UI polish fixes */
+.contact-links a {
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 10px 12px;
+    border-radius: 10px;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+.contact-links a:hover { transform: translateY(-2px); background: rgba(255,255,255,0.2); }
+
+#catalogue-grid {
+    gap: 22px;
+}
+.bird-card {
+    overflow: hidden;
+    border: 1px solid rgba(44,95,45,0.14);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.bird-card:hover { transform: translateY(-4px); }
+
+.spotted-badge {
+    display: flex;
+    opacity: 0;
+    transform: scale(0.85);
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.bird-card.spotted .spotted-badge {
+    opacity: 1;
+    transform: scale(1);
+}
