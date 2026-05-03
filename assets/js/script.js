@@ -327,54 +327,64 @@ function openBirdModal(bird) {
         modalBtn.classList.remove('is-spotted');
     }
     
-    // Real Bird Call Audio Logic
+    // NEW METHOD: Live Wikimedia Commons Audio Fetcher
     const audioBtn = modal.querySelector('.audio-btn');
     const icon = audioBtn.querySelector('i');
     
     icon.className = 'fa-solid fa-play';
 
-    // Global audio object to prevent overlapping sounds
     if (window.currentBirdAudio) {
         window.currentBirdAudio.pause();
         window.currentBirdAudio = null;
     }
 
-    audioBtn.onclick = () => {
+    audioBtn.onclick = async () => {
         if (window.currentBirdAudio && !window.currentBirdAudio.paused) {
             window.currentBirdAudio.pause();
             icon.className = 'fa-solid fa-play';
-        } else {
-            // Find site root by looking for assets/js/script.js
-            let siteRoot = './';
-            const scriptTag = document.querySelector('script[src*="script.js"]');
-            if (scriptTag) {
-                const src = scriptTag.getAttribute('src');
-                if (src.includes('../')) siteRoot = '../';
-                else if (src.startsWith('http')) {
-                    siteRoot = src.substring(0, src.indexOf('assets/js/'));
-                }
+            return;
+        }
+
+        icon.className = 'fa-solid fa-spinner fa-spin';
+
+        try {
+            // Search Wikimedia Commons for an audio file (CORS-friendly)
+            const query = encodeURIComponent(bird.Scientific_Name + " bird call");
+            const searchUrl = `https://commons.wikimedia.org/w/api.php?action=query&list=search&srsearch=${query}&srnamespace=6&format=json&origin=*`;
+            
+            const searchRes = await fetch(searchUrl);
+            const searchData = await searchRes.json();
+            
+            if (searchData.query.search.length > 0) {
+                const fileName = searchData.query.search[0].title;
+                const infoUrl = `https://commons.wikimedia.org/w/api.php?action=query&titles=${encodeURIComponent(fileName)}&prop=imageinfo&iiprop=url&format=json&origin=*`;
+                
+                const infoRes = await fetch(infoUrl);
+                const infoData = await infoRes.json();
+                const pages = infoData.query.pages;
+                const pageId = Object.keys(pages)[0];
+                const audioUrl = pages[pageId].imageinfo[0].url;
+
+                console.log("Fetching live audio from Commons:", audioUrl);
+                window.currentBirdAudio = new Audio(audioUrl);
+                
+                window.currentBirdAudio.play().then(() => {
+                    icon.className = 'fa-solid fa-pause';
+                }).catch(e => {
+                    console.error("Playback failed:", e);
+                    icon.className = 'fa-solid fa-play';
+                });
+
+                window.currentBirdAudio.onended = () => {
+                    icon.className = 'fa-solid fa-play';
+                };
+            } else {
+                alert("No real-world audio found for this species in the public archives.");
+                icon.className = 'fa-solid fa-play';
             }
-
-            // Target local file with correct extension (from birds.js)
-            const ext = bird.audioExt || 'mp3';
-            const audioPath = `${siteRoot}assets/audio/${bird.id}.${ext}`;
-            
-            console.log("Playing bird call:", audioPath);
-            window.currentBirdAudio = new Audio(audioPath);
-            
-            icon.className = 'fa-solid fa-spinner fa-spin'; // Show loading
-            
-            window.currentBirdAudio.play().then(() => {
-                icon.className = 'fa-solid fa-pause';
-            }).catch(err => {
-                console.error("Audio error:", err);
-                alert("Bird call not found. Please run 'python tools/download_bird_calls.py'.");
-                icon.className = 'fa-solid fa-play';
-            });
-
-            window.currentBirdAudio.onended = () => {
-                icon.className = 'fa-solid fa-play';
-            };
+        } catch (err) {
+            console.error("Wikimedia API error:", err);
+            icon.className = 'fa-solid fa-play';
         }
     };
 
