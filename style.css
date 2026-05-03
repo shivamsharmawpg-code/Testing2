@@ -113,9 +113,12 @@ header {
     z-index: 2;
     max-width: 800px;
     margin: 0 auto;
-    background: rgba(44, 95, 45, 0.8); /* Semi-transparent green box behind text */
+    background: linear-gradient(180deg, rgba(255, 153, 51, 0.88) 0%, rgba(255, 255, 255, 0.9) 50%, rgba(19, 136, 8, 0.88) 100%);
+    color: #0f2a15;
     padding: 30px;
     border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    box-shadow: 0 18px 34px rgba(0, 0, 0, 0.28);
 }
 
 .animate-on-load,
@@ -139,7 +142,7 @@ header {
     }
 }
 
-.hero h1 { font-size: 3rem; margin-bottom: 20px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+.hero h1 { font-size: 3rem; margin-bottom: 20px; text-shadow: 0 2px 8px rgba(255, 255, 255, 0.55); }
 .mission-text { font-size: 1.2rem; margin-bottom: 30px; }
 .hero-actions {
     display: flex;
