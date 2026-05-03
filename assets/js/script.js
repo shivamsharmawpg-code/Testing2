@@ -319,12 +319,63 @@ function openBirdModal(bird) {
         modalBtn.classList.remove('is-spotted');
     }
     
-    // Play placeholder audio logic
+    // Live Xeno-canto API audio logic
     const audioBtn = modal.querySelector('.audio-btn');
-    audioBtn.onclick = () => {
-        const icon = audioBtn.querySelector('i');
-        icon.className = 'fa-solid fa-pause';
-        setTimeout(() => icon.className = 'fa-solid fa-play', 2000); // Simulate 2s audio
+    const icon = audioBtn.querySelector('i');
+    
+    // Reset icon and stop previous audio if modal changes
+    icon.className = 'fa-solid fa-play';
+    if (window.currentBirdAudio) {
+        window.currentBirdAudio.pause();
+        window.currentBirdAudio = null;
+    }
+
+    audioBtn.onclick = async () => {
+        // If already playing, pause it
+        if (window.currentBirdAudio && !window.currentBirdAudio.paused) {
+            window.currentBirdAudio.pause();
+            icon.className = 'fa-solid fa-play';
+            return;
+        }
+        
+        // If we already loaded the audio, just play it
+        if (window.currentBirdAudio) {
+            window.currentBirdAudio.play();
+            icon.className = 'fa-solid fa-pause';
+            return;
+        }
+
+        // Fetch new audio
+        icon.className = 'fa-solid fa-spinner fa-spin'; // Loading spinner
+        try {
+            // Use scientific name for accurate query
+            const query = encodeURIComponent(bird.Scientific_Name);
+            const response = await fetch(`https://xeno-canto.org/api/2/recordings?query=${query}`);
+            const data = await response.json();
+            
+            if (data && data.recordings && data.recordings.length > 0) {
+                // Get the first recording
+                let bestRec = data.recordings.find(r => r.q === 'A') || data.recordings[0];
+                let audioUrl = bestRec.file;
+                if (audioUrl.startsWith('//')) audioUrl = 'https:' + audioUrl;
+                
+                window.currentBirdAudio = new Audio(audioUrl);
+                
+                window.currentBirdAudio.onended = () => {
+                    icon.className = 'fa-solid fa-play';
+                };
+                
+                window.currentBirdAudio.play();
+                icon.className = 'fa-solid fa-pause';
+            } else {
+                alert("No audio found for this species on Xeno-canto.");
+                icon.className = 'fa-solid fa-play';
+            }
+        } catch (err) {
+            console.error("Xeno-canto API Error:", err);
+            alert("Error fetching bird call. Check your internet connection.");
+            icon.className = 'fa-solid fa-play';
+        }
     };
 
     modal.setAttribute('aria-hidden', 'false');
