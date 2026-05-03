@@ -4,6 +4,7 @@
 
 const SWEAR_BLACKLIST = ["badword", "swear", "inappropriate"];
 let slideIndex = 1;
+let aiModelPromise = null;
 
 document.addEventListener('DOMContentLoaded', () => {
     if (typeof birdsData === 'undefined') return;
@@ -774,19 +775,29 @@ function toggleLanguage() {
 }
 
 function applyLanguage(lang) {
-    document.querySelectorAll('.nav-links a').forEach(link => {
-        let key = link.textContent.trim();
-        // reverse lookup if needed, but simple for now
-        if (lang === 'fr' && translations['en'][key]) { /* fallback logic */ }
+    const dict = translations[lang] || translations.en;
+
+    // Translate only known UI strings so existing event listeners stay intact.
+    document.querySelectorAll('.nav-links a').forEach((link) => {
+        const baseKey = link.dataset.i18nKey || link.textContent.trim();
+        link.dataset.i18nKey = baseKey;
+        if (dict[baseKey]) {
+            link.textContent = dict[baseKey];
+        }
     });
-    
-    // Quick brute force for demo
-    const html = document.body.innerHTML;
-    if (lang === 'fr') {
-        document.body.innerHTML = html.replace(/Home/g, 'Accueil').replace(/Trails/g, 'Sentiers').replace(/About/g, 'À propos');
-    } else {
-        location.reload(); // Quick reset for EN
+
+    const langToggle = document.querySelector('.lang-toggle');
+    if (langToggle) {
+        langToggle.textContent = lang === 'fr' ? 'FR/EN' : 'EN/FR';
+        langToggle.setAttribute('aria-label', lang === 'fr' ? 'Passer en anglais' : 'Switch to French');
     }
+
+    const searchInput = document.getElementById('global-search-input');
+    if (searchInput) {
+        searchInput.placeholder = lang === 'fr' ? 'Recherche globale...' : 'Global Search...';
+    }
+
+    document.documentElement.lang = lang;
 }
 
 // 2. Global Search Logic
@@ -846,75 +857,81 @@ async function setupAIIdentifier() {
     const aiInput = document.getElementById('ai-image-upload');
     const aiResult = document.getElementById('ai-result');
     const aiPreview = document.getElementById('ai-preview');
-    
-    if (!aiInput) return;
+
+    if (!aiInput || !aiResult || !aiPreview) return;
+
+    if (!window.mobilenet || !window.tf) {
+        aiResult.textContent = 'AI identifier is unavailable right now. Please refresh and try again.';
+        return;
+    }
+
+    aiModelPromise = aiModelPromise || mobilenet.load();
 
     aiInput.addEventListener('change', async (e) => {
         const file = e.target.files[0];
         if (!file) return;
 
-        aiResult.textContent = "Loading AI Model... please wait.";
-        
-        // Show preview
-        const reader = new FileReader();
-        reader.onload = async (e) => {
-            aiPreview.src = e.target.result;
-            aiPreview.style.display = 'block';
-            aiPreview.style.maxWidth = '200px';
-            aiPreview.style.margin = '10px auto';
-            
-            try {
-                // Load MobileNet
-                const model = await mobilenet.load();
-                const predictions = await model.classify(aiPreview);
-                if (predictions && predictions.length > 0) {
-                    const topResult = predictions[0].className;
-                    const confidence = Math.round(predictions[0].probability * 100);
-                    aiResult.innerHTML = `AI Thinks this is a: <span style="color:#2c5f2d;">${topResult}</span> (${confidence}% sure)`;
-                }
-            } catch (err) {
-                console.error(err);
-                aiResult.textContent = "Error running AI. Make sure you are connected to the internet.";
+        aiResult.textContent = 'Analyzing image...';
+        aiPreview.src = URL.createObjectURL(file);
+        aiPreview.style.display = 'block';
+        aiPreview.style.maxWidth = '220px';
+        aiPreview.style.margin = '10px auto';
+
+        try {
+            await aiPreview.decode();
+            const model = await aiModelPromise;
+            const predictions = await model.classify(aiPreview);
+            if (predictions?.length) {
+                const top = predictions[0];
+                aiResult.innerHTML = `AI best guess: <span style="color:#2c5f2d; font-weight:700;">${top.className}</span> (${Math.round(top.probability * 100)}% confidence)`;
+            } else {
+                aiResult.textContent = 'No result returned. Try another photo with a clear bird subject.';
             }
-        };
-        reader.readAsDataURL(file);
+        } catch (err) {
+            console.error(err);
+            aiResult.textContent = 'Could not analyze this image. Try a different file type or refresh.';
+        }
     });
 }
 
 // 4. Generate Custom PDF Field Guide (jsPDF)
 function generatePDFGuide() {
-    if (typeof window.jspdf === 'undefined') {
-        alert("PDF library loading, please try again in a second.");
+    if (typeof window.jspdf === 'undefined' || typeof birdsData === 'undefined') {
+        alert('PDF tool is still loading. Please try again in a moment.');
         return;
     }
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
-    
+
     doc.setFontSize(22);
-    doc.text("My Missing Birds Field Guide", 20, 20);
-    
+    doc.text('My Missing Birds Field Guide', 20, 20);
+
     let y = 40;
     const spotted = getSpottedBirds();
-    
+    const missingBirds = birdsData.filter((bird) => !spotted.includes(bird.Common_Name));
+
     doc.setFontSize(12);
-    birdsData.forEach((bird, index) => {
-        if (!spotted.includes(bird.Common_Name)) {
+    if (!missingBirds.length) {
+        doc.text('Amazing work — you have already spotted all birds in the catalogue!', 20, y);
+    } else {
+        missingBirds.forEach((bird) => {
             if (y > 270) {
                 doc.addPage();
                 y = 20;
             }
             doc.text(`[ ] ${bird.Common_Name} (${bird.Type})`, 20, y);
             y += 10;
-        }
-    });
-    
-    doc.save("Beak-a-boo_Missing_Birds_Guide.pdf");
+        });
+    }
+
+    doc.save(`Beak-a-boo_Missing_Birds_Guide_${new Date().toISOString().slice(0,10)}.pdf`);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
     setupGlobalSearch();
     setupAIIdentifier();
-    
+    applyLanguage(localStorage.getItem('lang') || 'en');
+
     const pdfBtn = document.getElementById('generate-pdf-btn');
     if (pdfBtn) pdfBtn.addEventListener('click', generatePDFGuide);
 });
