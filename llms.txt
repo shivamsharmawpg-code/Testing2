@@ -1,0 +1,17 @@
+# Beak-a-boo: Manitoba Birdwatching Field Guide
+URL: https://beakaboo.ca
+Description: A family-friendly field guide for birdwatching in Manitoba, Canada. Created by a Junior Achievement company from Windsor Park Collegiate.
+
+## Site Structure
+- / : Home page
+- /catalogue/ : Database of 40 Manitoba bird species with facts, audio calls, and a memory checklist.
+- /trails/ : Interactive Leaflet maps of birdwatching trails in Winnipeg.
+- /quickstart/ : A beginner's guide to birdwatching.
+- /certificates/ : A tool to generate custom birdwatching certificates.
+- /about/ : Information about the student founders.
+
+## Technology
+- Vanilla HTML/CSS/JS
+- Progressive Web App (PWA) with offline capabilities
+- GreenSock Animation Platform (GSAP)
+- Leaflet interactive maps

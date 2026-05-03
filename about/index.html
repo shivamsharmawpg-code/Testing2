@@ -10,39 +10,35 @@
     <meta property="og:title" content="About Beak-a-boo | Student-Run Birdwatching Brand">
     <meta property="og:description" content="Learn how Beak-a-boo, a Windsor Park Collegiate Junior Achievement company, helps Winnipeg families reconnect through local birdwatching.">
     <meta property="og:url" content="https://beakaboo.ca/about/">
-    <meta property="og:image" content="https://beakaboo.ca/logo.png">
+    <meta property="og:image" content="https://beakaboo.ca/assets/images/logo.png">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="About Beak-a-boo | Student-Run Birdwatching Brand">
     <meta name="twitter:description" content="Learn how Beak-a-boo, a Windsor Park Collegiate Junior Achievement company, helps Winnipeg families reconnect through local birdwatching.">
-    <meta name="twitter:image" content="https://beakaboo.ca/logo.png">
-    <script>
-        (function () {
-            const path = window.location.pathname;
-            const base = path.includes('/Testing2/') ? '/Testing2/' : '/';
-            document.write(`<base href="${base}">`);
-        })();
-    </script>
+    <meta name="twitter:image" content="https://beakaboo.ca/assets/images/logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="manifest" href="../manifest.json">
+    <link rel="icon" type="image/png" href="../assets/images/logo.png">
+    <link rel="apple-touch-icon" href="../assets/images/logo.png">
 </head>
 <body>
     <a class="skip-link" href="#main-content">Skip to main content</a>
 
     <header>
         <div class="logo">
-            <img src="logo.png" alt="Beak-a-boo Logo" class="logo-img">
+            <img src="../assets/images/logo.png" alt="Beak-a-boo Logo" class="logo-img">
             Beak-a-boo
         </div>
         <nav aria-label="Primary">
             <ul class="nav-links">
-                <li><a href="/">Home</a></li>
-                <li><a href="/trails/">Trails</a></li>
-                <li><a href="/catalogue/">Catalogue</a></li>
-                <li><a href="/certificates/">Certificates</a></li>
-                <li><a href="/about/" class="active">About</a></li>
+                <li><a href="../">Home</a></li>
+                <li><a href="../trails/">Trails</a></li>
+                <li><a href="../catalogue/">Catalogue</a></li>
+                <li><a href="../certificates/">Certificates</a></li>
+                <li><a href="../about/" class="active">About</a></li>
                 <li><a href="https://www.flickr.com/groups/14879687@N25/pool/#" target="_blank" rel="noopener">Gallery <i class="fa-brands fa-flickr"></i></a></li>
             </ul>
         </nav>
@@ -170,5 +166,15 @@
             </div>
         </div>
     </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/sw.js').then(function(registration) {
+      console.log('ServiceWorker registration successful');
+    });
+  });
+}
+</script>
 </body>
 </html>

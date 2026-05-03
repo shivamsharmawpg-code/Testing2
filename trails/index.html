@@ -10,40 +10,37 @@
     <meta property="og:title" content="Winnipeg Birdwatching Trails | Beak-a-boo">
     <meta property="og:description" content="Find bird-friendly Winnipeg trails with maps, habitat notes, and species tips to plan your next family outing.">
     <meta property="og:url" content="https://beakaboo.ca/trails/">
-    <meta property="og:image" content="https://beakaboo.ca/logo.png">
+    <meta property="og:image" content="https://beakaboo.ca/assets/images/logo.png">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Winnipeg Birdwatching Trails | Beak-a-boo">
     <meta name="twitter:description" content="Find bird-friendly Winnipeg trails with maps, habitat notes, and species tips to plan your next family outing.">
-    <meta name="twitter:image" content="https://beakaboo.ca/logo.png">
-    <script>
-        (function () {
-            const path = window.location.pathname;
-            const base = path.includes('/Testing2/') ? '/Testing2/' : '/';
-            document.write(`<base href="${base}">`);
-        })();
-    </script>
+    <meta name="twitter:image" content="https://beakaboo.ca/assets/images/logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="manifest" href="../manifest.json">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="icon" type="image/png" href="../assets/images/logo.png">
+    <link rel="apple-touch-icon" href="../assets/images/logo.png">
 </head>
 <body>
     <a class="skip-link" href="#main-content">Skip to main content</a>
 
     <header>
         <div class="logo">
-            <img src="logo.png" alt="Beak-a-boo Logo" class="logo-img">
+            <img src="../assets/images/logo.png" alt="Beak-a-boo Logo" class="logo-img">
             Beak-a-boo
         </div>
         <nav aria-label="Primary">
             <ul class="nav-links">
-                <li><a href="/">Home</a></li>
-                <li><a href="/trails/" class="active">Trails</a></li>
-                <li><a href="/catalogue/">Catalogue</a></li>
-                <li><a href="/certificates/">Certificates</a></li>
-                <li><a href="/about/">About</a></li>
-                <li><a href="/quickstart/">Quickstart</a></li>
+                <li><a href="../">Home</a></li>
+                <li><a href="../trails/" class="active">Trails</a></li>
+                <li><a href="../catalogue/">Catalogue</a></li>
+                <li><a href="../certificates/">Certificates</a></li>
+                <li><a href="../about/">About</a></li>
+                <li><a href="../quickstart/">Quickstart</a></li>
                 <li><a href="https://www.flickr.com/groups/14879687@N25/pool/#" target="_blank" rel="noopener">Gallery <i class="fa-brands fa-flickr"></i></a></li>
             </ul>
         </nav>
@@ -58,7 +55,9 @@
                     and wetland habitats with birds you can spot along the way.
                 </p>
             </div>
-            <div class="trails-card">
+            
+            <div id="trails-main-map" style="height: 400px; width: 100%; border-radius: 16px; margin-bottom: 30px; border: 1px solid rgba(44, 95, 45, 0.15); box-shadow: 0 12px 24px rgba(44, 95, 45, 0.12); z-index: 1;"></div>
+<div class="trails-card" style="display:none;">
                 <div class="trails-map">
                     <iframe
                         title="Seine River Greenway Trail map"
@@ -402,5 +401,64 @@
             </div>
         </div>
     </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/sw.js').then(function(registration) {
+      console.log('ServiceWorker registration successful');
+    });
+  });
+}
+</script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize Leaflet map
+            const map = L.map('trails-main-map').setView([49.85, -97.15], 11);
+
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+                subdomains: 'abcd',
+                maxZoom: 20
+            }).addTo(map);
+
+            const trailLocations = [
+                { name: "Seine River Greenway", lat: 49.8309, lng: -97.0861 },
+                { name: "Harte Trail", lat: 49.8445, lng: -97.2603 },
+                { name: "Assiniboine Forest", lat: 49.8544, lng: -97.2451 },
+                { name: "Bois-des-Esprits", lat: 49.8228, lng: -97.0820 },
+                { name: "Niakwa Trail", lat: 49.8579, lng: -97.1023 },
+                { name: "North Winnipeg Parkway", lat: 49.9016, lng: -97.1285 },
+                { name: "Bunn's Creek", lat: 49.9486, lng: -97.0607 },
+                { name: "St. Vital Park", lat: 49.8294, lng: -97.1479 },
+                { name: "Little Mountain Park", lat: 49.9547, lng: -97.2542 },
+                { name: "Transcona Bioreserve", lat: 49.9111, lng: -97.0130 },
+                { name: "Sturgeon Creek Park", lat: 49.8885, lng: -97.2943 },
+                { name: "Kings Park", lat: 49.7989, lng: -97.1248 },
+                { name: "FortWhyte Alive", lat: 49.8204, lng: -97.2250 }
+            ];
+
+            const customIcon = L.divIcon({
+                className: 'custom-pin',
+                html: '<i class="fa-solid fa-location-dot" style="color: #2c5f2d; font-size: 24px; text-shadow: 0 2px 4px rgba(0,0,0,0.3);"></i>',
+                iconSize: [24, 24],
+                iconAnchor: [12, 24]
+            });
+
+            trailLocations.forEach(loc => {
+                L.marker([loc.lat, loc.lng], {icon: customIcon}).addTo(map)
+                    .bindPopup(`<b>${loc.name}</b><br>Great for birdwatching.`);
+            });
+            
+            // GSAP Animations
+            if (typeof gsap !== 'undefined') {
+                gsap.from("#trails-main-map", { duration: 1, y: 50, opacity: 0, ease: "power3.out", delay: 0.2 });
+                gsap.from(".trail-mini-card", { duration: 0.8, y: 30, opacity: 0, stagger: 0.1, ease: "back.out(1.7)", delay: 0.5 });
+            }
+        });
+    </script>
+
 </body>
 </html>

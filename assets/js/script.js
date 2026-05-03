@@ -128,12 +128,59 @@ function setupHomepageAnimations() {
     document.querySelectorAll('.animate-on-scroll').forEach((item) => observer.observe(item));
 }
 
+
+// --- Bird Journal Memory ---
+function getSpottedBirds() {
+    return JSON.parse(localStorage.getItem('spottedBirds') || '[]');
+}
+
+function toggleSpotted(birdId) {
+    let spotted = getSpottedBirds();
+    if (spotted.includes(birdId)) {
+        spotted = spotted.filter(id => id !== birdId);
+    } else {
+        spotted.push(birdId);
+    }
+    localStorage.setItem('spottedBirds', JSON.stringify(spotted));
+    updateProgress();
+    
+    // Update UI for the specific card
+    const card = document.querySelector(`.bird-card[data-common-name="${birdId}"]`);
+    if (card) {
+        if (spotted.includes(birdId)) card.classList.add('spotted');
+        else card.classList.remove('spotted');
+    }
+    
+    // Update modal button if open
+    const modalBtn = document.getElementById('modal-spotted-btn');
+    if (modalBtn) {
+        if (spotted.includes(birdId)) {
+            modalBtn.textContent = '✓ Spotted';
+            modalBtn.classList.add('is-spotted');
+        } else {
+            modalBtn.textContent = 'Mark as Spotted';
+            modalBtn.classList.remove('is-spotted');
+        }
+    }
+}
+
+function updateProgress() {
+    const spotted = getSpottedBirds();
+    const progressEl = document.getElementById('spotted-progress');
+    if (progressEl) {
+        progressEl.textContent = `${spotted.length} / ${birdsData.length} Birds Spotted`;
+    }
+}
+
 function populateCatalogue(data) {
     const grid = document.getElementById('catalogue-grid');
+    if (!grid) return;
     grid.innerHTML = "";
+    const spotted = getSpottedBirds();
     data.forEach(bird => {
         const card = document.createElement('div');
         card.className = 'bird-card';
+        if (spotted.includes(bird.Common_Name)) card.classList.add('spotted');
         card.tabIndex = 0;
         card.setAttribute('role', 'button');
         card.setAttribute('aria-label', `View details for ${bird.Common_Name}`);
@@ -145,9 +192,17 @@ function populateCatalogue(data) {
         card.dataset.call = bird.Call;
         card.dataset.whistle = bird.Whistle;
         card.dataset.image = bird.Image;
-        card.innerHTML = `<img src="${bird.Image}" alt="${bird.Common_Name}" loading="lazy"><div class="bird-card-info"><div class="bird-card-title">${bird.Common_Name}</div><div class="bird-card-meta"><span style="color: #1e401f; font-weight:bold;">${bird.Type}</span> • ${bird.Season}</div><p class="bird-card-desc">${bird.Fact}</p></div>`;
+        card.innerHTML = `
+            <div class="spotted-badge">✓</div>
+            <img src="${bird.Image}" alt="${bird.Common_Name}" loading="lazy">
+            <div class="bird-card-info">
+                <div class="bird-card-title">${bird.Common_Name}</div>
+                <div class="bird-card-meta"><span style="color: var(--primary-green); font-weight:bold;">${bird.Type}</span> • ${bird.Season}</div>
+                <p class="bird-card-desc">${bird.Fact}</p>
+            </div>`;
         grid.appendChild(card);
     });
+    updateProgress();
 }
 
 function setupCatalogueModal() {
@@ -164,15 +219,20 @@ function setupCatalogueModal() {
                 <img class="bird-modal__image" src="" alt="">
             </div>
             <div class="bird-modal__details">
-                <h2 class="bird-modal__title" id="bird-modal-title"></h2>
-                <p class="bird-modal__scientific"></p>
+                <div class="bird-modal__header-flex">
+                    <div>
+                        <h2 class="bird-modal__title" id="bird-modal-title"></h2>
+                        <p class="bird-modal__scientific"></p>
+                    </div>
+                    <button id="modal-spotted-btn" class="cta-button" style="margin: 0; padding: 8px 16px; font-size: 0.9rem;">Mark as Spotted</button>
+                </div>
                 <div class="bird-modal__meta">
                     <span class="bird-modal__type"></span>
                     <span class="bird-modal__season"></span>
                 </div>
                 <p class="bird-modal__fact"></p>
                 <div class="bird-modal__callout">
-                    <h3>Bird call</h3>
+                    <h3>Bird call <button class="audio-btn" aria-label="Play bird call"><i class="fa-solid fa-play"></i></button></h3>
                     <p class="bird-modal__call"></p>
                 </div>
                 <div class="bird-modal__callout">
@@ -196,6 +256,11 @@ function setupCatalogueModal() {
         if (event.key === 'Escape' && modal.classList.contains('is-open')) {
             closeModal();
         }
+    });
+
+    document.getElementById('modal-spotted-btn').addEventListener('click', () => {
+        const title = document.getElementById('bird-modal-title').textContent;
+        toggleSpotted(title);
     });
 }
 
@@ -242,6 +307,25 @@ function openBirdModal(bird) {
     modal.querySelector('.bird-modal__call').textContent = bird.Call || "Call details coming soon.";
     modal.querySelector('.bird-modal__whistle').textContent = bird.Whistle || "Whistle tips coming soon.";
     modal.classList.add('is-open');
+    
+    const spotted = getSpottedBirds();
+    const modalBtn = document.getElementById('modal-spotted-btn');
+    if (spotted.includes(bird.Common_Name)) {
+        modalBtn.textContent = '✓ Spotted';
+        modalBtn.classList.add('is-spotted');
+    } else {
+        modalBtn.textContent = 'Mark as Spotted';
+        modalBtn.classList.remove('is-spotted');
+    }
+    
+    // Play placeholder audio logic
+    const audioBtn = modal.querySelector('.audio-btn');
+    audioBtn.onclick = () => {
+        const icon = audioBtn.querySelector('i');
+        icon.className = 'fa-solid fa-pause';
+        setTimeout(() => icon.className = 'fa-solid fa-play', 2000); // Simulate 2s audio
+    };
+
     modal.setAttribute('aria-hidden', 'false');
     document.body.classList.add('modal-open');
 }
@@ -302,6 +386,15 @@ function setupCertificateLogic() {
             errorMessage.textContent = "Please enter your name.";
             return;
         }
+        
+        const lowerName = name.toLowerCase();
+        const hasSwear = SWEAR_BLACKLIST.some(swear => lowerName.includes(swear));
+        if (hasSwear) {
+            errorMessage.textContent = "Please use an appropriate name.";
+            nameInput.classList.add('shake');
+            setTimeout(() => nameInput.classList.remove('shake'), 500);
+            return;
+        }
         if (name.length > maxNameLength) {
             errorMessage.textContent = `Name must be ${maxNameLength} characters or fewer.`;
             return;
@@ -338,7 +431,7 @@ function drawCertificate(name, type, birdName) {
     const logo = new Image();
     logo.crossOrigin = "anonymous";
     const logoImg = document.querySelector('.logo-img');
-    logo.src = logoImg ? logoImg.src : '../logo.png';
+    logo.src = logoImg ? logoImg.src : '../assets/images/logo.png';
     logo.onload = () => {
         // Watermark with blending
         ctx.save();

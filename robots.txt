@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /tools/
+Disallow: /assets/js/
 
 Sitemap: https://beakaboo.ca/sitemap.xml
