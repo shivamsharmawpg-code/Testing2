@@ -51,13 +51,16 @@
         </ul>
         </nav>
         
-        <div id="google_translate_element" style="margin-left: 15px;"></div>
+        
+        <button onclick="toggleLangCookie()" class="lang-toggle" id="lang-btn" aria-label="Toggle Language" style="margin-left: 15px; order: 4;">EN/FR</button>
+        <div id="google_translate_element" style="display:none;"></div>
         <script type="text/javascript">
             function googleTranslateElementInit() {
-                new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'en,fr', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+                new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'en,fr', autoDisplay: false}, 'google_translate_element');
             }
         </script>
         <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
 
         <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode"><i class="fa-solid fa-moon"></i></button>
     </header>

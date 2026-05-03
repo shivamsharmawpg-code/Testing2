@@ -960,3 +960,28 @@ document.addEventListener('DOMContentLoaded', () => {
     const pdfBtn = document.getElementById('generate-pdf-btn');
     if (pdfBtn) pdfBtn.addEventListener('click', generatePDFGuide);
 });
+
+
+// Custom Google Translate Cookie Toggle
+function toggleLangCookie() {
+    const isFrench = document.cookie.includes('googtrans=/en/fr');
+    if (isFrench) {
+        document.cookie = "googtrans=/en/en; path=/";
+        document.cookie = "googtrans=/en/en; path=/; domain=" + window.location.hostname;
+    } else {
+        document.cookie = "googtrans=/en/fr; path=/";
+        document.cookie = "googtrans=/en/fr; path=/; domain=" + window.location.hostname;
+    }
+    window.location.reload();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const langBtn = document.getElementById('lang-btn');
+    if (langBtn) {
+        if (document.cookie.includes('googtrans=/en/fr')) {
+            langBtn.innerHTML = 'FR <i class="fa-solid fa-language"></i>';
+        } else {
+            langBtn.innerHTML = 'EN <i class="fa-solid fa-language"></i>';
+        }
+    }
+});
