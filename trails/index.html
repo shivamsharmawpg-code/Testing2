@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="icon" type="image/png" href="../assets/images/logo.png">
     <link rel="apple-touch-icon" href="../assets/images/logo.png">
+    <script defer data-domain="beakaboo.ca" src="https://plausible.io/js/script.js"></script>
 </head>
 <body>
     <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -42,8 +43,10 @@
                 <li><a href="../about/">About</a></li>
                 <li><a href="../quickstart/">Quickstart</a></li>
                 <li><a href="https://www.flickr.com/groups/14879687@N25/pool/#" target="_blank" rel="noopener">Gallery <i class="fa-brands fa-flickr"></i></a></li>
-            </ul>
+            <button onclick="toggleLanguage()" class="lang-toggle">EN/FR</button>
+        </ul>
         </nav>
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode"><i class="fa-solid fa-moon"></i></button>
     </header>
 
     <main id="main-content">
@@ -460,5 +463,6 @@ if ('serviceWorker' in navigator) {
         });
     </script>
 
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </body>
 </html>

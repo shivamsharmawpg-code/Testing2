@@ -628,3 +628,293 @@ function drawGoldSeal(ctx, x, y, r) {
     ctx.strokeStyle = "#8B4513"; ctx.lineWidth = 2; ctx.stroke();
     ctx.restore();
 }
+
+
+// --- Advanced Features ---
+
+// 1. Dark Mode
+function setupTheme() {
+    const toggle = document.getElementById('theme-toggle');
+    if (!toggle) return;
+    
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', currentTheme);
+    toggle.innerHTML = currentTheme === 'dark' ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
+
+    toggle.addEventListener('click', () => {
+        let theme = document.documentElement.getAttribute('data-theme');
+        let newTheme = theme === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        toggle.innerHTML = newTheme === 'dark' ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
+    });
+}
+
+// 2. Native Web Share API
+function shareBird(birdName, fact) {
+    if (navigator.share) {
+        navigator.share({
+            title: `I spotted a ${birdName}!`,
+            text: `Check out this fact: ${fact}`,
+            url: window.location.href
+        }).catch(console.error);
+    } else {
+        alert("Sharing is not supported on this device/browser.");
+    }
+}
+
+// 3. Gamification & Confetti
+function checkAchievements(count) {
+    const badges = {
+        5: 'badge-5',
+        10: 'badge-10',
+        20: 'badge-20',
+        40: 'badge-40'
+    };
+    
+    if (badges[count]) {
+        const badgeEl = document.getElementById(badges[count]);
+        if (badgeEl && !badgeEl.classList.contains('unlocked')) {
+            badgeEl.classList.add('unlocked');
+            if (typeof confetti !== 'undefined') {
+                confetti({
+                    particleCount: 150,
+                    spread: 70,
+                    origin: { y: 0.6 },
+                    colors: ['#FFD700', '#FFA500', '#2c5f2d']
+                });
+            }
+        }
+    }
+}
+
+// Override toggleSpotted to add Confetti check
+const originalToggleSpotted = toggleSpotted;
+window.toggleSpotted = function(birdId) {
+    let spotted = getSpottedBirds();
+    const wasSpotted = spotted.includes(birdId);
+    
+    // Save Journal Note before toggling if exists
+    const noteArea = document.getElementById('journal-note-area');
+    if (noteArea) {
+        let notes = JSON.parse(localStorage.getItem('birdNotes') || '{}');
+        notes[birdId] = noteArea.value;
+        localStorage.setItem('birdNotes', JSON.stringify(notes));
+    }
+
+    originalToggleSpotted(birdId);
+    
+    spotted = getSpottedBirds();
+    if (!wasSpotted && spotted.includes(birdId)) {
+        checkAchievements(spotted.length);
+    }
+};
+
+// Update Modal to include Share button and Notes
+const originalOpenBirdModal = openBirdModal;
+window.openBirdModal = function(bird) {
+    originalOpenBirdModal(bird);
+    
+    // Add Share Event
+    const shareBtn = document.getElementById('modal-share-btn');
+    if (shareBtn) {
+        shareBtn.onclick = () => shareBird(bird.Common_Name, bird.Fact);
+    }
+    
+    // Load Notes
+    const noteArea = document.getElementById('journal-note-area');
+    if (noteArea) {
+        let notes = JSON.parse(localStorage.getItem('birdNotes') || '{}');
+        noteArea.value = notes[bird.Common_Name] || '';
+    }
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+    setupTheme();
+    // Init achievements state
+    const spotted = getSpottedBirds();
+    [5, 10, 20, 40].forEach(num => {
+        if (spotted.length >= num) {
+            const el = document.getElementById(`badge-${num}`);
+            if (el) el.classList.add('unlocked');
+        }
+    });
+});
+
+
+// --- Remaining Features JS ---
+
+// 1. French i18n Translation Dictionary
+const translations = {
+    'en': {
+        'Home': 'Home',
+        'Trails': 'Trails',
+        'Catalogue': 'Catalogue',
+        'Certificates': 'Certificates',
+        'About': 'About',
+        'Quickstart': 'Quickstart',
+        'Search by name, season, or type...': 'Search by name, season, or type...'
+    },
+    'fr': {
+        'Home': 'Accueil',
+        'Trails': 'Sentiers',
+        'Catalogue': 'Catalogue',
+        'Certificates': 'Certificats',
+        'About': 'À propos',
+        'Quickstart': 'Démarrage',
+        'Search by name, season, or type...': 'Recherche par nom, saison ou type...'
+    }
+};
+
+function toggleLanguage() {
+    let currentLang = localStorage.getItem('lang') || 'en';
+    let newLang = currentLang === 'en' ? 'fr' : 'en';
+    localStorage.setItem('lang', newLang);
+    applyLanguage(newLang);
+}
+
+function applyLanguage(lang) {
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        let key = link.textContent.trim();
+        // reverse lookup if needed, but simple for now
+        if (lang === 'fr' && translations['en'][key]) { /* fallback logic */ }
+    });
+    
+    // Quick brute force for demo
+    const html = document.body.innerHTML;
+    if (lang === 'fr') {
+        document.body.innerHTML = html.replace(/Home/g, 'Accueil').replace(/Trails/g, 'Sentiers').replace(/About/g, 'À propos');
+    } else {
+        location.reload(); // Quick reset for EN
+    }
+}
+
+// 2. Global Search Logic
+function setupGlobalSearch() {
+    const searchInput = document.createElement('input');
+    searchInput.type = 'text';
+    searchInput.placeholder = 'Global Search...';
+    searchInput.id = 'global-search-input';
+    searchInput.style.cssText = 'padding: 5px 10px; border-radius: 20px; border: 1px solid #ccc; margin-left: 15px;';
+    
+    const overlay = document.createElement('div');
+    overlay.className = 'global-search-overlay';
+    overlay.id = 'global-search-overlay';
+    
+    document.body.appendChild(overlay);
+    
+    const nav = document.querySelector('nav');
+    if (nav) nav.appendChild(searchInput);
+
+    searchInput.addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase();
+        if (query.length < 2) {
+            overlay.classList.remove('active');
+            return;
+        }
+        overlay.classList.add('active');
+        overlay.innerHTML = '';
+        
+        // Search through birdsData
+        if (typeof birdsData !== 'undefined') {
+            const results = birdsData.filter(b => 
+                b.Common_Name.toLowerCase().includes(query) || 
+                b.Fact.toLowerCase().includes(query)
+            ).slice(0, 5);
+            
+            if (results.length === 0) overlay.innerHTML = '<p>No results found.</p>';
+            
+            results.forEach(r => {
+                const div = document.createElement('div');
+                div.className = 'global-search-result';
+                div.innerHTML = `<strong>${r.Common_Name}</strong> - <em>Catalogue</em>`;
+                div.onclick = () => window.location.href = `/catalogue/`;
+                overlay.appendChild(div);
+            });
+        }
+    });
+    
+    document.addEventListener('click', (e) => {
+        if(e.target !== searchInput && e.target !== overlay) {
+            overlay.classList.remove('active');
+        }
+    });
+}
+
+// 3. AI Bird Identification (TensorFlow.js MobileNet)
+async function setupAIIdentifier() {
+    const aiInput = document.getElementById('ai-image-upload');
+    const aiResult = document.getElementById('ai-result');
+    const aiPreview = document.getElementById('ai-preview');
+    
+    if (!aiInput) return;
+
+    aiInput.addEventListener('change', async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        aiResult.textContent = "Loading AI Model... please wait.";
+        
+        // Show preview
+        const reader = new FileReader();
+        reader.onload = async (e) => {
+            aiPreview.src = e.target.result;
+            aiPreview.style.display = 'block';
+            aiPreview.style.maxWidth = '200px';
+            aiPreview.style.margin = '10px auto';
+            
+            try {
+                // Load MobileNet
+                const model = await mobilenet.load();
+                const predictions = await model.classify(aiPreview);
+                if (predictions && predictions.length > 0) {
+                    const topResult = predictions[0].className;
+                    const confidence = Math.round(predictions[0].probability * 100);
+                    aiResult.innerHTML = `AI Thinks this is a: <span style="color:#2c5f2d;">${topResult}</span> (${confidence}% sure)`;
+                }
+            } catch (err) {
+                console.error(err);
+                aiResult.textContent = "Error running AI. Make sure you are connected to the internet.";
+            }
+        };
+        reader.readAsDataURL(file);
+    });
+}
+
+// 4. Generate Custom PDF Field Guide (jsPDF)
+function generatePDFGuide() {
+    if (typeof window.jspdf === 'undefined') {
+        alert("PDF library loading, please try again in a second.");
+        return;
+    }
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    
+    doc.setFontSize(22);
+    doc.text("My Missing Birds Field Guide", 20, 20);
+    
+    let y = 40;
+    const spotted = getSpottedBirds();
+    
+    doc.setFontSize(12);
+    birdsData.forEach((bird, index) => {
+        if (!spotted.includes(bird.Common_Name)) {
+            if (y > 270) {
+                doc.addPage();
+                y = 20;
+            }
+            doc.text(`[ ] ${bird.Common_Name} (${bird.Type})`, 20, y);
+            y += 10;
+        }
+    });
+    
+    doc.save("Beak-a-boo_Missing_Birds_Guide.pdf");
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    setupGlobalSearch();
+    setupAIIdentifier();
+    
+    const pdfBtn = document.getElementById('generate-pdf-btn');
+    if (pdfBtn) pdfBtn.addEventListener('click', generatePDFGuide);
+});
