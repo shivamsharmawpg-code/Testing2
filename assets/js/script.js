@@ -319,68 +319,41 @@ function openBirdModal(bird) {
         modalBtn.classList.remove('is-spotted');
     }
     
-    // Procedural Web Audio Bird Synthesizer (Fallback for blocked Xeno-canto API)
+    // Real Bird Call Audio Logic
     const audioBtn = modal.querySelector('.audio-btn');
     const icon = audioBtn.querySelector('i');
     
     icon.className = 'fa-solid fa-play';
 
-    const BirdSynthesizer = {
-        audioCtx: null,
-        init() {
-            if (!this.audioCtx) this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        },
-        hashString(str) {
-            let hash = 0;
-            for (let i = 0; i < str.length; i++) hash = str.charCodeAt(i) + ((hash << 5) - hash);
-            return Math.abs(hash);
-        },
-        async playCall(birdName, onEnded) {
-            this.init();
-            if (this.audioCtx.state === 'suspended') await this.audioCtx.resume();
-
-            const hash = this.hashString(birdName);
-            const baseFreq = 1500 + (hash % 3000); 
-            const chirps = 2 + (hash % 5); 
-            const chirpDuration = 0.1 + ((hash % 150) / 1000); 
-            const chirpInterval = 0.05 + ((hash % 100) / 1000); 
-            const isTrill = hash % 2 === 0;
-
-            let startTime = this.audioCtx.currentTime;
-
-            for (let i = 0; i < chirps; i++) {
-                const osc = this.audioCtx.createOscillator();
-                const gain = this.audioCtx.createGain();
-                
-                osc.type = isTrill ? 'sine' : 'triangle';
-                osc.connect(gain);
-                gain.connect(this.audioCtx.destination);
-
-                gain.gain.setValueAtTime(0, startTime);
-                gain.gain.linearRampToValueAtTime(0.3, startTime + chirpDuration * 0.2);
-                gain.gain.linearRampToValueAtTime(0, startTime + chirpDuration);
-
-                osc.frequency.setValueAtTime(baseFreq, startTime);
-                if (isTrill) {
-                    osc.frequency.linearRampToValueAtTime(baseFreq + 1000, startTime + chirpDuration);
-                } else {
-                    osc.frequency.exponentialRampToValueAtTime(baseFreq * 0.5, startTime + chirpDuration);
-                }
-
-                osc.start(startTime);
-                osc.stop(startTime + chirpDuration);
-                startTime += chirpDuration + chirpInterval;
-            }
-
-            setTimeout(() => { if (onEnded) onEnded(); }, (startTime - this.audioCtx.currentTime) * 1000);
-        }
-    };
+    // Global audio object to prevent overlapping sounds
+    if (window.currentBirdAudio) {
+        window.currentBirdAudio.pause();
+        window.currentBirdAudio = null;
+    }
 
     audioBtn.onclick = () => {
-        icon.className = 'fa-solid fa-pause';
-        BirdSynthesizer.playCall(bird.Common_Name, () => {
+        if (window.currentBirdAudio && !window.currentBirdAudio.paused) {
+            window.currentBirdAudio.pause();
             icon.className = 'fa-solid fa-play';
-        });
+        } else {
+            // Target local MP3 file downloaded by our tools
+            const audioPath = `../assets/audio/${bird.id}.mp3`;
+            window.currentBirdAudio = new Audio(audioPath);
+            
+            icon.className = 'fa-solid fa-spinner fa-spin'; // Show loading
+            
+            window.currentBirdAudio.play().then(() => {
+                icon.className = 'fa-solid fa-pause';
+            }).catch(err => {
+                console.error("Audio file not found or blocked:", err);
+                alert("Bird call file not found. Please ensure you have run the download tool in the /tools directory.");
+                icon.className = 'fa-solid fa-play';
+            });
+
+            window.currentBirdAudio.onended = () => {
+                icon.className = 'fa-solid fa-play';
+            };
+        }
     };
 
     modal.setAttribute('aria-hidden', 'false');
