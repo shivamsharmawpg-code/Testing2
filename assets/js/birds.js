@@ -9,6 +9,8 @@ const birdsData = [
     Call: "Call: quick 'chick-a-dee-dee' chatter; song is a clear two-note 'fee-bee'.",
     Whistle: "Whistle tip: play a clean two-note 'fee-bee' with the second note slightly lower; add short, choppy bursts for the chatter.",
     Image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVsgFltlwCxanuJIS8Q9dvxx4qdllwjLGuT7tfkS7HsP-Hl19F1tHin3x7B0h3IFuzyxmvxX9VCIX-4verEf0iMr38KbCDQytzosvQGZh6&s=10"
+  ,
+    audioExt: "mp3"
   },
   {
     id: 2,
@@ -20,6 +22,8 @@ const birdsData = [
     Call: "Call: cheery, repeated phrases often rendered as 'cheerily, cheer-up, cheerio'.",
     Whistle: "Whistle tip: play 3–5 bright phrases with tiny pauses between, slightly rising at the end of each phrase.",
     Image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZrU2lR6V86zMHpXRD32DTjwfqNk-ZkNsZcDBniLtx-DxyV_0C6-xV_v8aaKAL0xi1CrZZZPuwUHFMno14bhZ_YNR38nKMFs18w5y0PGn8_w&s=10"
+  ,
+    audioExt: "wav"
   },
   {
     id: 3,
@@ -31,6 +35,8 @@ const birdsData = [
     Call: "Call: simple 'cheep' and 'chirrup' notes in quick bursts.",
     Whistle: "Whistle tip: use short, repeated chirps with small pitch hops—think fast, casual chatter.",
     Image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSenVyTPz6B9-QT3sTfnlHph2ppJPbrNAkv0Xsn2Yt7H9FH1xja7yfCOr33i-E0f9DcCQnJYP3hIoDaihVP3CFGHnvPnYWgLNCuRA2dppq9VA&s=10"
+  ,
+    audioExt: "m4a"
   },
   {
     id: 4,
@@ -42,6 +48,8 @@ const birdsData = [
     Call: "Call: loud 'jay-jay' screams with occasional clear whistles like 'tool-a'.",
     Whistle: "Whistle tip: blow a strong, slightly descending 'jay' note; add a clean, fluty two-note whistle for variety.",
     Image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR64uqTayxH-cwSdZNY21Y2k_HFUAVN1WvLwAKd3IpRDmfowfpx6gOWlhdgcPhAUfo8JZ2coNjZ8mYwaipd1owC_CZaR05FUNiqX43nu0XAkw&s=10"
+  ,
+    audioExt: "m4a"
   },
   {
     id: 5,
@@ -53,6 +61,8 @@ const birdsData = [
     Call: "Call: deep, resonant 'honk' notes, often in pairs.",
     Whistle: "Whistle tip: use a fuller breath and longer tone to mimic a 'honk-honk' pattern, spacing the notes evenly.",
     Image: "https://upload.wikimedia.org/wikipedia/commons/4/40/Canada_goose_on_Seedskadee_NWR_%2827826185489%29.jpg"
+  ,
+    audioExt: "mp3"
   },
   {
     id: 6,
@@ -64,6 +74,8 @@ const birdsData = [
     Call: "Call: classic quacks—short, nasal notes, sometimes in a series.",
     Whistle: "Whistle tip: play short, rounded 'quack' bursts, then taper off into softer notes for a flock-like feel.",
     Image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScgmTtBWxyk66TGra6jnTL1rAK1wGvgwr0qA&s"
+  ,
+    audioExt: "wav"
   },
   {
     id: 7,
@@ -75,6 +87,8 @@ const birdsData = [
     Call: "Call: sharp 'pik' notes and a short, accelerating rattle.",
     Whistle: "Whistle tip: make crisp, single 'pik' notes, then a quick staccato roll to suggest drumming.",
     Image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ98bBVGDaapiA8GuDppHTN59hpNjgRp47mLpDXPRJFJ40zoWDk8ADbJwXJL6nW5iaXomhySiofI69PqlRo2Ex61QZY7HyXqUzW7vlozw&s=10"
+  ,
+    audioExt: "m4a"
   },
   {
     id: 8,
@@ -86,6 +100,8 @@ const birdsData = [
     Call: "Call: varied whistles, clicks, and warbles with mimicry mixed in.",
     Whistle: "Whistle tip: string together varied, sliding notes—mix bright whistles with quick trills to sound mimicking.",
     Image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Toulouse_-_Sturnus_vulgaris_-_2012-02-26_-_3.jpg/500px-Toulouse_-_Sturnus_vulgaris_-_2012-02-26_-_3.jpg"
+  ,
+    audioExt: "mp3"
   },
   {
     id: 9,
@@ -97,6 +113,8 @@ const birdsData = [
     Call: "Call: a sharp 'conk-la-ree' with a rising, buzzy trill at the end.",
     Whistle: "Whistle tip: start with a short low note, then finish with a brighter, rising trill.",
     Image: "https://gardenandgun.com/wp-content/uploads/2025/01/AdobeStock_319024362-1100x733.jpeg"
+  ,
+    audioExt: "m4a"
   },
   {
     id: 10,
@@ -108,6 +126,8 @@ const birdsData = [
     Call: "Call: clear, repeated whistles often rendered as 'cheer-cheer-cheer' or 'birdie-birdie'.",
     Whistle: "Whistle tip: play clean, even whistles in sets of two or three, slightly rising in pitch.",
     Image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNr0I2WaLAafJ86hvQKC-33uSIf8VVplBAJpJqwYHFaR0GrLo5qb8X89Ojb9h_dydaIZWzg-eHBt7llgWLWyy2shnhOZZ-XVSKoO9kmOW57w&s=10"
+  ,
+    audioExt: "m4a"
   },
   {
     id: 11,
@@ -119,6 +139,8 @@ const birdsData = [
     Call: "Call: harsh, metallic 'chack' and squeaky hinge-like notes.",
     Whistle: "Whistle tip: use a raspier tone, then add a quick upward squeak to mimic the hinge sound.",
     Image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcST1BMcECDYex56Q7QBEZ9XJ4TPZ5DCp_OKcCGnIvsS9mOFjPi_eI4mZWymI5Kn8gOGfEDYZMe2pET9-s7gXcu0bKRRSLiocppDh7R1xsA_&s=10"
+  ,
+    audioExt: "m4a"
   },
   {
     id: 12,
@@ -130,6 +152,8 @@ const birdsData = [
     Call: "Call: soft, plaintive coo 'coo-OO-oo' in a three-part rhythm.",
     Whistle: "Whistle tip: play three gentle notes—middle note higher—then let the last fade softly.",
     Image: "https://www.generalpest-ohio.com/wp-content/uploads/mourning-dove.webp"
+  ,
+    audioExt: "wav"
   },
   {
     id: 13,
@@ -141,6 +165,8 @@ const birdsData = [
     Call: "Call: classic, throaty 'caw' notes, often in sets of two to four.",
     Whistle: "Whistle tip: use a strong, open tone and repeat in even pairs to suggest the crow cadence.",
     Image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQv2V-HBrzAIwpIujk-IHl0oD309SN7XWeNPg&s"
+  ,
+    audioExt: "wav"
   },
   {
     id: 14,
@@ -152,6 +178,8 @@ const birdsData = [
     Call: "Call: nasal, honking 'yank-yank' notes.",
     Whistle: "Whistle tip: make short, slightly nasal-sounding notes in steady pairs.",
     Image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgAZxMdo4Xmf_EYpFYuxuXpaMne0xjVR8rNklpXDelX4rKKJyjM0nNMxl3EyzjPEifWH0-QFdDD57IzqD0CkFVDBfEV_qGZI090EouW5on&s=10"
+  ,
+    audioExt: "m4a"
   },
   {
     id: 15,
@@ -163,6 +191,8 @@ const birdsData = [
     Call: "Call: light, trilling songs and soft 'tick' notes.",
     Whistle: "Whistle tip: hold a steady pitch and flutter the airflow to create a gentle trill.",
     Image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSU06ghOnDLBoQeWe56daUQrlHKgkmpYJzdVbdbG7a_Un9xtt3NNmisLILNvT8N-O_DK1GvXiYkkhYpTN_PPtqIYCvDeI-e_bqC006IBw&s=10"
+  ,
+    audioExt: "m4a"
   },
   {
     id: 16,
@@ -174,6 +204,8 @@ const birdsData = [
     Call: "Call: soft chickadee chatter with a thin, clear whistle.",
     Whistle: "Whistle tip: use a lighter, breathier 'chick' burst, then a simple two-note whistle.",
     Image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1PL0X2jZN2n6W4zs0eGFVOEWjx1L0kwYo-SIPlJkOVT2Cq5YNiXJlHqpcCtQjAb-mPjZ9yM2X-dbxP4Fz6WcMoNTnyFIwG2qScwhA7X4&s=10"
+  ,
+    audioExt: "m4a"
   },
   {
     id: 17,
@@ -185,6 +217,8 @@ const birdsData = [
     Call: "Call: dry, mechanical trill that stays on one pitch.",
     Whistle: "Whistle tip: keep one steady note and flutter your tongue or breath for a fast, even trill.",
     Image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCZjvzJDHumOwx8q2EhO95FP3gHAC4fP4n0hYxMsc9H48UUaS1jRvyNCvVFg57_uhYYSlQRsUG3Qb1VCaiwJSEAf796PaNs-MhS-v4vHk&s=10"
+  ,
+    audioExt: "m4a"
   },
   {
     id: 18,
@@ -196,6 +230,8 @@ const birdsData = [
     Call: "Call: rich, fluty whistles in short, musical phrases.",
     Whistle: "Whistle tip: play clear, bell-like whistles with small pauses—think simple, melodic phrases.",
     Image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxyplzztyefcvZjbSbKYeC0wqGea3ROfQKtpc27XCDwKeZrdOmJ1zFAQxm6cOIsyDBW0Ay0G4JJ_NrQSuBFEpAOafogEvs612YtIbNmqA&s=10"
+  ,
+    audioExt: "m4a"
   },
   {
     id: 19,
@@ -207,6 +243,8 @@ const birdsData = [
     Call: "Call: tiny, high-pitched 'chip' or 'squeak' notes.",
     Whistle: "Whistle tip: use very short, high notes—light and quick, like tiny peeps.",
     Image: "https://media.audubon.org/2025-05/Aud_APA-2019_Ruby-throated-Hummingbird_P1_8054-5_Photo-Steven-Biegler-sq-2.jpg?width=808&auto=webp&quality=90&fit=bounds&disable=upscale"
+  ,
+    audioExt: "mp3"
   },
   {
     id: 20,
@@ -218,6 +256,8 @@ const birdsData = [
     Call: "Call: deep, low 'whoo' notes spaced evenly.",
     Whistle: "Whistle tip: aim for the lowest whistle pitch you can, slow and resonant in a steady rhythm.",
     Image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPpQSsofMb7tccBZy3XMhot5sGYvBuJFKSqwQkIAYCcyfcrJMf3BbPHqDRpLx2DgE-cVjI1aP9wk8bvbnrRp9k_wnCapzY_VDKW9eXJg&s=10"
+  ,
+    audioExt: "wav"
   },
   {
     id: 21,
@@ -229,6 +269,8 @@ const birdsData = [
     Call: "Call: continuous warble of short, sweet phrases that tumble together.",
     Whistle: "Whistle tip: chain together several short whistles without long pauses, gently rising and falling.",
     Image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAp7lL6cRwGhNwwHdCAOtegp-sy8d5lj8yXIa2pSZ7s80SEDW5VfKClmChiT3KCwtIPDGxF9j0gHjdr8b4HXiiu36cBQVFFA2D0L7dwA&s=10"
+  ,
+    audioExt: "m4a"
   },
   {
     id: 22,
@@ -240,6 +282,8 @@ const birdsData = [
     Call: "Call: a clear, thin 'peep-lo' or 'peep' whistle.",
     Whistle: "Whistle tip: play a bright two-note whistle with a slightly lower second note.",
     Image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGYELpcSXhASn_DygAzzyR5Htr3nygTeyNeqwrKU-AVUGO742PZHxu4cF5z6oMrYS07d9lIUk-_ek__2J8neePlTvcWvpPg54ln4HTeg&s=10"
+  ,
+    audioExt: "m4a"
   },
   {
     id: 23,
@@ -251,6 +295,8 @@ const birdsData = [
     Call: "Call: sharp, high 'shree' notes and harsh chatter.",
     Whistle: "Whistle tip: blow a piercing, slightly downward-slurred note, then add a brief chatter.",
     Image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWmJFMo8G3calUH_l549S-aQWGCj_uGsCs0eq-DvwjzSwuBxEcLdNs3pacV1kFJkQR7EMORb17FDA9LX-lrbwc8hx2mIe2Z2EeBu8leYg&s=10"
+  ,
+    audioExt: "m4a"
   },
   {
     id: 24,
@@ -262,6 +308,8 @@ const birdsData = [
     Call: "Call: thin, squeaky whistles and short 'whit' notes.",
     Whistle: "Whistle tip: use quick, thin whistles in pairs to mimic the clipped calls.",
     Image: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Black-necked_Grebe_Schwarzhalstaucher.jpg/1280px-Black-necked_Grebe_Schwarzhalstaucher.jpg"
+  ,
+    audioExt: "m4a"
   },
   {
     id: 25,
@@ -273,6 +321,8 @@ const birdsData = [
     Call: "Call: rich, melodic whistles that rise and fall like a flute.",
     Whistle: "Whistle tip: play a flowing, descending melody with a bright opening note.",
     Image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8f16I3KIevsvy0QcuHbZxzplaUJYYqND_4Ehyu2oEj40kBexj3Ayo95hmyrEuX_ysdHF73XFeRR4UO8okWk4ot_LH9A9bCqDc0QwK-A&s=10"
+  ,
+    audioExt: "wav"
   },
   {
     id: 26,
@@ -284,6 +334,8 @@ const birdsData = [
     Call: "Call: light, tinkling notes with soft trills.",
     Whistle: "Whistle tip: use delicate, high whistles in short sequences, lightly trilling between notes.",
     Image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXmSym08bBO_Db7pEvytYsyyO0FjBghLFgpm06nHbIOPvadpdAoOoy-x1vFOXHRwACo5JSx7kOERKv-PcRPj3134Swr5hXW2b6fXCYnA&s=10"
+  ,
+    audioExt: "mp3"
   },
   {
     id: 27,
@@ -295,6 +347,8 @@ const birdsData = [
     Call: "Call: long, harsh screams that trail downward.",
     Whistle: "Whistle tip: blow a sustained note and slide downward to imitate the drawn-out scream.",
     Image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQU5m6-BARKs-eW0lDkQq4VxS3sEYyOJStnvb6jOz0ASJ15H_jSHRmQ4OH5uofiCOA0Gx7g-YyYFRf250U35wnZUD9mPOJT1ZRHFN5vEg&s=10"
+  ,
+    audioExt: "m4a"
   },
   {
     id: 28,
@@ -306,6 +360,8 @@ const birdsData = [
     Call: "Call: hollow 'kowlp' notes and rapid 'ka-ka-ka' series.",
     Whistle: "Whistle tip: play a hollow two-note 'kowlp-kowlp', then add a quick rattle of short notes.",
     Image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmkZJ2iQebznxPAVu3PNX-YCDlfoC0AX31_Ke7dORA4rv-XgGHl2K7jpLvKBQhiDtAnG_zan7MFH9BA69OPkUhZaWOsJeX2Y8yOe9mmg&s=10"
+  ,
+    audioExt: "wav"
   },
   {
     id: 29,
@@ -317,6 +373,8 @@ const birdsData = [
     Call: "Call: ringing 'sweet-sweet-sweet' notes, clear and even.",
     Whistle: "Whistle tip: use three to five bright, even notes on the same pitch.",
     Image: "https://upload.wikimedia.org/wikipedia/commons/5/55/Protonotaria-citrea-002_edit.jpg"
+  ,
+    audioExt: "wav"
   },
   {
     id: 30,
@@ -328,6 +386,8 @@ const birdsData = [
     Call: "Call: soft, repetitive 'coo' or 'kuk' notes from cover.",
     Whistle: "Whistle tip: play low, gentle notes with long pauses to suggest a hidden caller.",
     Image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKeYAzk8fU_h6uwCkSFS_wO3c2BAqbfErQ2GZ6JBlTjZH0wBbavYpFwi_PHPgOrAuH6hHSWSAB_1nYiQqqLLZK6EQILeVhGdQVtaJxUg&s=10"
+  ,
+    audioExt: "wav"
   },
   {
     id: 31,
@@ -339,6 +399,8 @@ const birdsData = [
     Call: "Call: clear two-note 'sayy-ee' or 'phoebe' phrase.",
     Whistle: "Whistle tip: play two notes with the second falling slightly in pitch.",
     Image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6-WOVU6pVuTeOkdKFPkbBgKzcXH3HI9WGilEb1qV-FC9teRgpUKRF9P5HtTRhm8ZEKcR_3dJ3q0lSmzIY5zkOxBYKOFXp56TpW3le8g&s=10"
+  ,
+    audioExt: "wav"
   },
   {
     id: 32,
@@ -350,6 +412,8 @@ const birdsData = [
     Call: "Call: low, harsh croaks and grating notes.",
     Whistle: "Whistle tip: use rough, short notes—less musical, more guttural in rhythm.",
     Image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTG2TqTyZ8j-6KlZzAf9Z-MaqLVoBOS7CV1lKr58EuRMe_BBx_dQaUUJZuLeTAnNZGkjAVrpLblP61PORRLI__WQGEzWAh_D3IaV8rUrQ&s=10"
+  ,
+    audioExt: "wav"
   },
   {
     id: 33,
@@ -361,6 +425,8 @@ const birdsData = [
     Call: "Call: rapid 'kik-kik-kik' or 'chack' series that accelerates.",
     Whistle: "Whistle tip: start with spaced notes, then tighten them into a fast, rattling run.",
     Image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSB2EwHJro9PTNuKEu1W28ICyY8-W5bISDaKwWOAZOel0BGf1fjJfLizWHmXsUZDI3mcuAT712HfU6jjNquTWlCobKeII3GXg2kfsA9TxU&s=10"
+  ,
+    audioExt: "wav"
   },
   {
     id: 34,
@@ -372,6 +438,8 @@ const birdsData = [
     Call: "Call: sharp 'tchur' notes and rapid drum rolls.",
     Whistle: "Whistle tip: hit a sharp note, then follow with a quick staccato burst to suggest drumming.",
     Image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMyOdABzYtm7QGQ7SwDOJBBtzMoCzWKs3SV4sWjmyO5pIfh4_kNHWdSmrALV5THUNULnJR6qDeKUtPzyg2-FQZZR4-PFg_lh7jYRadsA&s=10"
+  ,
+    audioExt: "m4a"
   },
   {
     id: 35,
@@ -383,6 +451,8 @@ const birdsData = [
     Call: "Call: long, bubbling whistle often rendered as 'cur-lee'.",
     Whistle: "Whistle tip: play a long note that rises slightly then falls, repeating with a liquid quality.",
     Image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJ5Ix_DiXeLcap5RZSCRBfDOsxC-Q6jOpZoaJG3bf1hPUB3LX5r18EYWggTlx7cwbfOsMAKG4BMvl5s_hOAs7QjMapmEdmFk-rYA1J3w&s=10"
+  ,
+    audioExt: "m4a"
   },
   {
     id: 36,
@@ -405,6 +475,8 @@ const birdsData = [
     Call: "Call: sharp, repetitive 'kak-kak' or 'kee' notes.",
     Whistle: "Whistle tip: play a firm, high note repeated in quick bursts, slightly descending.",
     Image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDvd7O3GZB82aPodJC-tAaqR_Mn-S3dSoK36ask8xm1DRDzTcKsuIWcpRvyWkAi5er5m7m5edBAiJlvgjS_pkAkflwh7S0IU_7HQBN370&s=10"
+  ,
+    audioExt: "mp3"
   },
   {
     id: 38,
@@ -416,6 +488,8 @@ const birdsData = [
     Call: "Call: loud, trumpeting bugle with a rising start and falling finish.",
     Whistle: "Whistle tip: play a long, clear rising note, then drop slightly to finish the bugle.",
     Image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQAfzifwmZfEg3UKup1IT6WZ6My1otkAS0ctDuKtbTxyBa7Llv2lc_001UNQjPW9rB0P9ffUo95yfCx8H30BSyZt35YEum_u77CQrxmA&s=10"
+  ,
+    audioExt: "wav"
   },
   {
     id: 39,
@@ -438,5 +512,7 @@ const birdsData = [
     Call: "Call: loud, rhythmic 'chip-chip-chee' song with a rising feel.",
     Whistle: "Whistle tip: play two short notes followed by a slightly higher, longer note.",
     Image: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Dendroica_kirtlandii_-Michigan%2C_USA_-male-8_%285%29.jpg/500px-Dendroica_kirtlandii_-Michigan%2C_USA_-male-8_%285%29.jpg"
+  ,
+    audioExt: "wav"
   }
 ];

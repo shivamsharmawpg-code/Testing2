@@ -75,6 +75,8 @@ function populateSlideshow() {
         button.dataset.call = bird.Call;
         button.dataset.whistle = bird.Whistle;
         button.dataset.image = bird.Image;
+        button.dataset.id = bird.id;
+        button.dataset.audioExt = bird.audioExt || 'mp3';
         wrapper.appendChild(slide);
         const dot = document.createElement('span');
         dot.className = 'dot';
@@ -97,7 +99,9 @@ function setupSlideshowInteractions() {
             Fact: button.dataset.fact,
             Call: button.dataset.call,
             Whistle: button.dataset.whistle,
-            Image: button.dataset.image
+            Image: button.dataset.image,
+            id: button.dataset.id,
+            audioExt: button.dataset.audioExt
         });
     });
 }
@@ -193,6 +197,8 @@ function populateCatalogue(data) {
         card.dataset.call = bird.Call;
         card.dataset.whistle = bird.Whistle;
         card.dataset.image = bird.Image;
+        card.dataset.id = bird.id;
+        card.dataset.audioExt = bird.audioExt || 'mp3';
         card.innerHTML = `
             <div class="spotted-badge">✓</div>
             <img src="${bird.Image}" alt="${bird.Common_Name}" loading="lazy">
@@ -278,7 +284,9 @@ function setupCatalogueInteractions() {
             Fact: card.dataset.fact,
             Call: card.dataset.call,
             Whistle: card.dataset.whistle,
-            Image: card.dataset.image
+            Image: card.dataset.image,
+            id: card.dataset.id,
+            audioExt: card.dataset.audioExt
         });
     };
 
@@ -336,8 +344,22 @@ function openBirdModal(bird) {
             window.currentBirdAudio.pause();
             icon.className = 'fa-solid fa-play';
         } else {
-            // Target local MP3 file downloaded by our tools
-            const audioPath = `../assets/audio/${bird.id}.mp3`;
+            // Find site root by looking for assets/js/script.js
+            let siteRoot = './';
+            const scriptTag = document.querySelector('script[src*="script.js"]');
+            if (scriptTag) {
+                const src = scriptTag.getAttribute('src');
+                if (src.includes('../')) siteRoot = '../';
+                else if (src.startsWith('http')) {
+                    siteRoot = src.substring(0, src.indexOf('assets/js/'));
+                }
+            }
+
+            // Target local file with correct extension (from birds.js)
+            const ext = bird.audioExt || 'mp3';
+            const audioPath = `${siteRoot}assets/audio/${bird.id}.${ext}`;
+            
+            console.log("Playing bird call:", audioPath);
             window.currentBirdAudio = new Audio(audioPath);
             
             icon.className = 'fa-solid fa-spinner fa-spin'; // Show loading
@@ -345,8 +367,8 @@ function openBirdModal(bird) {
             window.currentBirdAudio.play().then(() => {
                 icon.className = 'fa-solid fa-pause';
             }).catch(err => {
-                console.error("Audio file not found or blocked:", err);
-                alert("Bird call file not found. Please ensure you have run the download tool in the /tools directory.");
+                console.error("Audio error:", err);
+                alert("Bird call not found. Please run 'python tools/download_bird_calls.py'.");
                 icon.className = 'fa-solid fa-play';
             });
 

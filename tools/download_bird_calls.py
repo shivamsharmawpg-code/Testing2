@@ -48,15 +48,9 @@ def download_bird_call(bird):
     name = bird['Common_Name']
     sci_name = bird['Scientific_Name']
     bird_id = bird['id']
-    target_file = os.path.join(AUDIO_DIR, f"{bird_id}.mp3")
     
-    if os.path.exists(target_file):
-        print(f"Skipping {name}, already exists.")
-        return True
-
     print(f"Searching for {name} ({sci_name})...")
     
-    # Search iNaturalist (reliable, no key required for low volume)
     url = f"https://api.inaturalist.org/v1/observations?taxon_name={urllib.parse.quote(sci_name)}&sounds=true&order_by=votes&per_page=1"
     
     try:
@@ -69,20 +63,27 @@ def download_bird_call(bird):
             sound = data['results'][0]['sounds'][0]
             audio_url = sound['file_url']
             
-            # iNaturalist often provides MP3s
+            # Extract extension from URL
+            ext = 'mp3'
+            if '.wav' in audio_url.lower(): ext = 'wav'
+            elif '.m4a' in audio_url.lower(): ext = 'm4a'
+            elif '.ogg' in audio_url.lower(): ext = 'ogg'
+            
+            target_file = os.path.join(AUDIO_DIR, f"{bird_id}.{ext}")
+            
             print(f"Downloading {name} call from {audio_url}...")
             req = urllib.request.Request(audio_url, headers=headers)
             with urllib.request.urlopen(req) as response:
                 with open(target_file, 'wb') as out_file:
                     out_file.write(response.read())
-            print(f"Successfully saved to {bird_id}.mp3")
-            return True
+            print(f"Successfully saved to {bird_id}.{ext}")
+            return ext
         else:
             print(f"Could not find any recordings for {name} on iNaturalist.")
     except Exception as e:
         print(f"Error downloading {name}: {e}")
     
-    return False
+    return None
 
 def main():
     if not os.path.exists(AUDIO_DIR):
@@ -91,14 +92,17 @@ def main():
     birds = get_birds_from_js()
     print(f"Found {len(birds)} birds in catalogue.")
     
-    success_count = 0
+    ext_mapping = {}
     for bird in birds:
-        if download_bird_call(bird):
-            success_count += 1
-            # Rate limiting to be polite
-            time.sleep(1)
+        ext = download_bird_call(bird)
+        if ext:
+            ext_mapping[bird['id']] = ext
+            time.sleep(0.5)
             
-    print(f"Finished! Downloaded {success_count} bird calls.")
+    print("\n--- EXTENSION MAPPING ---")
+    print(json.dumps(ext_mapping))
+    print("-------------------------\n")
+    print(f"Finished! Downloaded {len(ext_mapping)} bird calls.")
 
 if __name__ == "__main__":
     main()
