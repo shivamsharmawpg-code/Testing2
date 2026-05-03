@@ -319,63 +319,68 @@ function openBirdModal(bird) {
         modalBtn.classList.remove('is-spotted');
     }
     
-    // Live Xeno-canto API audio logic
+    // Procedural Web Audio Bird Synthesizer (Fallback for blocked Xeno-canto API)
     const audioBtn = modal.querySelector('.audio-btn');
     const icon = audioBtn.querySelector('i');
     
-    // Reset icon and stop previous audio if modal changes
     icon.className = 'fa-solid fa-play';
-    if (window.currentBirdAudio) {
-        window.currentBirdAudio.pause();
-        window.currentBirdAudio = null;
-    }
 
-    audioBtn.onclick = async () => {
-        // If already playing, pause it
-        if (window.currentBirdAudio && !window.currentBirdAudio.paused) {
-            window.currentBirdAudio.pause();
-            icon.className = 'fa-solid fa-play';
-            return;
-        }
-        
-        // If we already loaded the audio, just play it
-        if (window.currentBirdAudio) {
-            window.currentBirdAudio.play();
-            icon.className = 'fa-solid fa-pause';
-            return;
-        }
+    const BirdSynthesizer = {
+        audioCtx: null,
+        init() {
+            if (!this.audioCtx) this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        },
+        hashString(str) {
+            let hash = 0;
+            for (let i = 0; i < str.length; i++) hash = str.charCodeAt(i) + ((hash << 5) - hash);
+            return Math.abs(hash);
+        },
+        async playCall(birdName, onEnded) {
+            this.init();
+            if (this.audioCtx.state === 'suspended') await this.audioCtx.resume();
 
-        // Fetch new audio
-        icon.className = 'fa-solid fa-spinner fa-spin'; // Loading spinner
-        try {
-            // Use scientific name for accurate query
-            const query = encodeURIComponent(bird.Scientific_Name);
-            const response = await fetch(`https://xeno-canto.org/api/2/recordings?query=${query}`);
-            const data = await response.json();
-            
-            if (data && data.recordings && data.recordings.length > 0) {
-                // Get the first recording
-                let bestRec = data.recordings.find(r => r.q === 'A') || data.recordings[0];
-                let audioUrl = bestRec.file;
-                if (audioUrl.startsWith('//')) audioUrl = 'https:' + audioUrl;
+            const hash = this.hashString(birdName);
+            const baseFreq = 1500 + (hash % 3000); 
+            const chirps = 2 + (hash % 5); 
+            const chirpDuration = 0.1 + ((hash % 150) / 1000); 
+            const chirpInterval = 0.05 + ((hash % 100) / 1000); 
+            const isTrill = hash % 2 === 0;
+
+            let startTime = this.audioCtx.currentTime;
+
+            for (let i = 0; i < chirps; i++) {
+                const osc = this.audioCtx.createOscillator();
+                const gain = this.audioCtx.createGain();
                 
-                window.currentBirdAudio = new Audio(audioUrl);
-                
-                window.currentBirdAudio.onended = () => {
-                    icon.className = 'fa-solid fa-play';
-                };
-                
-                window.currentBirdAudio.play();
-                icon.className = 'fa-solid fa-pause';
-            } else {
-                alert("No audio found for this species on Xeno-canto.");
-                icon.className = 'fa-solid fa-play';
+                osc.type = isTrill ? 'sine' : 'triangle';
+                osc.connect(gain);
+                gain.connect(this.audioCtx.destination);
+
+                gain.gain.setValueAtTime(0, startTime);
+                gain.gain.linearRampToValueAtTime(0.3, startTime + chirpDuration * 0.2);
+                gain.gain.linearRampToValueAtTime(0, startTime + chirpDuration);
+
+                osc.frequency.setValueAtTime(baseFreq, startTime);
+                if (isTrill) {
+                    osc.frequency.linearRampToValueAtTime(baseFreq + 1000, startTime + chirpDuration);
+                } else {
+                    osc.frequency.exponentialRampToValueAtTime(baseFreq * 0.5, startTime + chirpDuration);
+                }
+
+                osc.start(startTime);
+                osc.stop(startTime + chirpDuration);
+                startTime += chirpDuration + chirpInterval;
             }
-        } catch (err) {
-            console.error("Xeno-canto API Error:", err);
-            alert("Error fetching bird call. Check your internet connection.");
-            icon.className = 'fa-solid fa-play';
+
+            setTimeout(() => { if (onEnded) onEnded(); }, (startTime - this.audioCtx.currentTime) * 1000);
         }
+    };
+
+    audioBtn.onclick = () => {
+        icon.className = 'fa-solid fa-pause';
+        BirdSynthesizer.playCall(bird.Common_Name, () => {
+            icon.className = 'fa-solid fa-play';
+        });
     };
 
     modal.setAttribute('aria-hidden', 'false');
