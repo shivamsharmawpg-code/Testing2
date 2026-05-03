@@ -1435,46 +1435,6 @@ footer {
 
 
 /* --- Advanced Features --- */
-/* Dark Mode Theme */
-[data-theme="dark"] {
-    --primary-green: #a4c99b;
-    --secondary-green: #2c5f2d;
-    --accent-brown: #d4a373;
-    --bg-light: #121212;
-    --bg-white: #1e1e1e;
-    --text-dark: #e0e0e0;
-    --text-light: #f5f7f6;
-    --shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
-}
-
-[data-theme="dark"] header {
-    background-color: #1a1a1a;
-    border-bottom: 1px solid #333;
-}
-[data-theme="dark"] .trade-fair-card, [data-theme="dark"] .quickstart-step, [data-theme="dark"] .quickstart-card, [data-theme="dark"] .trails-card, [data-theme="dark"] .trail-mini-card, [data-theme="dark"] .bird-card {
-    background: #1e1e1e;
-    border-color: #333;
-    color: #e0e0e0;
-}
-[data-theme="dark"] .bird-modal__content {
-    background: #1e1e1e;
-    color: #e0e0e0;
-}
-
-/* Dark Mode Toggle Button */
-.theme-toggle {
-    background: none;
-    border: none;
-    color: var(--text-light);
-    font-size: 1.2rem;
-    cursor: pointer;
-    margin-left: 15px;
-    transition: transform 0.3s;
-}
-.theme-toggle:hover {
-    transform: scale(1.1);
-}
-
 /* Print Optimization */
 @media print {
     header, footer, .hero, .theme-toggle, .skip-link, .search-bar, .audio-btn {
@@ -1582,17 +1542,6 @@ footer {
     cursor: pointer;
     font-weight: bold;
 }
-/* Language Toggle */
-.lang-toggle {
-    background: none;
-    border: 1px solid var(--primary-green);
-    color: var(--primary-green);
-    padding: 4px 8px;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-left: 10px;
-    font-weight: bold;
-}
 /* AI Identifier */
 .ai-identifier {
     background: var(--bg-white);
@@ -1683,14 +1632,3 @@ footer {
 header {
     flex-wrap: wrap;
 }
-/* Google Translate styling */
-#google_translate_element select {
-    background: var(--bg-white);
-    color: var(--primary-green);
-    border: 1px solid var(--primary-green);
-    border-radius: 4px;
-    padding: 4px;
-    font-weight: bold;
-}
-.goog-te-banner-frame { display: none !important; }
-body { top: 0px !important; }

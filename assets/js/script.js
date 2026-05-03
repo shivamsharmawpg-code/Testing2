@@ -633,24 +633,6 @@ function drawGoldSeal(ctx, x, y, r) {
 
 // --- Advanced Features ---
 
-// 1. Dark Mode
-function setupTheme() {
-    const toggle = document.getElementById('theme-toggle');
-    if (!toggle) return;
-    
-    const currentTheme = localStorage.getItem('theme') || 'light';
-    document.documentElement.setAttribute('data-theme', currentTheme);
-    toggle.innerHTML = currentTheme === 'dark' ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
-
-    toggle.addEventListener('click', () => {
-        let theme = document.documentElement.getAttribute('data-theme');
-        let newTheme = theme === 'dark' ? 'light' : 'dark';
-        document.documentElement.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
-        toggle.innerHTML = newTheme === 'dark' ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
-    });
-}
-
 // 2. Native Web Share API
 function shareBird(birdName, fact) {
     if (navigator.share) {
@@ -731,7 +713,6 @@ window.openBirdModal = function(bird) {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-    setupTheme();
     // Init achievements state
     const spotted = getSpottedBirds();
     [5, 10, 20, 40].forEach(num => {
@@ -962,26 +943,4 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-// Custom Google Translate Cookie Toggle
-function toggleLangCookie() {
-    const isFrench = document.cookie.includes('googtrans=/en/fr');
-    if (isFrench) {
-        document.cookie = "googtrans=/en/en; path=/";
-        document.cookie = "googtrans=/en/en; path=/; domain=" + window.location.hostname;
-    } else {
-        document.cookie = "googtrans=/en/fr; path=/";
-        document.cookie = "googtrans=/en/fr; path=/; domain=" + window.location.hostname;
-    }
-    window.location.reload();
-}
 
-document.addEventListener('DOMContentLoaded', () => {
-    const langBtn = document.getElementById('lang-btn');
-    if (langBtn) {
-        if (document.cookie.includes('googtrans=/en/fr')) {
-            langBtn.innerHTML = 'FR <i class="fa-solid fa-language"></i>';
-        } else {
-            langBtn.innerHTML = 'EN <i class="fa-solid fa-language"></i>';
-        }
-    }
-});
