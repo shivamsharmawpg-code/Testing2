@@ -1669,3 +1669,28 @@ footer {
     opacity: 1;
     transform: scale(1);
 }
+
+
+/* --- Fixes --- */
+#global-search-input {
+    margin: 0 auto; /* Center it */
+    min-width: 250px;
+    padding: 8px 15px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    font-family: var(--font-main);
+}
+header {
+    flex-wrap: wrap;
+}
+/* Google Translate styling */
+#google_translate_element select {
+    background: var(--bg-white);
+    color: var(--primary-green);
+    border: 1px solid var(--primary-green);
+    border-radius: 4px;
+    padding: 4px;
+    font-weight: bold;
+}
+.goog-te-banner-frame { display: none !important; }
+body { top: 0px !important; }

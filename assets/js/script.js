@@ -839,7 +839,8 @@ function setupGlobalSearch() {
     document.body.appendChild(overlay);
     
     const nav = document.querySelector('nav');
-    if (nav) nav.appendChild(searchInput);
+    const header = document.querySelector('header');
+    if (header) { const logo = document.querySelector('.logo'); logo.insertAdjacentElement('afterend', searchInput); }
 
     searchInput.addEventListener('input', (e) => {
         const query = e.target.value.toLowerCase();

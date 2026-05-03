@@ -47,9 +47,18 @@
                 <li><a href="../about/">About</a></li>
                 <li><a href="../quickstart/">Quickstart</a></li>
                 <li><a href="https://www.flickr.com/groups/14879687@N25/pool/#" target="_blank" rel="noopener">Gallery <i class="fa-brands fa-flickr"></i></a></li>
-            <button onclick="toggleLanguage()" class="lang-toggle">EN/FR</button>
+            
         </ul>
         </nav>
+        
+        <div id="google_translate_element" style="margin-left: 15px;"></div>
+        <script type="text/javascript">
+            function googleTranslateElementInit() {
+                new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'en,fr', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+            }
+        </script>
+        <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
         <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode"><i class="fa-solid fa-moon"></i></button>
     </header>
 

@@ -67,9 +67,18 @@
                 <li><a href="./about/">About</a></li>
                 <li><a href="./quickstart/">Quickstart</a></li>
                 <li><a href="https://www.flickr.com/groups/14879687@N25/pool/#" target="_blank" rel="noopener">Gallery <i class="fa-brands fa-flickr"></i></a></li>
-            <button onclick="toggleLanguage()" class="lang-toggle">EN/FR</button>
+            
         </ul>
         </nav>
+        
+        <div id="google_translate_element" style="margin-left: 15px;"></div>
+        <script type="text/javascript">
+            function googleTranslateElementInit() {
+                new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'en,fr', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+            }
+        </script>
+        <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
         <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode"><i class="fa-solid fa-moon"></i></button>
     </header>
 
@@ -89,44 +98,7 @@
             </div>
         </section>
 
-        <section class="content-section trade-fair-section animate-on-scroll">
-            <h2 class="section-title playfair-font">Upcoming Trade Fairs</h2>
-            <p class="section-subtitle">Meet the Beak-a-boo team in person and explore our birding kits.</p>
-            <div class="trade-fair-grid">
-                <article class="trade-fair-card sold-out-card">
-                    <p class="sold-out-badge">SOLD OUT</p>
-                    <h3 class="playfair-font">Trade Fair #1</h3>
-                    <img class="trade-fair-image" src="./assets/images/winakwa.webp" alt="Winakwa Community Centre" loading="lazy">
-                    <p class="trade-fair-location">Winakwa Community Centre</p>
-                    <p class="trade-fair-date">February 7, 2026</p>
-                    <ul>
-                        <li>Winakwa Winter Carnival</li>
-                        <li>Occurred 11:00am – 5:00pm.</li>
-                        <li>Thanks, Winakwa — every kit sold out before closing!</li>
-                    </ul>
-                </article>
-                <article class="trade-fair-card">
-                    <h3 class="playfair-font">Trade Fair #2</h3>
-                    <img class="trade-fair-image" src="./assets/images/Kildonan.webp" alt="Kildonan Place mall exterior" loading="lazy">
-                    <p class="trade-fair-location">Kildonan Place</p>
-                    <p class="trade-fair-date">February 21, 2026</p>
-                    <ul>
-                        <li>10:00am – 6:00pm</li>
-                        <li>Please come to the entrance around the back of the mall between Urban Planet and Home Sense.</li>
-                    </ul>
-                </article>
-                <article class="trade-fair-card">
-                    <h3 class="playfair-font">Trade Fair #3</h3>
-                    <img class="trade-fair-image" src="./assets/images/StVital.webp" alt="St. Vital Shopping Mall entrance" loading="lazy">
-                    <p class="trade-fair-location">St. Vital Shopping Mall</p>
-                    <p class="trade-fair-date">March 7, 2026</p>
-                    <ul>
-                        <li>10:00am – 6:00pm</li>
-                        <li>Please come to Entrance 4 located between Hudson’s Bay and SilverCity, facing Meadowood Dr.</li>
-                    </ul>
-                </article>
-            </div>
-        </section>
+        
 
         <section id="catalogue" class="content-section animate-on-scroll">
             <h2 class="section-title playfair-font">Manitoba Bird Highlights</h2>
