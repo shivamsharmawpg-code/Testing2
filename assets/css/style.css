@@ -1632,3 +1632,32 @@ footer {
 header {
     flex-wrap: wrap;
 }
+
+
+/* Birdwatching MB landing page */
+.seo-landing {
+    max-width: 950px;
+    margin: 0 auto;
+    padding: 2rem 1rem 3rem;
+}
+
+.seo-landing .crumbs {
+    margin-bottom: 0.75rem;
+}
+
+.seo-landing section {
+    margin-top: 1.75rem;
+}
+
+.seo-landing .local-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+}
+
+.seo-landing .local-card {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 12px;
+    padding: 1rem;
+}
